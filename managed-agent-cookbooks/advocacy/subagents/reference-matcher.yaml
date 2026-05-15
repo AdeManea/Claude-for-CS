@@ -1,0 +1,22 @@
+name: reference-matcher
+description: >
+  Matches a qualified advocate to a prospect profile for a reference call or
+  event speaking request. Scores the advocate-prospect fit across five dimensions
+  (Industry, Company Size, Use Case, Pain Point Resonance, Geography). Returns
+  match quality rating (Strong / Good / Partial / Poor), recommended contact,
+  3–5 talking points anchored on documented wins, and an ask script draft for
+  the CSM to use. Flags partial or poor matches with specific gaps rather than
+  silently proceeding.
+model: claude-sonnet-4-7
+system:
+  file: ./reference-matcher.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,         default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform, url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,         url: "${CRM_MCP_URL}" }

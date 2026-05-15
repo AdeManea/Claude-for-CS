@@ -1,0 +1,87 @@
+[
+  {
+    "id": "av-001",
+    "description": "Standard reference call — qualified advocate, strong prospect match",
+    "input": {
+      "account_name": "Thornwick Financial",
+      "contact_name": "Sandra Wu",
+      "request_type": "reference_call",
+      "prospect_profile": {
+        "industry": "Financial Services",
+        "company_size": "Mid-market (500–2000 employees)",
+        "use_case": "CS team scaling and QBR process standardization",
+        "pain_points": ["Manual QBR preparation", "No visibility into customer health at scale"]
+      },
+      "urgency": "standard"
+    },
+    "expected_behavior": "advocate-qualifier checks Sandra Wu against hard and soft limits, finds no disqualifiers, computes a Qualified score (82/100). Orchestrator routes to reference-matcher. reference-matcher scores Thornwick Financial against the prospect profile: Industry=30 (exact: Financial Services), Company Size=20 (same band: mid-market), Use Case=25 (QBR standardization is a documented Thornwick win), Pain Point Resonance=15 (champion confirmed reduction in QBR prep time in 2026-02-01 QBR record), Geography=5 (same country, different metro). Total match score=95 (Strong). Output includes talking points anchored on the QBR prep win and an ask script draft. Orchestrator creates cs-platform task 'Advocacy Ask — reference_call — Thornwick Financial'.",
+    "hard_limit_triggered": false,
+    "soft_limit_triggered": false,
+    "subagent_route": "reference-matcher"
+  },
+  {
+    "id": "av-002",
+    "description": "Case study request — story-builder extracts evidence and surfaces gaps",
+    "input": {
+      "account_name": "Meridian Health Partners",
+      "request_type": "case_study",
+      "urgency": "standard"
+    },
+    "expected_behavior": "advocate-qualifier identifies Roberto Vasquez (documented champion, 14-month tenure, NPS 9, one prior ask 120 days ago) as best-fit contact. No hard limits. No soft limits. Qualification score: 88/100 (Qualified). Orchestrator routes to story-builder with request_type=case_study. story-builder extracts: Before State (QBR records from 2025-08-15 document manual reporting — source-attributed [Documented]); Why They Chose (CRM opportunity notes from AE record — [Documented]); The Journey (CSM notes 2025-09-01 through 2026-03-14 — [Documented]); Results (champion-shared metric: 34% reduction in at-risk account identification time, QBR 2026-03-01 — [Measured]). Evidence gaps flagged: 'No documented quote from exec sponsor — marketing will need to conduct a formal interview before case study publication.' Orchestrator creates cs-platform task 'Advocacy Ask — case_study — Meridian Health Partners'.",
+    "hard_limit_triggered": false,
+    "soft_limit_triggered": false,
+    "subagent_route": "story-builder"
+  },
+  {
+    "id": "av-003",
+    "description": "Account health At Risk — hard limit stops pipeline immediately",
+    "input": {
+      "account_name": "Castleton Logistics",
+      "contact_name": "Priya Mehta",
+      "request_type": "testimonial",
+      "urgency": "high"
+    },
+    "expected_behavior": "advocate-qualifier retrieves cs-platform health score for Castleton Logistics: 47 (At Risk). Hard limit triggered immediately. Pipeline stops. Orchestrator outputs: 'Pipeline stopped — hard limit: Account health is At Risk (score: 47). Advocacy asks are not permitted during health recovery. Urgency flag does not override this limit. Suggested re-assessment: when account health reaches Developing (60+). No cs-platform task created for advocacy — CSM should focus on health recovery motion.' Neither reference-matcher nor story-builder is called. No override mechanism is offered.",
+    "hard_limit_triggered": true,
+    "hard_limit_reason": "health_at_risk",
+    "soft_limit_triggered": false,
+    "subagent_route": null
+  },
+  {
+    "id": "av-004",
+    "description": "Burnout frequency ceiling — 3 asks in 180 days, urgency does not override",
+    "input": {
+      "account_name": "Vanguard Technology Partners",
+      "contact_name": "James Okonkwo",
+      "request_type": "reference_call",
+      "prospect_profile": {
+        "industry": "Technology",
+        "company_size": "Enterprise (2000+ employees)",
+        "use_case": "Post-sales team enablement",
+        "pain_points": ["CSM onboarding time", "Inconsistent renewal processes"]
+      },
+      "urgency": "high"
+    },
+    "expected_behavior": "advocate-qualifier retrieves advocacy history for James Okonkwo from cs-platform: 3 asks in the last 180 days (2025-12-01 reference call, 2026-02-15 case study, 2026-04-10 event speaker). Hard limit triggered: frequency ceiling (≥3 asks in 180 days). Pipeline stops. Orchestrator outputs: 'Pipeline stopped — hard limit: James Okonkwo has been asked 3 times in the last 180 days (2025-12-01, 2026-02-15, 2026-04-10). Frequency ceiling reached. High urgency does not override this limit. The advocate pool must be protected. Suggested action: identify an alternative advocate for this request or wait until the 180-day window resets on 2026-06-01.' No override is offered.",
+    "hard_limit_triggered": true,
+    "hard_limit_reason": "frequency_ceiling",
+    "soft_limit_triggered": false,
+    "subagent_route": null
+  },
+  {
+    "id": "av-005",
+    "description": "Conditional qualification — no documented opt-in, CSM must type PROCEED with confirmation",
+    "input": {
+      "account_name": "Solaris Manufacturing",
+      "contact_name": "Amara Diallo",
+      "request_type": "case_study",
+      "urgency": "standard"
+    },
+    "expected_behavior": "advocate-qualifier retrieves Amara Diallo's record: health Healthy (81), NPS 8, tenure 11 months, 1 prior ask 95 days ago. No hard limits. Soft limit triggered: no documented opt-in found in cs-platform or CRM. Orchestrator pauses and presents: 'Soft limit: No documented advocacy opt-in for Amara Diallo. Verbal opt-in is required before proceeding. Has Amara verbally agreed to serve as a reference or case study subject? Type PROCEED [confirmation that Amara has verbally opted in and you will log this in cs-platform] to continue, or STOP to end this request.' If CSM types PROCEED [rationale], orchestrator proceeds to story-builder and includes the rationale in the cs-platform task description. If CSM types STOP, pipeline ends without creating a task.",
+    "hard_limit_triggered": false,
+    "soft_limit_triggered": true,
+    "soft_limit_reason": "no_documented_opt_in",
+    "subagent_route": "story-builder",
+    "gate_response_required": true
+  }
+]

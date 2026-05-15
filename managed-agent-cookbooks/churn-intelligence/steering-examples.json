@@ -1,0 +1,147 @@
+[
+  {
+    "id": "ch-001",
+    "title": "Standard full workflow — all four subagents, win-back eligible",
+    "description": "A mid-market SaaS account gives formal notice after a 24-month tenure. Churn reason is partially known (product gap). Contact is identified from crm. All four subagents run in sequence. Win-back is assessed as eligible with a re-engagement window tied to the product gap closing.",
+    "input": {
+      "account_name": "Brightfield Analytics",
+      "notice_date": "2026-05-01",
+      "contract_end_date": "2026-06-30",
+      "contact_name": "Priya Menon",
+      "churn_reason": "Missing advanced segmentation in reporting module — documented in QBR 2026-03-15"
+    },
+    "expected_behavior": [
+      "Pull account context from cs-platform, crm, and product-analytics in parallel before dispatching any subagent",
+      "Identify usage cliff from product-analytics: session volume dropped 42% in the 6 weeks following the failed QBR on reporting gaps",
+      "Dispatch exit-interviewer and postmortem-facilitator simultaneously",
+      "After both complete, dispatch learning-extractor with combined outputs",
+      "Assess win-back eligibility: product gap → eligible, re-engagement when the advanced segmentation feature ships",
+      "Dispatch winback-profiler with the re-engagement window flagged as feature-dependency",
+      "Compile 8-section Churn Intelligence Report; write to cs-platform",
+      "Write Stage 0 Handoff Record separately; flag for CS manager review before activation",
+      "Return structured summary with artifact paths and required next steps before contract_end_date"
+    ],
+    "behavioral_checks": [
+      "Exit-interviewer produces a structured guide — it does not schedule or contact the customer",
+      "Postmortem maps the reporting gap signal to the QBR record (2026-03-15) and flags that no escalation was logged after the QBR",
+      "Learning-extractor tags findings with lifecycle stage: 'QBR Action Closure' gap identified at Stage 3 Nurture",
+      "Winback-profiler notes that re-engagement is product-gated and documents the feature dependency explicitly",
+      "No save strategies or retention offers appear anywhere in the output",
+      "Churn Signals Timeline traces every entry to a named source document — no undocumented signals included"
+    ]
+  },
+  {
+    "id": "ch-002",
+    "title": "Budget-driven churn — win-back eligible, 9–12 month re-engagement window",
+    "description": "An enterprise account with 36-month tenure churns due to an internal budget reallocation — not a product or relationship issue. Health score was Healthy (82) at notice. CSM notes document multiple champion statements of satisfaction. Win-back eligibility is strong; re-engagement window is the next annual budget cycle.",
+    "input": {
+      "account_name": "Crestline Capital Group",
+      "notice_date": "2026-04-15",
+      "contract_end_date": "2026-07-31",
+      "churn_reason": "Budget reallocation — CS team headcount reduced 40%; tool rationalization directive from CFO"
+    },
+    "expected_behavior": [
+      "Pull account context: health score 82 (Healthy), CSM notes document 3 champion statements of high satisfaction in last 6 months",
+      "Dispatch exit-interviewer to structure a guide focused on capturing the CFO directive context and the champion's intent to return",
+      "Dispatch postmortem-facilitator to assess whether any early budget signals were missed in QBR or CSM notes",
+      "After both complete, dispatch learning-extractor — learnings should surface the 'external budget shock' pattern distinct from product or relationship churn",
+      "Assess win-back eligibility: budget/pricing category → eligible, re-engagement window 9–12 months (next annual budget cycle, estimated Q2 2027)",
+      "Dispatch winback-profiler; profile should highlight high health score, champion satisfaction history, and external-not-internal cause as strong re-entry signals",
+      "Compile report; write to cs-platform; write Stage 0 Handoff Record flagged for CS manager"
+    ],
+    "behavioral_checks": [
+      "Win-back profile explicitly notes this is an external budget shock — not a product fit or relationship issue",
+      "Re-engagement window is expressed as a specific calendar estimate (Q2 2027 budget cycle), not just '9–12 months'",
+      "Exit interview guide focuses on understanding the scope of the reallocation, the champion's role post-restructure, and whether there is an anticipated re-evaluation timeline",
+      "Postmortem does not assign fault to the CSM for failing to prevent a CFO-level budget directive",
+      "Stage 0 Handoff Record notes champion name, satisfaction signals, and suggested re-engagement trigger (budget cycle confirmation)"
+    ]
+  },
+  {
+    "id": "ch-003",
+    "title": "Competitor lock-in documented — win-back not eligible",
+    "description": "A mid-market account churns after signing a 3-year enterprise agreement with a named competitor. The new agreement is documented in the crm activity log. Win-back is blocked under the 'multi-year competitor lock-in with named contract term' condition. winback-profiler is not dispatched.",
+    "input": {
+      "account_name": "Solara Payments",
+      "notice_date": "2026-05-10",
+      "contract_end_date": "2026-06-30",
+      "churn_reason": "Signed 3-year enterprise agreement with Gainsight — confirmed in CRM activity log 2026-04-28"
+    },
+    "expected_behavior": [
+      "Pull account context from all three connectors",
+      "Dispatch exit-interviewer and postmortem-facilitator in parallel",
+      "After both complete, dispatch learning-extractor",
+      "Assess win-back eligibility: competitor lock-in with named 3-year contract term → NOT ELIGIBLE — skip winback-profiler entirely",
+      "Document ineligibility reason in the report: 'Multi-year competitor agreement (Gainsight, 3 years) documented in crm activity log 2026-04-28. No win-back path available within this customer's foreseeable planning horizon.'",
+      "Compile report without Section 7 win-back profile; write to cs-platform",
+      "No Stage 0 Handoff Record is produced"
+    ],
+    "behavioral_checks": [
+      "winback-profiler is NOT dispatched — the eligibility gate is a hard stop",
+      "The orchestrator documents the ineligibility reason with the specific source: 'crm activity log 2026-04-28'",
+      "Section 7 of the report states: 'Not Eligible — multi-year competitor lock-in. Conditions that would change eligibility: none within this contract term (estimated expiry ~2029).'",
+      "The postmortem should surface: when did the competitive evaluation begin? Were there signals in cs-platform before the deal closed?",
+      "Learning-extractor should flag competitive displacement as a category and map the loss to the evaluation stage (Stage 4 Growth or Stage 5 Retention) where the competitive deal was likely won"
+    ]
+  },
+  {
+    "id": "ch-004",
+    "title": "Internal champion departure — win-back eligible when new CS leader identified",
+    "description": "A long-tenured enterprise account churns after the primary champion and executive sponsor both departed in the same quarter. New leadership has not yet been identified. The relationship breakdown is tied to personnel change, not product or service failure. Win-back is eligible but gated on new champion identification.",
+    "input": {
+      "account_name": "Ridgemont Partners",
+      "notice_date": "2026-04-20",
+      "contract_end_date": "2026-06-30",
+      "contact_name": "Derek Holt",
+      "churn_reason": "Champion and executive sponsor both departed Q1 2026; new VP of CS hired but unfamiliar with platform; chose to consolidate on incumbent tools"
+    },
+    "expected_behavior": [
+      "Pull account context: CSM notes document champion departure (Sarah Lin, VP CS) logged 2026-02-14 and exec sponsor departure (James Terrace, COO) logged 2026-01-30",
+      "Dispatch exit-interviewer to structure a guide focused on the incoming VP's evaluation criteria and their openness to revisiting in the future",
+      "Dispatch postmortem-facilitator to assess whether the double departure was flagged as an at-risk signal and what the response was",
+      "After both complete, dispatch learning-extractor — champion departure risk pattern should be a primary learning category",
+      "Assess win-back eligibility: champion departure → eligible, re-engagement window 'when new CS leadership is identified and has been in role ≥ 90 days'",
+      "Dispatch winback-profiler; profile should note: the churn is transition-driven not product-driven; relationship history with prior champions is strong; incoming VP is the re-engagement target",
+      "Stage 0 Handoff Record notes the incoming VP contact (if identified), suggests re-engagement trigger as '90 days post-VP onboarding'"
+    ],
+    "behavioral_checks": [
+      "Postmortem does not fault the CSM for the departures — it assesses whether the multi-stakeholder risk (two key contacts lost in one quarter) triggered an at-risk protocol and what the gap was",
+      "Win-back eligibility is conditional and time-gated: 'Re-engage when new VP has been in role ≥ 90 days and a formal needs assessment is underway'",
+      "Winback-profiler explicitly distinguishes transition-driven churn from product-dissatisfaction churn — this distinction is the primary re-entry argument",
+      "Exit interview guide includes questions designed to capture the incoming VP's current tool stack priorities and any openness to future evaluation",
+      "Stage 0 Handoff Record is flagged for CS manager review — it does not trigger outreach automatically"
+    ]
+  },
+  {
+    "id": "ch-005",
+    "title": "Unknown churn reason — low-confidence win-back profile generated",
+    "description": "A small-business account with 14-month tenure churns with no documented reason. The CSM has logged minimal notes. Health score declined gradually but no formal at-risk flag was set. Product analytics shows a usage cliff 8 weeks before notice. Win-back eligibility is assessed as unknown — a low-confidence profile is produced and flagged explicitly.",
+    "input": {
+      "account_name": "Kelso & Fenwick Consulting",
+      "notice_date": "2026-05-05",
+      "contract_end_date": "2026-05-31"
+    },
+    "expected_behavior": [
+      "contact_name is not provided: identify from crm using priority order — longest-tenured contact with decision-maker title",
+      "churn_reason is not provided: investigate best-available signals from cs-platform (health score trend), crm (stage history), and product-analytics (usage cliff)",
+      "Product-analytics surfaces: session volume dropped 38% week-over-week in the week of 2026-03-10; last active session was 2026-04-01",
+      "cs-platform surfaces: health score declined from 74 → 58 over 60 days; no at-risk flag was set despite crossing the At Risk threshold (59)",
+      "crm surfaces: no logged churn reason; AE notes from close mention 'manual reporting workload' as primary pain — no documented follow-up in 6 months",
+      "Synthesize best-available churn signal: likely usage-drop-driven disengagement with unknown root cause",
+      "Dispatch exit-interviewer to build a guide specifically designed to uncover the root cause during the exit conversation",
+      "Dispatch postmortem-facilitator to assess the health score threshold breach without an at-risk response",
+      "After both complete, dispatch learning-extractor",
+      "Assess win-back eligibility: unknown churn reason → treat as low-confidence eligible; dispatch winback-profiler with explicit low-confidence flag",
+      "Winback-profiler produces a profile flagged: 'LOW CONFIDENCE — churn reason not documented; profile assumptions require validation through exit interview before activation'",
+      "Stage 0 Handoff Record is written but flagged: 'HOLD — pending exit interview completion. Do not activate until churn reason is confirmed.'"
+    ],
+    "behavioral_checks": [
+      "The orchestrator does not halt or error when churn_reason is missing — it investigates and surfaces best-available signals",
+      "Every churn signal in the timeline is traced to a source: health score trend from cs-platform, usage cliff from product-analytics",
+      "The low-confidence flag appears in three places: the win-back eligibility section, the winback-profiler output, and the Stage 0 Handoff Record",
+      "The exit interview guide is prioritized as the most important next step — its completion is listed first in Required Next Steps",
+      "Postmortem identifies the at-risk threshold breach without flag as a process gap: 'Health score reached 59 (At Risk band) on [date]; no at-risk record was created in cs-platform. Earliest intervention opportunity was missed.'",
+      "No churn reason is fabricated or inferred beyond what the data supports — gaps are named explicitly throughout"
+    ]
+  }
+]

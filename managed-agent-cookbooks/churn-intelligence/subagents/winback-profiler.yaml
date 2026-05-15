@@ -1,0 +1,21 @@
+name: winback-profiler
+description: >
+  Profiles a churned account for re-entry potential and produces a Stage 0-compatible
+  handoff record for the win-back motion. Dispatched only when the orchestrator has
+  assessed the account as win-back eligible — eligibility gating is not performed here.
+  Output includes a win-back profile section for the Churn Intelligence Report and a
+  separate Stage 0 Handoff Record formatted for CS manager review before activation.
+  Low-confidence profiles (unknown churn reason) are explicitly flagged throughout.
+model: claude-sonnet-4-7
+system:
+  file: ./winback-profiler.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,         default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform, url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,         url: "${CRM_MCP_URL}" }

@@ -1,0 +1,47 @@
+[
+  {
+    "description": "Standard mid-market adoption run — no specific concern, 30-day window",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Run an adoption motion analysis for Meridian Health. They're Mid-Market, 30-day window. CSM is Sarah Chen."
+      }
+    ]
+  },
+  {
+    "description": "Targeted concern — specific feature named by CSM",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Run adoption motion for Hartwell Industries. Enterprise tier. My concern is that they're not using the analytics dashboard at all — their champion mentioned it twice but the team hasn't logged in. CSM is Marcus Webb."
+      }
+    ]
+  },
+  {
+    "description": "Organizational resistance signal — exec disengagement",
+    "messages": [
+      {
+        "role": "user",
+        "content": "I need an adoption motion analysis for Cascade Dynamics. Mid-Market. The exec sponsor has gone dark since kickoff — we're 60 days in and the champion is struggling to get internal buy-in for the rollout. This feels like a people problem more than a training problem. CSM is Jamie Torres."
+      }
+    ]
+  },
+  {
+    "description": "Pre-renewal push — compressed timeline, renewal in 90 days",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Adoption motion for Nortech Solutions — Enterprise. Renewal is in 90 days and their core feature adoption is sitting around 45%. We need to move the needle fast. What's the right play? CSM is Rachel Park. Analysis period 14 days."
+      }
+    ]
+  },
+  {
+    "description": "Data gap behavior — product analytics not connected, CSM-only context",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Run adoption motion for Blueridge Partners. SMB. I don't have product analytics access set up yet, but based on my notes: they've only activated 3 of 8 licensed seats, the two active users are just using the basic dashboard, and they haven't touched integrations at all. Their champion told me they're confused about how the workflow automation feature fits their process. CSM is me — Alex Kim."
+      }
+    ]
+  }
+]

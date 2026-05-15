@@ -1,0 +1,20 @@
+name: postmortem-facilitator
+description: >
+  Facilitates the internal blameless postmortem for a churned account. Maps process
+  failures and missed signals to lifecycle stage — never to individual CSM performance.
+  Identifies the gap between what was known and what was acted on, with each finding
+  sourced to a specific record. Produces structured postmortem findings for inclusion
+  in the Churn Intelligence Report.
+model: claude-sonnet-4-7
+system:
+  file: ./postmortem-facilitator.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,         default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform, url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,         url: "${CRM_MCP_URL}" }

@@ -1,0 +1,26 @@
+name: expansion-builder
+description: >
+  Identifies expansion whitespace for Stage 4 Growth accounts, builds a customer-centric
+  business case, and packages an AE-ready handoff. Applies an adoption health gate —
+  accounts with At Risk or Critical coverage scores require CSM override before proceeding.
+model: claude-sonnet-4-7
+system:
+  file: ./subagents/expansion-builder-agent.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform,       default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: product-analytics, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,               default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform,       url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: product-analytics, url: "${PRODUCT_ANALYTICS_MCP_URL}" }
+  - { type: url, name: crm,               url: "${CRM_MCP_URL}" }
+skills:
+  - from_plugin: cs-platform-tools
+callable_agents:
+  - whitespace-analyzer
+  - business-case-builder
+  - expansion-handoff-coordinator

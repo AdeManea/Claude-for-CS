@@ -247,6 +247,43 @@ When you ask a question in this plugin's domain, I'll read the practice profile 
 
 ---
 
+## Managed agents
+
+The renewals plugin manages two agents: one scheduled, one on-demand.
+
+### Scheduled agents
+
+**renewal-scanner** (Stage 5 — Retention / Renewal)
+Runs weekly to scan all active accounts for renewal risk signals. Aggregates signals from CRM (opportunity stage, close date proximity, deal flags), cs-platform (health score trend, escalation history, champion changes), and product-analytics (usage cliff, session frequency drop, feature regression). Produces a prioritized renewal watchlist ranked by risk level, ARR at stake, and days to contract end. Posts digest to the configured Slack channel and delivers to the renewals manager. Does not initiate customer outreach — surfaces signals for human review and action.
+
+No CSM trigger required; runs on cron. Can be triggered manually: `"Run renewal scan"` or `"What's my renewal watchlist?"`.
+
+### On-demand agents
+
+**churn-intelligence-agent** (Stage 7 — Churn Intelligence)
+Runs the post-churn learning workflow after a customer has given formal non-renewal notice or a contract has ended without renewal. This is a learning and documentation workflow — not a recovery workflow. No save strategies, retention offers, or discount proposals appear in any output.
+
+Seven-step workflow: parallel account context pull (cs-platform + CRM + product-analytics) → parallel exit-interviewer and postmortem-facilitator dispatch → learning extraction → orchestrator win-back eligibility assessment → conditional winback-profiler dispatch → Churn Intelligence Report compiled and written to cs-platform → CSM-facing summary delivered.
+
+The Churn Intelligence Report (8 sections) is written to cs-platform before the final response is returned. If the write fails, the failure is reported and the full report is delivered inline. A Win-Back Stage 0 Handoff Record is written separately to cs-platform and flagged for CS manager review when the account is win-back eligible — the CS manager decides whether to activate the win-back motion.
+
+**Do not invoke while active save efforts are underway.** This agent is post-decision only.
+
+Trigger: `"Run churn intelligence for [Account Name]"` or `"Account [Name] churned — run the churn workflow"` or `"[Account] gave non-renewal notice"`.
+
+Required: `account_name`, `notice_date`, `contract_end_date`. Optional: `contact_name`, `churn_reason`, `winback_eligible` (boolean).
+
+### Agent behavioral notes
+
+- Both agents read this config file for renewals practice context, risk signal thresholds, escalation matrix, and connector routing.
+- renewal-scanner posts to the Slack channel configured in this file's integration block.
+- churn-intelligence-agent writes the Churn Intelligence Report to cs-platform — it does not post to Slack.
+- The churn-intelligence-agent is the only agent in the plugin that reads this file (`renewals/CLAUDE.md`) rather than the csm plugin config. This separation is intentional: churn intelligence is a renewals-domain workflow with its own escalation paths, commercial context, and postmortem framing.
+- All agents respect the shared guardrails in this file (no health score as verdict, expansion requires qualification, revenue commitment language, no triage without escalation path and owner, confidentiality, retrieved-content trust).
+- Run `/renewals:cold-start-interview` to complete this config before deploying either agent. The churn-intelligence-agent will not produce useful output against a file with [PLACEHOLDER] values.
+
+---
+
 *Re-run: `/renewals:cold-start-interview --redo`*
 *Check integrations: `/renewals:cold-start-interview --check-integrations`*
 *Update company profile: `/renewals:cold-start-interview --redo-company-profile`*

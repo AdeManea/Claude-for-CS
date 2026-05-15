@@ -1,8 +1,8 @@
 # Managed Agent Cookbooks — Claude for Customer Success
 
-Six headless agents for teams running Claude as a background workflow engine. Each agent
-orchestrates a fleet of subagents to perform a specific recurring CS task automatically —
-no per-invocation prompting required once scheduled.
+Ten agents for teams running Claude as a background workflow engine. Six headless scheduled
+agents orchestrate a fleet of subagents for recurring CS tasks automatically. Four on-demand
+managed agents run multi-stage pipelines when triggered by a CSM for account-specific work.
 
 ---
 
@@ -16,6 +16,10 @@ no per-invocation prompting required once scheduled.
 | [`renewal-scanner`](./renewal-scanner/) | renewals | Daily / Weekly | Per-account renewal brief covering risk classification, expansion signals, and recommended plays |
 | [`onboarding-milestone-tracker`](./onboarding-milestone-tracker/) | onboarding | Weekday mornings | Onboarding milestone report — overdue, at-risk, and due-soon accounts across the full book |
 | [`portfolio-segment-digest`](./portfolio-segment-digest/) | cs-ops | Weekly (Monday) | Segment-level health distribution roll-up — band shifts, ARR at risk by segment, capacity flags, and top at-risk accounts for CS Ops/leadership |
+| [`adoption-motion-agent`](./adoption-motion/) | csm | On-demand | Four-section Adoption Motion Report: feature coverage map, gap diagnosis (6-type taxonomy), prescribed TARO play, CSM next actions |
+| [`expansion-builder-agent`](./expansion-builder/) | csm | On-demand | Four-section Expansion Report: whitespace inventory, business case (evidence-labeled), AE handoff package, CSM next actions |
+| [`advocacy-agent`](./advocacy/) | csm | On-demand | Advocacy Package: burnout-protected advocate qualification, ask script or story structure, cs-platform task creation |
+| [`churn-intelligence-agent`](./churn-intelligence/) | renewals | On-demand | Churn Intelligence Report (8 sections) written to cs-platform: signal timeline, churn drivers, exit interview guide, postmortem, learnings, win-back assessment |
 
 Each cookbook directory contains:
 - `cookbook.md` — Full orchestrator specification and embedded system prompt used by the agent
@@ -26,9 +30,10 @@ Each cookbook directory contains:
 
 ## Architecture
 
-All six agents follow the same structural pattern: a single orchestrator that reads config,
+All ten agents follow the same structural pattern: a single orchestrator that reads config,
 dispatches subagents in sequence (or parallel where appropriate), and delivers output to
-Slack and/or a file path.
+Slack and/or a file path. The six scheduled agents run autonomously on a cron cadence. The
+four on-demand agents run when triggered by a CSM and return their output in chat.
 
 ```
 Managed Agent (orchestrator)
@@ -64,6 +69,10 @@ Managed Agent (orchestrator)
 | renewal-scanner | 3 (Pipeline Puller → Risk & Expansion Classifier → Renewal Brief Composer) | No |
 | onboarding-milestone-tracker | 3 (Milestone Puller → Risk Assessor → Report Composer) | No |
 | portfolio-segment-digest | 4 (Segment Data Puller → Distribution Analyzer → Portfolio Summarizer → Report Composer) | No |
+| adoption-motion-agent | 3 (Product Surface Analyzer → Adoption Gap Identifier → Motion Planner) | No |
+| expansion-builder-agent | 3 subagents + orchestrator health gate (Whitespace Analyzer → [gate] → Business Case Builder → Expansion Handoff Coordinator) | No |
+| advocacy-agent | 3 (Advocate Qualifier → reference-matcher or story-builder [conditional route] → cs-platform task creation) | No |
+| churn-intelligence-agent | 4 (exit-interviewer ‖ postmortem-facilitator → learning-extractor → winback-profiler [conditional]) | Yes — Step 2 |
 
 **Enrichment exception (renewal-scanner):** The renewal-scanner orchestrator performs
 connector calls directly in Step 3 — pulling health score, usage, and support data — before
@@ -134,9 +143,19 @@ dispatch marker; embed in brief; verify marker on line 1 before treating output 
 | renewal-scanner | ✓ | ✓ (brief) | ✓ | ✓ | ✓ |
 | onboarding-milestone-tracker | ✓ | ✓ (report) | ✓ | ✓ | ✓ |
 | portfolio-segment-digest | ✓ | ✓ (baseline + digest) | ✓ | ✓ | ✓ |
+| adoption-motion-agent | ✓ | — | ✓ | — | ✓ |
+| expansion-builder-agent | ✓ | — (task created by subagent) | ✓ | — | ✓ |
+| advocacy-agent | ✓ | — (task created by subagent) | ✓ | — | ✓ |
+| churn-intelligence-agent | ✓ | ✓ (Churn Intelligence Report + optional Stage 0 handoff to cs-platform) | ✓ | — | ✓ |
 
 The qbr-prep-agent does not post to Slack by default — QBR prep packages are saved to
 a file path and reviewed by the CSM before any sharing.
+
+The four on-demand agents (adoption-motion, expansion-builder, advocacy, churn-intelligence)
+do not post to Slack. Output is delivered in chat to the CSM who triggered the run.
+adoption-motion does not write files. expansion-builder and advocacy write cs-platform tasks
+via their final subagent (not direct orchestrator writes). churn-intelligence writes the
+Churn Intelligence Report directly to cs-platform before returning to the CSM.
 
 **Tool grant security caveat:** The `mcp__*__query_*` and `mcp__*__search_*` wildcard
 grants assume connector authors follow the convention that `query_` and `search_` tools
@@ -159,6 +178,10 @@ the CS Skill Security Baseline before being granted these wildcards.
 | renewal-scanner | CRM | Health score source, usage, support, Slack |
 | onboarding-milestone-tracker | Project management (PM) tool | Slack |
 | portfolio-segment-digest | CS Platform, CRM | Slack, BI tool |
+| adoption-motion-agent | cs-platform | product-analytics (coverage map; flagged unavailable if absent) |
+| expansion-builder-agent | cs-platform, CRM | product-analytics (health gate prompts manual confirm if absent) |
+| advocacy-agent | cs-platform, CRM | — |
+| churn-intelligence-agent | cs-platform, CRM | product-analytics (90-day usage trend) |
 
 All agents degrade gracefully when optional connectors are unavailable — they note the
 gap in the output rather than halting. Required connector unavailability halts the run
@@ -200,6 +223,10 @@ the renewal pipeline configuration is part of the CSM practice profile. The port
 reads `../cs-ops/CLAUDE.md` (not csm/CLAUDE.md) because segment definitions, capacity targets, and
 reporting cadences are configured there. The onboarding milestone tracker reads from
 `../onboarding/CLAUDE.md` — it is the only CSM-adjacent agent that does not read csm/CLAUDE.md.
+The churn-intelligence-agent reads `../renewals/CLAUDE.md` — this file must exist and be populated
+before deploying the churn-intelligence-agent. It is the only agent in the renewals plugin that has
+its own dedicated config file separate from csm/CLAUDE.md. Run `/renewals:cold-start-interview` to
+build it before first run.
 
 ### Setting up configuration
 
@@ -241,7 +268,17 @@ the relevant agent on a cron schedule.
 All agents can also be triggered manually. Each agent's README includes a
 `steering-examples.json` with the complete prompting pattern library for that agent.
 
-Common on-demand triggers:
+The four on-demand agents (adoption-motion, expansion-builder, advocacy, churn-intelligence)
+are CSM-triggered only and have no recommended cron schedule. Trigger them directly in chat:
+
+| Agent | Example trigger |
+|-------|----------------|
+| adoption-motion-agent | `"Run adoption motion for Acme Corp."` |
+| expansion-builder-agent | `"Run expansion builder for Acme Corp."` |
+| advocacy-agent | `"Build advocacy package for Acme Corp."` |
+| churn-intelligence-agent | `"Run churn intelligence for Acme Corp."` |
+
+Common on-demand triggers for scheduled agents:
 
 ```
 "Run the health watcher."
@@ -255,7 +292,7 @@ Common on-demand triggers:
 
 ## Shared Output Conventions
 
-All six agents follow these conventions regardless of individual formatting differences:
+All ten agents follow these conventions regardless of individual formatting differences:
 
 **Data provenance:** Every output section names its data source connector and includes a
 data-as-of timestamp. Stale or missing data is never silently omitted — it is surfaced
@@ -290,3 +327,7 @@ specification, and per-agent prompting patterns, see each agent's README:
 - [Renewal Scanner](./renewal-scanner/README.md) — renewal pipeline risk classification and expansion signals
 - [Onboarding Milestone Tracker](./onboarding-milestone-tracker/README.md) — M1–M5 milestone monitoring and at-risk detection
 - [Portfolio Segment Digest](./portfolio-segment-digest/README.md) — segment-level health distribution shifts, ARR at risk by segment, and capacity flags for CS Ops and leadership
+- [Adoption Motion Agent](./adoption-motion/README.md) — adoption gap diagnosis using six-type taxonomy and TARO play prescription
+- [Expansion Builder Agent](./expansion-builder/README.md) — whitespace analysis, adoption health gate, business case construction, and AE handoff
+- [Advocacy Agent](./advocacy/README.md) — advocate qualification with burnout protection gates and advocacy package generation
+- [Churn Intelligence Agent](./churn-intelligence/README.md) — exit interview guide, blameless postmortem, playbook learnings, and win-back assessment

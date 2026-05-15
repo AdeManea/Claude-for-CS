@@ -1,0 +1,42 @@
+name: advocacy-builder
+description: >
+  Managed agent for the SuccessCOACHING Stage 6 Advocacy workflow. Qualifies
+  advocate candidates, matches reference requests to the best-fit advocate,
+  builds customer story structures for case studies and testimonials, and
+  enforces advocate burnout and rotation limits to protect the advocate pool.
+model: claude-sonnet-4-7
+system:
+  file: ./subagents/advocacy-builder-agent.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,         default_config: { enabled: true } }
+callable_agents:
+  - name: advocate-qualifier
+    description: >
+      Qualifies an account or contact as an advocacy candidate. Checks health score,
+      satisfaction signals, relationship depth, opt-in status, and burnout thresholds
+      against hard and soft limits. Returns a qualification status (Qualified /
+      Conditional / Not Qualified), qualification score, and burnout record summary.
+    agent_file: ./subagents/advocate-qualifier.yaml
+  - name: reference-matcher
+    description: >
+      Matches a qualified advocate to a specific prospect profile for a reference
+      call or event speaking request. Scores the match across industry, company
+      size, use case, pain points, and geography. Returns match quality, suggested
+      contact, talking points, and an ask script draft for the CSM.
+    agent_file: ./subagents/reference-matcher.yaml
+  - name: story-builder
+    description: >
+      Extracts and structures a customer success story from cs-platform and CRM
+      records for use in case studies, testimonials, video briefs, or event
+      abstracts. Labels all evidence (Measured / Documented / Estimated) and
+      surfaces evidence gaps marketing will need filled before publication.
+    agent_file: ./subagents/story-builder.yaml
+mcp_servers:
+  - { type: url, name: cs-platform, url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,         url: "${CRM_MCP_URL}" }

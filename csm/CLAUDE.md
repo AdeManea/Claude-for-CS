@@ -248,6 +248,54 @@ If SuccessCOACHING:
 
 ---
 
+## Managed agents
+
+The csm plugin manages six agents across the SuccessCOACHING lifecycle. Three run on schedule; three are triggered on-demand by the CSM.
+
+### Scheduled agents
+
+**health-watcher** (Stage 3 — Health Monitoring)
+Runs daily to score all active accounts, flag health changes, and post a digest to the configured Slack channel. Generates alerts when an account crosses a health band boundary (Healthy → Developing, Developing → At Risk, At Risk → Critical). Does not take action — surfaces signals for CSM review. No CSM trigger required; runs on cron.
+
+**churn-signal-digest** (Stage 5 — Retention)
+Runs weekly to surface accounts with multi-signal churn patterns. Aggregates signals from cs-platform, product-analytics, and CRM into a prioritized digest. Posts to Slack and delivers to CSM. Identifies accounts needing active save motion before they reach formal churn. No CSM trigger required; runs on cron.
+
+**qbr-prep-agent** (Stage 3 — Health Monitoring / Review)
+Runs on-schedule 14 days before each QBR date recorded in cs-platform. Pulls health history, usage trends, value milestones, open risks, and CSM notes. Assembles a QBR prep package for the CSM. Can also be triggered manually: `"Prep QBR for [Account Name]"`. Outputs a draft QBR structure — not a final deck.
+
+### On-demand agents
+
+**adoption-motion-agent** (Stage 2 — Adoption)
+Diagnoses adoption gaps and prescribes a TARO intervention motion for accounts with stalled, shallow, or declining usage. Three-stage pipeline: Product Surface Analyzer → Adoption Gap Identifier → Motion Planner. Requires cs-platform (aborts if unavailable); product-analytics optional (flagged if missing). Does not include expansion signals — those belong to Stage 4.
+
+Trigger: `"Run adoption motion for [Account Name]"` or `"Diagnose adoption for [Account]"`.
+
+Required: `account_name`, `deal_tier`. Optional: `analysis_period_days` (14/30/90, default 30), `csm_name`, `specific_concern`.
+
+**expansion-builder-agent** (Stage 4 — Expansion)
+Identifies expansion whitespace, runs an adoption health gate, constructs a customer-centric business case, and produces an AE-ready handoff package. Four-stage pipeline: Whitespace Analyzer → Health Gate (orchestrator) → Business Case Builder → Expansion Handoff Coordinator. Health gate is mandatory and cannot be bypassed: accounts with coverage score below 60 require explicit CSM override with documented rationale before the business case is built. Do not run on At Risk or Critical accounts without override.
+
+Trigger: `"Run expansion builder for [Account Name]"` or `"Find expansion opportunity for [Account]"`.
+
+Required: `account_name`, `deal_tier`. Optional: `csm_name`, `ae_name`, `expansion_type_hint`, `target_expansion_sku`.
+
+**advocacy-agent** (Stage 6 — Advocacy)
+Qualifies advocate candidates against burnout protection limits and produces an advocacy package (ask script + talking points or story structure). Hard limits are absolute — no override path exists. Soft limits pause the pipeline and require `PROCEED [rationale]` or `STOP`. Routes to reference-matcher (reference_call / event_speaker) or story-builder (case_study / testimonial). Creates a cs-platform tracking task on successful completion.
+
+Trigger: `"Build advocacy package for [Account Name]"` or `"Set up a reference call for [Account]"`.
+
+Required: `account_name`, `request_type` (reference_call | case_study | testimonial | event_speaker). Optional: `contact_name`, `prospect_profile` (required for reference_call), `urgency` (standard | high).
+
+### Agent behavioral notes
+
+- All six agents read this config file for practice context, health scoring thresholds, connector routing, and escalation matrix.
+- On-demand agents deliver output in chat only — they do not post to Slack or write to cs-platform unless the agent spec explicitly states otherwise (expansion-builder creates a cs-platform handoff task via the Expansion Handoff Coordinator subagent).
+- health-watcher and churn-signal-digest post to the Slack channel configured in this file's integration block.
+- All agents respect the shared guardrails in this file (sourcing, attribution, CSM boundary, no speculative health scores, connector failure handling).
+- The adoption-motion-agent and expansion-builder-agent are complementary: run adoption-motion first when usage is stalled; run expansion-builder when the account is healthy and expansion signals exist.
+
+---
+
 *Re-run: `/csm:cold-start-interview --redo`*
 *Check integrations: `/csm:cold-start-interview --check-integrations`*
 *Update company profile: `/csm:cold-start-interview --redo-company-profile`*

@@ -1,0 +1,33 @@
+name: churn-intelligence
+description: >
+  Managed agent for the SuccessCOACHING Stage 7 Churn/Non-Renewal workflow.
+  Orchestrates four subagents to structure exit interviews, facilitate internal
+  postmortems, extract playbook learnings, and profile churned accounts for
+  win-back potential. The winback-profiler produces a Stage 0-compatible handoff
+  record to close the S7→S0 win-back loop. Runs after formal churn notice or
+  confirmed non-renewal — not during active retention efforts.
+model: claude-sonnet-4-7
+system:
+  file: ./subagents/churn-intelligence-agent.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform,       default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,               default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: product-analytics, default_config: { enabled: true } }
+callable_agents:
+  - name: exit-interviewer
+    agent_file: ./subagents/exit-interviewer.yaml
+  - name: postmortem-facilitator
+    agent_file: ./subagents/postmortem-facilitator.yaml
+  - name: learning-extractor
+    agent_file: ./subagents/learning-extractor.yaml
+  - name: winback-profiler
+    agent_file: ./subagents/winback-profiler.yaml
+mcp_servers:
+  - { type: url, name: cs-platform,       url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,               url: "${CRM_MCP_URL}" }
+  - { type: url, name: product-analytics, url: "${PRODUCT_ANALYTICS_MCP_URL}" }

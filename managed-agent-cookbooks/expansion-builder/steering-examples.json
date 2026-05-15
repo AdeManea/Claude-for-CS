@@ -1,0 +1,174 @@
+[
+  {
+    "id": "eb-001",
+    "description": "Seat expansion — Mid-Market at utilization ceiling",
+    "input": {
+      "account_name": "Riverstone Digital",
+      "deal_tier": "Mid-Market",
+      "csm_name": "Priya Nair",
+      "ae_name": "Marcus Webb",
+      "expansion_type_hint": "seats"
+    },
+    "expected_pipeline_behavior": {
+      "health_gate": "PASS",
+      "coverage_score": 74,
+      "coverage_status": "Developing",
+      "gate_action": "Proceed automatically — Developing accounts are eligible for expansion analysis",
+      "whitespace_recommended": "Seats",
+      "signal_strength": "Strong",
+      "business_case_confidence": "High"
+    },
+    "expected_evidence": {
+      "seat_utilization": "88% (44 of 50 licensed seats activated)",
+      "dau_wau_trend": "Growing — DAU/WAU up 8 points over 30-day window",
+      "documented_requests": "CSM notes from 2026-03-14: champion (Dana Foss) mentioned two team members waiting on license access",
+      "value_delivered": "Documented QBR outcome: 23% reduction in report turnaround time (2026-02-01 QBR notes)"
+    },
+    "expected_output_sections": [
+      "Adoption Health Check: Coverage 74 (Developing) — gate passed",
+      "Whitespace: Seats — Strong signal (88% utilization, documented access requests, growing DAU/WAU)",
+      "Business Case: Value Delivered to Date anchored on turnaround time reduction [Documented]",
+      "AE Briefing Message: internal, ≤200 words, no pricing language",
+      "CSM Next Actions: AE briefing as Action #1"
+    ],
+    "notes": "CSM hint matches evidence — no conflict flag. Timing note: 94 days to renewal, within optimal 90-120 day window."
+  },
+  {
+    "id": "eb-002",
+    "description": "Tier upgrade — Enterprise with documented feature requests",
+    "input": {
+      "account_name": "Meridian Healthcare",
+      "deal_tier": "Enterprise",
+      "csm_name": "Jerome Takahashi",
+      "ae_name": "Caitlin Marsh",
+      "expansion_type_hint": "tier",
+      "target_expansion_sku": "Enterprise Plus"
+    },
+    "expected_pipeline_behavior": {
+      "health_gate": "PASS",
+      "coverage_score": 82,
+      "coverage_status": "Healthy",
+      "gate_action": "Proceed automatically — Healthy account",
+      "whitespace_recommended": "Tier Upgrade",
+      "signal_strength": "Strong",
+      "business_case_confidence": "High"
+    },
+    "expected_evidence": {
+      "documented_feature_requests": [
+        "QBR 2026-01-15: champion (Sandra Wu) requested SSO/SAML — listed as Enterprise Plus gated feature",
+        "CSM notes 2026-02-28: Sandra asked about advanced analytics dashboards — Enterprise Plus gated",
+        "CSM notes 2026-04-03: Sandra escalated SSO request to IT sponsor (David Reyes)"
+      ],
+      "timing": "120 days to renewal — optimal window for tier upgrade conversation",
+      "exec_sponsor": "David Reyes (IT Director) documented in CRM — engaged on SSO request"
+    },
+    "expected_output_sections": [
+      "Adoption Health Check: Coverage 82 (Healthy) — gate passed",
+      "Whitespace: Tier Upgrade — Strong signal (3 documented Enterprise Plus feature requests in 90 days)",
+      "Business Case: Expansion narrative framed around customer-stated SSO and analytics goals [Documented]",
+      "Stakeholder Map: Sandra Wu (Champion), David Reyes (Exec Sponsor / IT), Caitlin Marsh (AE)",
+      "Timing Recommendation: Optimal — 120 days pre-renewal, post-SSO escalation provides natural entry point"
+    ],
+    "notes": "Three documented requests for the same tier-gated capability set qualifies as Strong signal. Executive already engaged on the request — stakeholder map should reflect active IT sponsor involvement."
+  },
+  {
+    "id": "eb-003",
+    "description": "Expansion hold — SMB account At Risk, gate triggers",
+    "input": {
+      "account_name": "Cobalt Systems",
+      "deal_tier": "SMB",
+      "csm_name": "Leah Drummond",
+      "expansion_type_hint": "seats"
+    },
+    "expected_pipeline_behavior": {
+      "health_gate": "PAUSE",
+      "coverage_score": 43,
+      "coverage_status": "At Risk",
+      "gate_action": "Pipeline paused — CSM override required before business case construction",
+      "override_provided": true,
+      "override_rationale": "Champion confirmed in 2026-05-10 call that adoption drop is due to Q1 internal project freeze; normal usage expected to resume by 2026-06-01. AE has a renewal call scheduled 2026-06-15.",
+      "whitespace_after_override": "Seats — Moderate signal (utilization at 78% despite reduced activity period)"
+    },
+    "expected_pipeline_behavior_without_override": {
+      "pipeline_stops": true,
+      "output": "Health gate warning surfaced with coverage score, status, and prompt for CSM to provide override rationale or redirect to adoption-motion"
+    },
+    "expected_output_with_override": [
+      "Adoption Health Check: Coverage 43 (At Risk) — gate triggered; CSM override documented",
+      "Override Rationale: [CSM-provided text logged in report]",
+      "Whitespace: Seats — Moderate signal (utilization 78%; growth signals suppressed by project freeze)",
+      "Business Case: Confidence = Moderate due to At Risk health status and suppressed usage period",
+      "CSM Next Actions: Action #1 — brief AE on context before expansion conversation; note adoption recovery dependency"
+    ],
+    "notes": "At Risk accounts that receive an override should have the lower confidence reflected throughout the business case. The expansion pipeline proceeds but doesn't pretend the health flag didn't exist."
+  },
+  {
+    "id": "eb-004",
+    "description": "Adjacent team expansion — champion mentions peer department",
+    "input": {
+      "account_name": "Lakewood Financial",
+      "deal_tier": "Mid-Market",
+      "csm_name": "Victor Osei",
+      "ae_name": "Hannah Ruiz"
+    },
+    "expected_pipeline_behavior": {
+      "health_gate": "PASS",
+      "coverage_score": 71,
+      "coverage_status": "Developing",
+      "gate_action": "Proceed automatically",
+      "whitespace_recommended": "Adjacent Team",
+      "signal_strength": "Strong",
+      "business_case_confidence": "Moderate"
+    },
+    "expected_evidence": {
+      "champion_reference": "CSM notes 2026-04-22: champion (Roberto Alves) said 'our operations team has been asking about a tool like this'",
+      "crm_contacts": "CRM shows 2 contacts in Operations dept at Lakewood Financial (Samira Patel — Ops Manager, logged 2025-11-10; Derek Cho — Ops Analyst, logged 2026-01-08)",
+      "core_coverage": "77% — strong core adoption by current team supports replication case"
+    },
+    "expected_output_sections": [
+      "Whitespace: Adjacent Team — Strong signal (champion named ops team explicitly; 2 CRM ops contacts already logged)",
+      "Business Case: Expansion narrative framed as outcome replication — current team results applied to ops team workflow",
+      "Confidence: Moderate — Adjacent team interest is documented but ops team has not engaged directly",
+      "Stakeholder Map: Roberto Alves (Champion), Samira Patel (Ops Manager — potential expansion champion), Hannah Ruiz (AE)",
+      "CSM Next Actions: Confirm with Roberto whether Samira Patel is the right intro contact before AE outreach"
+    ],
+    "notes": "Two CRM contacts in the adjacent team elevates signal from Moderate to Strong per whitespace-analyzer thresholds. Business case confidence stays Moderate because the ops team has not directly expressed interest — it's champion-referenced, not ops-documented."
+  },
+  {
+    "id": "eb-005",
+    "description": "Expansion type hint conflict — CSM flags module but evidence supports tier upgrade",
+    "input": {
+      "account_name": "Thornwick Labs",
+      "deal_tier": "Enterprise",
+      "csm_name": "Amara Okonkwo",
+      "ae_name": "Brian Salazar",
+      "expansion_type_hint": "module",
+      "target_expansion_sku": "Advanced Integrations Module"
+    },
+    "expected_pipeline_behavior": {
+      "health_gate": "PASS",
+      "coverage_score": 79,
+      "coverage_status": "Developing",
+      "gate_action": "Proceed automatically",
+      "expansion_type_hint_result": "CONFLICT — No integration whitespace found; evidence supports Tier Upgrade instead",
+      "whitespace_recommended": "Tier Upgrade",
+      "signal_strength": "Strong",
+      "business_case_confidence": "High"
+    },
+    "expected_evidence": {
+      "integration_whitespace": "None found — Advanced Integrations Module features show no documented requests in cs-platform or CRM",
+      "tier_upgrade_signals": [
+        "CSM notes 2026-03-11: champion (Chris Vance) asked about advanced analytics reporting — Enterprise Plus gated",
+        "CRM opportunity note 2026-04-19 (AE Brian Salazar): 'Chris mentioned wanting bulk export and API access — these are Plus features'"
+      ],
+      "seat_utilization": "91% — secondary seat whitespace signal also present"
+    },
+    "expected_conflict_handling": {
+      "conflict_flag": true,
+      "conflict_message": "EXPANSION TYPE CONFLICT: CSM flagged 'module' (Advanced Integrations Module) but no integration whitespace was found in cs-platform or CRM records. Evidence supports Tier Upgrade (Strong signal: 2 documented Enterprise Plus feature requests). Business case built on evidence-supported type. CSM may override to module if additional context exists.",
+      "business_case_built_for": "Tier Upgrade",
+      "override_option_presented": true
+    },
+    "notes": "The whitespace-analyzer should surface the conflict without silently overriding the CSM hint. The orchestrator builds the evidence-supported case and presents the conflict clearly, allowing the CSM to confirm or override. Seat whitespace (91% utilization) is noted as a secondary opportunity."
+  }
+]

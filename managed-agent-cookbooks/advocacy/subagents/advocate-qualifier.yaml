@@ -1,0 +1,21 @@
+name: advocate-qualifier
+description: >
+  Qualifies an account or contact as an advocacy candidate for the Stage 6
+  Advocacy workflow. Checks health score, satisfaction signals, relationship
+  depth, opt-in status, and prior ask history against hard and soft burnout
+  limits. Returns qualification status (Qualified / Conditional / Not Qualified),
+  qualification score (0–100), burnout record summary, and recommended contact
+  if contact_name was not provided.
+model: claude-sonnet-4-7
+system:
+  file: ./advocate-qualifier.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,         default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform, url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,         url: "${CRM_MCP_URL}" }

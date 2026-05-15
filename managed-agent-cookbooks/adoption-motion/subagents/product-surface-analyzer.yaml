@@ -1,0 +1,14 @@
+name: product-surface-analyzer
+model: claude-sonnet-4-7
+system:
+  file: ./product-surface-analyzer.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform,       default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: product-analytics, default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform,       url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: product-analytics, url: "${PRODUCT_ANALYTICS_MCP_URL}" }

@@ -1,0 +1,20 @@
+name: exit-interviewer
+description: >
+  Structures a tailored exit interview guide for the departing customer contact.
+  If a completed interview transcript is provided, captures and organizes the
+  responses into a structured format for inclusion in the Churn Intelligence Report.
+  Does not contact the customer — produces a guide and capture framework for
+  the CSM to use in conducting the formal exit conversation.
+model: claude-sonnet-4-7
+system:
+  file: ./exit-interviewer.md
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: cs-platform, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: crm,         default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: cs-platform, url: "${CS_PLATFORM_MCP_URL}" }
+  - { type: url, name: crm,         url: "${CRM_MCP_URL}" }
