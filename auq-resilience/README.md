@@ -51,7 +51,7 @@ Both hooks are stateless across invocations except for the temp state file (`/tm
 ## Package Contents
 
 ```
-auq-failsafe/
+auq-resilience/
 ├── .claude-plugin/
 │   └── plugin.json
 ├── hooks/
@@ -67,7 +67,7 @@ auq-failsafe/
 
 ### 1. Install the plugin
 
-Install `auq-failsafe` from the `claude-for-customer-success` plugin marketplace, or copy the `auq-failsafe/` directory alongside your Claude for Customer Success plugins.
+Install `auq-resilience` from the `claude-for-customer-success` plugin marketplace, or copy the `auq-resilience/` directory alongside your Claude for Customer Success plugins.
 
 ### 2. Wire into each Claude for Customer Success plugin you want protected
 
@@ -79,23 +79,23 @@ For each plugin (`csm`, `cs-ops`, `renewals`, `onboarding`, `handoff`, `rev-ops`
     {
       "event": "PreToolUse",
       "matcher": "ask_user_input_v0",
-      "command": "python3 ../auq-failsafe/hooks/auq_hook.py"
+      "command": "python3 ../auq-resilience/hooks/auq_hook.py"
     },
     {
       "event": "PostToolUse",
       "matcher": "ask_user_input_v0",
-      "command": "python3 ../auq-failsafe/hooks/auq_hook.py"
+      "command": "python3 ../auq-resilience/hooks/auq_hook.py"
     },
     {
       "event": "UserPromptSubmit",
       "matcher": ".*",
-      "command": "python3 ../auq-failsafe/hooks/auq_hook.py"
+      "command": "python3 ../auq-resilience/hooks/auq_hook.py"
     }
   ]
 }
 ```
 
-**Path assumption:** `../auq-failsafe/hooks/auq_hook.py` assumes `auq-failsafe/` is installed as a sibling directory to the plugin being wired. If your layout differs, adjust the relative path accordingly.
+**Path assumption:** `../auq-resilience/hooks/auq_hook.py` assumes `auq-resilience/` is installed as a sibling directory to the plugin being wired. If your layout differs, adjust the relative path accordingly.
 
 **Python command:** Use `python3` (or the full path to your Python 3.9+ interpreter) rather than `python`. The hook has no external dependencies — standard library only.
 
@@ -115,13 +115,13 @@ Then trigger a skill that calls `AskUserQuestion`. You should see the widget ren
 
 - Python 3.9+
 - Claude Code with hook support enabled
-- `auq-failsafe/` co-installed as a sibling directory to the plugins being wired
+- `auq-resilience/` co-installed as a sibling directory to the plugins being wired
 
 ---
 
 ## Wiring is Optional
 
-The `auq-failsafe` plugin is an add-on — the Claude for Customer Success plugins work without it. Wiring it in adds resilience on top of the existing `AskUserQuestion` calls those plugins already make. Nothing in the Claude for Customer Success plugins fails or degrades if this plugin is absent.
+The `auq-resilience` plugin is an add-on — the Claude for Customer Success plugins work without it. Wiring it in adds resilience on top of the existing `AskUserQuestion` calls those plugins already make. Nothing in the Claude for Customer Success plugins fails or degrades if this plugin is absent.
 
 ---
 

@@ -211,15 +211,15 @@ Plugin templates (this directory) ship with the plugin and are replaced on updat
 
 ### AUQ Failsafe
 
-**Package:** [`auq-failsafe/`](./auq-failsafe/)
+**Package:** [`auq-resilience/`](./auq-resilience/)
 
 An optional infrastructure add-on that makes `ask_user_input_v0` resilient to render failures. The CS suite plugins use `ask_user_input_v0` extensively — when it works, the user gets an interactive multiple-choice widget; when it fails (unsupported client, missed render, tool error), Claude receives an empty response with no recoverable path.
 
-The `auq-failsafe` plugin installs two Claude Code hooks that detect failures and inject a plain-text multiple-choice fallback so Claude can always proceed. It does not change how AUQ works when it works — it only catches failures.
+The `auq-resilience` plugin installs two Claude Code hooks that detect failures and inject a plain-text multiple-choice fallback so Claude can always proceed. It does not change how AUQ works when it works — it only catches failures.
 
 Installing the plugin is a one-step install. Wiring it into a plugin requires adding two entries to that plugin's `hooks/hooks.json`. All five CS plugins ship with empty hook slots ready to receive the wiring.
 
-See [`auq-failsafe/README.md`](./auq-failsafe/README.md) for install steps and the full T1/T2/T3 protocol.
+See [`auq-resilience/README.md`](./auq-resilience/README.md) for install steps and the full T1/T2/T3 protocol.
 
 ---
 
