@@ -37,11 +37,11 @@ context/
 **/skills/*/design/
 # output/ — intermediate build output inside skill dirs
 **/skills/*/output/
-# reference/ and references/ — local reference snapshots pulled during builds
+# reference/ — single-file local snapshots pulled during builds (not skill content)
 **/skills/*/reference/
-**/skills/*/references/
 # *-workspace/ — iterative eval workspaces generated during skill development
 **/skills/*-workspace/
 # evals/ — eval run artifacts inside skill and workspace dirs
 **/skills/*/evals/
 **/skills/*-workspace/evals/
+# references/ is intentionally NOT ignored — it holds skill scripts, assets, and reference materials
