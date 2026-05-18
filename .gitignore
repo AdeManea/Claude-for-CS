@@ -31,3 +31,17 @@ venv/
 # Claude / Cowork internals
 .claude-plugin/
 context/
+
+# Skill build artifacts
+# design/ — skill-builder-pro design-phase scratch folders
+**/skills/*/design/
+# output/ — intermediate build output inside skill dirs
+**/skills/*/output/
+# reference/ and references/ — local reference snapshots pulled during builds
+**/skills/*/reference/
+**/skills/*/references/
+# *-workspace/ — iterative eval workspaces generated during skill development
+**/skills/*-workspace/
+# evals/ — eval run artifacts inside skill and workspace dirs
+**/skills/*/evals/
+**/skills/*-workspace/evals/

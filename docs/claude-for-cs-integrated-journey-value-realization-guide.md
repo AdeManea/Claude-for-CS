@@ -39,8 +39,13 @@ Customer Success operates on two parallel tracks that must stay synchronized. Th
 The intersection of both tracks creates the CSM's execution context at any given moment. A Stage 2 customer in Value Delivery has different plugin priorities than a Stage 2 customer still in Value Planning. The per-stage sections in this document show both coordinates simultaneously.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 graph TB
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     subgraph TRACK1["Track 1 — Customer Lifecycle"]
         direction LR
         S0["Stage 0 Pre-Sales Handoff"] --> S1["Stage 1 Onboarding"] --> S2["Stage 2 Adoption"] --> S3["Stage 3 Health & Mon."] --> S4["Stage 4 Expansion"] --> S5["Stage 5 Renewal"] --> S6["Stage 6 Advocacy"]
@@ -57,13 +62,14 @@ graph TB
         CONFIG["Config Skills (9 domain pairs)"] --> OPS["Lifecycle Skills (47 skills)"] --> CROSS["Cross-Cutting Ops (27 skills)"]
     end
 
-    TRACK1 -. "value stage alignment" .-> TRACK2
-    PLUGIN -. "augments" .-> TRACK1
-    PLUGIN -. "operationalizes" .-> TRACK2
+    TRACK1 -.-> TRACK2
+    PLUGIN -.-> TRACK1
+    PLUGIN -.-> TRACK2
 
-    style TRACK1 fill:#34A7D2,stroke:#24718E,color:#fff
-    style TRACK2 fill:#2B89AC,stroke:#194E61,color:#fff
-    style PLUGIN fill:#2B89AC,stroke:#194E61,color:#fff
+    class S0,S1,S2,S3,S4,S5,S6 primary
+    class S7 alert
+    class VD,VP,VDL,VM,VE secondary
+    class CONFIG,OPS,CROSS primary
 ```
 
 The narrative above is what this diagram shows: two tracks running in parallel (lifecycle and value realization), with the plugin's three capability tiers (config, lifecycle, cross-cutting ops) augmenting both. The dotted lines indicate the plugin does not own either track — the CSM does. The plugin accelerates and structures execution within both.
@@ -116,8 +122,13 @@ Layer 2 takes L1 catalog entries and instantiates them with customer-specific te
 The three systems — Value Chain, Customer Lifecycle, and Value Realization — operate as an integrated framework. This diagram shows the full connection topology.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 graph TB
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     subgraph VALUE_CHAIN["Value Chain"]
         direction TB
         PC["Product Capabilities"] --> DO["Deliverable Outcomes"] --> DSO["Desired Outcomes"] --> BG["Business Goals"] --> EV["Expected Value"] --> RV["Realized Value"] --> BI["Business Impact"]
@@ -133,24 +144,17 @@ graph TB
         VD2["Value Discovery"] --> VP2["Value Planning"] --> VDL2["Value Delivery"] --> VM2["Value Measurement"] --> VE2["Value Expansion"]
     end
 
-    L0 -. "enters" .-> VD2
-    L1 -. "drives" .-> VP2
-    L2 -. "executes" .-> VDL2
-    L3 -. "validates" .-> VM2
-    L4 -. "triggers" .-> VE2
-    L5 -. "resets" .-> VM2
-    L6 -. "confirms" .-> VE2
+    L0 -.-> VD2
+    L1 -.-> VP2
+    L2 -.-> VDL2
+    L3 -.-> VM2
+    L4 -.-> VE2
+    L5 -.-> VM2
+    L6 -.-> VE2
 
-    PC -. "S0: outcome-statement-builder S2: value-statement" .-> DO
-    DO -. "S1: success-criteria onboarding-plan" .-> DSO
-    DSO -. "S2: success-plan-builder S3: health-score-review" .-> BG
-    BG -. "S3: qbr-builder S4: outcome-to-value-tracking" .-> EV
-    EV -. "S4: expansion-signal S5: renewal-forecast" .-> RV
-    RV -. "S5: executive-summary S6: value-statement" .-> BI
-
-    style VALUE_CHAIN fill:#34A7D2,stroke:#24718E,color:#fff
-    style LIFECYCLE fill:#2B89AC,stroke:#194E61,color:#fff
-    style VALUE_REALIZATION fill:#90C83D,stroke:#2D801B,color:#fff
+    class PC,DO,DSO,BG,EV,RV,BI primary
+    class L0,L1,L2,L3,L4,L5,L6 secondary
+    class VD2,VP2,VDL2,VM2,VE2 success
 ```
 
 Reading this diagram: the Value Chain (top, blue) runs vertically from product capabilities to business impact. The Customer Lifecycle (middle, green) runs horizontally through seven stages. The Value Realization stages (bottom, yellow) map onto lifecycle stages via the dotted connections on the left. The plugin skills annotating the Value Chain connections show where specific skills operationalize each chain transition. The full skill-to-stage mapping appears in the sections below.
@@ -205,8 +209,13 @@ The config skill pattern (`cold-start-interview` + `customize`) runs independent
 ### Stage 0 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     subgraph CONFIG["Domain Configuration — One-Time Setup"]
         CI1["cs-ops.cold-start-interview"] --> CZ1["cs-ops.customize"]
         CI2["csm.cold-start-interview"] --> CZ2["csm.customize"]
@@ -221,8 +230,8 @@ flowchart TD
 
     subgraph HANDOFF["Per-Account Handoff Processing"]
         HQ["rev-ops.sales-cs-handoff-quality-scoring"] --> PASS{Handoff Score >= 70?}
-        PASS -->|"Yes"| OSB_L2["rev-ops.outcome-statement-builder customer-tailoring mode"]
-        PASS -->|"No — gaps"| REMEDIATE["Request missing data from Sales / AE"]
+        PASS --> OSB_L2["Proceed: rev-ops.outcome-statement-builder customer-tailoring mode"]
+        PASS --> REMEDIATE["Gaps Found: Request missing data from Sales / AE"]
         REMEDIATE --> HQ
         OSB_L2 --> L2_DONE["L2 value statement initiated for account"]
     end
@@ -230,9 +239,11 @@ flowchart TD
     CONFIG --> L1BUILD
     L1BUILD --> HANDOFF
 
-    style CONFIG fill:#34A7D2,stroke:#24718E,color:#fff
-    style L1BUILD fill:#2B89AC,stroke:#194E61,color:#fff
-    style HANDOFF fill:#90C83D,stroke:#2D801B,color:#fff
+    class CI1,CZ1,CI2,CZ2,CI3,CZ3,CI4,CZ4,CI5 primary
+    class OSB_L1 secondary
+    class HQ,OSB_L2,L2_DONE success
+    class PASS risk
+    class REMEDIATE alert
 ```
 
 Three sequential phases. Domain configuration runs once at plugin deployment — nine cold-start-interview + customize pairs establish organizational context across all domains (note: `rev-ops.cold-start-interview` has no corresponding customize skill; it writes directly to the rev-ops domain context). L1 catalog build runs once per significant product update — `rev-ops.outcome-statement-builder` in catalog-build mode creates the market-level outcome statements the whole team references. Per-account handoff processing runs for each new customer — `rev-ops.sales-cs-handoff-quality-scoring` gates entry to `rev-ops.outcome-statement-builder` (customer-tailoring mode), ensuring poor-quality handoffs are remediated before L2 value work begins.
@@ -296,8 +307,13 @@ The onboarding domain's seven skills form a complete execution track from kick-o
 ### Stage 1 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     START["Stage 0 Gate Passed Handoff complete, L2 value statement initialized"]
     START --> KP["onboarding.kickoff-prep"]
     KP --> OP["onboarding.onboarding-plan"]
@@ -306,18 +322,21 @@ flowchart TD
 
     EXECUTE --> MT["onboarding.milestone-tracker"]
     MT --> ON_TRACK{On Track?}
-    ON_TRACK -->|"Yes"| TTV["onboarding.ttv-analysis"]
-    ON_TRACK -->|"No"| BR["onboarding.blocker-review"]
+    ON_TRACK --> TTV["On Track: onboarding.ttv-analysis"]
+    ON_TRACK --> BR["Blocked: onboarding.blocker-review"]
     BR --> REMEDIATE["Remediation — CSM-led with plugin support"]
     REMEDIATE --> MT
 
     TTV --> TTV_CHECK{TTV Target Achieved?}
-    TTV_CHECK -->|"Yes"| HD["onboarding.handoff-doc"]
-    TTV_CHECK -->|"At risk"| BR
+    TTV_CHECK --> HD["TTV Achieved: onboarding.handoff-doc"]
+    TTV_CHECK --> BR2["At Risk: onboarding.blocker-review"]
+    BR2 --> REMEDIATE
     HD --> STAGE2["Stage 2 Entry Handoff artifact delivered"]
 
-    style START fill:#34A7D2,stroke:#24718E,color:#fff
-    style STAGE2 fill:#90C83D,stroke:#2D801B
+    class START,KP,OP,SC,EXECUTE,MT,TTV,HD primary
+    class BR,BR2,REMEDIATE alert
+    class STAGE2 success
+    class ON_TRACK,TTV_CHECK risk
 ```
 
 Planning skills run sequentially before onboarding begins. During execution, `milestone-tracker` drives a continuous assessment loop. Blockers route through `blocker-review` before remediation. `ttv-analysis` gates Stage 2 entry — accounts not on TTV trajectory surface here before they appear in churn signals.
@@ -378,8 +397,13 @@ Stage 2 is where the CSM relationship becomes a structured practice rather than 
 ### Stage 2 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     START["Stage 1 Gate Passed Handoff artifact received"]
     START --> AR["csm.account-research"]
     AR --> SM["csm.stakeholder-map"]
@@ -390,15 +414,16 @@ flowchart TD
     CYCLE --> CP["csm.call-prep"]
     CP --> CALL["Customer Call — CSM-led"]
     CALL --> TARO_CHECK{TARO Play Triggered?}
-    TARO_CHECK -->|"Yes"| TARO["csm.taro-play-runner"]
-    TARO_CHECK -->|"No"| VS_UP
-    TARO --> VS_UP["csm.value-statement post-call update"]
+    TARO_CHECK --> TARO["Play Triggered: csm.taro-play-runner"]
+    TARO_CHECK --> VS_UP["No Play: csm.value-statement post-call update"]
+    TARO --> VS_UP
     VS_UP --> GATE_CHECK{Stage 3 Gate Criteria Met?}
-    GATE_CHECK -->|"No"| CYCLE
-    GATE_CHECK -->|"Yes"| STAGE3["Stage 3 Entry"]
+    GATE_CHECK --> CYCLE
+    GATE_CHECK --> STAGE3["Stage 3 Entry"]
 
-    style START fill:#34A7D2,stroke:#24718E,color:#fff
-    style STAGE3 fill:#90C83D,stroke:#2D801B
+    class START,AR,SM,SPB,VS,CYCLE,CP,CALL,TARO,VS_UP primary
+    class STAGE3 success
+    class TARO_CHECK,GATE_CHECK risk
 ```
 
 A setup sequence (account research → stakeholder map → success plan → value statement initialization) precedes the recurring engagement cycle. Each cycle runs call-prep → customer call → TARO play execution if triggered → value statement update. The value statement is the running record of value delivery progress; it updates after every significant interaction.
@@ -459,15 +484,20 @@ The cs-ops skills at this stage (`cs-ops.health-model-review`, `cs-ops.playbook-
 ### Stage 3 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     CYCLE["Stage 3 Monitoring Cycle"]
     CYCLE --> HSR["csm.health-score-review"]
     HSR --> HEALTH{Health Assessment}
 
-    HEALTH -->|"Green"| QBR["csm.qbr-builder scheduled cadence"]
-    HEALTH -->|"Yellow"| RF["csm.risk-flag"]
-    HEALTH -->|"Red"| EM["csm.escalation-memo"]
+    HEALTH --> QBR["Green: csm.qbr-builder scheduled cadence"]
+    HEALTH --> RF["Yellow: csm.risk-flag"]
+    HEALTH --> EM["Red: csm.escalation-memo"]
 
     RF --> TARO3["csm.taro-play-runner risk response play"]
     EM --> EXEC["Executive Engagement — CSM and leadership-led"]
@@ -476,17 +506,19 @@ flowchart TD
     QBR --> QBRCALL["QBR Delivery — CSM-led"]
     QBRCALL --> VS3["csm.value-statement post-QBR update"]
     VS3 --> EXP_CHECK{Expansion Signals Present?}
-    EXP_CHECK -->|"Yes"| STAGE4["Stage 4 Entry"]
-    EXP_CHECK -->|"No"| CYCLE
+    EXP_CHECK --> STAGE4["Signals Found: Stage 4 Entry"]
+    EXP_CHECK --> CYCLE
 
     subgraph OPS_LOOP["Portfolio Ops — runs asynchronously"]
         HMR["cs-ops.health-model-review"]
         PA["cs-ops.playbook-auditor"]
     end
-    OPS_LOOP -. "calibrates health model" .-> HSR
+    OPS_LOOP -.-> HSR
 
-    style STAGE4 fill:#90C83D,stroke:#2D801B
-    style OPS_LOOP fill:#2B89AC,stroke:#194E61,color:#fff
+    class CYCLE,HSR,QBR,RF,EM,TARO3,EXEC,QBRCALL,VS3 primary
+    class HMR,PA secondary
+    class STAGE4 success
+    class HEALTH,EXP_CHECK risk
 ```
 
 Every Stage 3 cycle begins with `csm.health-score-review`. Green accounts proceed to QBR on cadence. Yellow accounts route through `csm.risk-flag` and TARO play execution. Red accounts escalate via `csm.escalation-memo` to executive engagement. The cs-ops portfolio skills run asynchronously, feeding health model calibration back into the assessment loop. Expansion signal detection at QBR completion triggers Stage 4 entry.
@@ -552,8 +584,13 @@ The highest-leverage capability add here is the expansion signal and outcome-to-
 ### Stage 4 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     S4_START([Stage 4 Entry Post-Adoption Health Baseline]) --> SIGNAL
 
     subgraph EXPANSION ["Expansion Intelligence"]
@@ -575,15 +612,14 @@ flowchart TD
     TRACK --> LEAK
     LEAK --> VS
     VS --> S4_GATE{Expansion Ready?}
-    S4_GATE -->|Yes| EXPAND([Expansion Conversation or Upsell Motion])
-    S4_GATE -->|Risk Present| RECOVER([Risk Mitigation or Stage 5 Renewal Prep])
+    S4_GATE --> EXPAND([Expansion Ready: Expansion Conversation or Upsell Motion])
+    S4_GATE --> RECOVER([Risk Present: Risk Mitigation or Stage 5 Renewal Prep])
 
-    style EXPANSION fill:#34A7D2,stroke:#24718E,color:#fff
-    style RISK fill:#E4F7FD,stroke:#24718E,stroke-width:2px
-    style VALUE fill:#90C83D,stroke:#2D801B,color:#fff
-    style S4_START fill:#34A7D2,stroke:#24718E,color:#fff
-    style EXPAND fill:#90C83D,stroke:#2D801B,color:#fff
-    style RECOVER fill:#2B89AC,stroke:#194E61,color:#fff
+    class SIGNAL,TRACK,TRACE,NBA primary
+    class LEAK alert
+    class VS,EXPAND success
+    class S4_START,S4_GATE primary
+    class RECOVER secondary
 ```
 
 The diagram shows two parallel plugin tracks running from the outcome/deal evidence base. The Expansion Intelligence track (blue) converts outcome data into prioritized growth actions. The Revenue Risk Scanning track (amber) runs concurrently to catch leakage before it compounds. Both feed the Value Narrative block, which the CSM uses to drive either an expansion conversation or a pre-emptive risk mitigation motion.
@@ -653,8 +689,13 @@ The CSM remains the relationship anchor and the judgment layer on all renewal de
 ### Stage 5 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     S5_START([Stage 5 Entry Renewal Window Opens]) --> EARLY
 
     subgraph EARLY_WARNING ["Early Warning (Pre-Stage 5)"]
@@ -674,7 +715,7 @@ flowchart TD
         EXEC[renewals.executive-summary Executive Brief]
     end
 
-    subgraph CHURN_TRACK ["Churn Risk Track"]
+    subgraph CHURN_TRACK ["Churn Risk Track — fires on High Severity"]
         CHURN[renewals.churn-analysis Deep-Dive on High-Risk Signals]
     end
 
@@ -682,23 +723,20 @@ flowchart TD
     READY --> CONTRACT
     READY --> PRICE
     READY --> EXEC
-    RISK -->|High Severity| CHURN
+    RISK -.-> CHURN
     CHURN --> CONTRACT
 
     NEGO --> S5_GATE{Renewal Outcome}
     EXEC --> S5_GATE
-    S5_GATE -->|Renew| RENEWED([Stage 6 — Advocacy])
-    S5_GATE -->|Churn| CHURNED([Stage 7 — Churn Analysis])
-    S5_GATE -->|Downgrade| DOWNGRADE([Adjusted Renewal Return to Stage 4])
-
-    style EARLY_WARNING fill:#E4F7FD,stroke:#24718E,stroke-width:2px
-    style ASSESSMENT fill:#2B89AC,stroke:#194E61,color:#fff
-    style PREPARATION fill:#34A7D2,stroke:#24718E,color:#fff
-    style CHURN_TRACK fill:#E4F7FD,stroke:#24718E,stroke-width:2px
-    style S5_START fill:#34A7D2,stroke:#24718E,color:#fff
-    style RENEWED fill:#90C83D,stroke:#2D801B,color:#fff
-    style CHURNED fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style DOWNGRADE fill:#2B89AC,stroke:#194E61,color:#fff
+    S5_GATE --> RENEWED([Renewed: Stage 6 — Advocacy])
+    S5_GATE --> CHURNED([Churned: Stage 7 — Churn Analysis])
+    S5_GATE --> DOWNGRADE([Downgrade: Adjusted Renewal Return to Stage 4])
+    class FORECAST,RISK,READY secondary
+    class CONTRACT,NEGO,PRICE,EXEC primary
+    class S5_START primary
+    class RENEWED success
+    class CHURNED alert
+    class DOWNGRADE secondary
 ```
 
 Stage 5 has three distinct tracks that converge on the renewal outcome decision. The Early Warning track (amber) should complete before Stage 5 formally opens. The Assessment track (blue, left) builds the probabilistic renewal case. The Preparation track (blue, right) converts that case into negotiation and communication assets. When Risk Assessment flags high severity, a Churn Risk track fires a deep-dive before the contract review proceeds.
@@ -762,8 +800,13 @@ The CSM's role in Stage 6 is relationship stewardship and advocacy cultivation �
 ### Stage 6 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     S6_START([Stage 6 Entry Post-Renewal — Mature Account]) --> VS
 
     subgraph VALUE_EVIDENCE ["Value Evidence"]
@@ -781,12 +824,9 @@ flowchart TD
     REVENUE --> EXPAND_OPP
     EXPAND_OPP --> LOOP
 
-    style VALUE_EVIDENCE fill:#2B89AC,stroke:#194E61,color:#fff
-    style OUTCOMES fill:#90C83D,stroke:#2D801B,color:#fff
-    style S6_START fill:#34A7D2,stroke:#24718E,color:#fff
-    style ADVOCATE fill:#90C83D,stroke:#2D801B,color:#fff
-    style EXPAND_OPP fill:#90C83D,stroke:#2D801B,color:#fff
-    style LOOP fill:#2B89AC,stroke:#194E61,color:#fff
+    class S6_START,VS,REVENUE primary
+    class ADVOCATE,EXPAND_OPP success
+    class LOOP secondary
 ```
 
 Stage 6 is the simplest workflow in the guide — two skills, two outputs, three possible outcomes. Simplicity here is intentional: the CSM and customer relationship carry Stage 6; the plugin provides the evidence layer that activates it. When expansion opportunity is identified, the workflow cycles back to Stage 4 — the customer re-enters the Value Measurement → Value Expansion track as a growing account.
@@ -847,8 +887,13 @@ When a customer churns, the value chain broke at one or more links. `renewals.ch
 ### Stage 7 Workflow
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     S7_START([Stage 7 Entry Churn Decision Confirmed]) --> CHURN
 
     subgraph FORENSIC ["Churn Analysis"]
@@ -879,11 +924,10 @@ flowchart TD
     L1_UPDATE --> STAGE0_SIGNAL
     PLAYBOOK_UPDATE --> STAGE0_SIGNAL
 
-    style FORENSIC fill:#2B89AC,stroke:#194E61,color:#fff
-    style FAILURE_POINTS fill:#E4F7FD,stroke:#24718E,stroke-width:2px
-    style FEEDBACK fill:#34A7D2,stroke:#24718E,color:#fff
-    style S7_START fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style STAGE0_SIGNAL fill:#34A7D2,stroke:#24718E,color:#fff
+    class S7_START alert
+    class CHURN secondary
+    class FP1,FP2,FP3,FP4 risk
+    class L1_UPDATE,PLAYBOOK_UPDATE,STAGE0_SIGNAL primary
 ```
 
 Stage 7 is the only stage where the workflow's primary output feeds backward into the system rather than forward. Churn analysis findings close the loop: product-capability mismatches update the Layer 1 outcome catalog; process and execution failures update CS playbooks; both signals feed Stage 0 for ICP and configuration refinement on the next cohort. This feedback loop is what makes the value chain a learning system, not just a delivery framework.
@@ -931,7 +975,7 @@ Each dashboard row maps one account to its current position. The plugin skills t
 ### Dashboard State — Value Chain Position by Account Tier
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 stateDiagram-v2
     [*] --> ValueDiscovery: Stage 0 Config Complete
     ValueDiscovery --> ValuePlanning: Onboarding Kickoff (onboarding.success-criteria)
@@ -983,8 +1027,13 @@ Recovery workflows activate when gate criteria fail or health signals breach thr
 **Trigger:** Stage 1 gate criteria not met by TTV milestone date; health score below threshold during onboarding.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     R1_TRIGGER([Onboarding Stall Detected TTV at Risk]) --> BLOCKER
 
     subgraph DIAGNOSE ["Diagnosis — Plugin Supported"]
@@ -1002,17 +1051,18 @@ flowchart TD
     end
 
     TTV --> REPLAN
-    TTV -->|Systemic Issue| ESCALATION
+    TTV -.-> ESCALATION
     ESCALATION --> REPLAN
     MILESTONE --> R1_EXIT{Onboarding Back on Track?}
-    R1_EXIT -->|Yes| STAGE2([Resume Stage 2])
-    R1_EXIT -->|No| EXECUTIVE([Executive Intervention Sponsor Re-engagement])
+    R1_EXIT --> STAGE2([Back on Track: Resume Stage 2])
+    R1_EXIT --> EXECUTIVE([Stall Continues: Executive Intervention Sponsor Re-engagement])
 
-    style DIAGNOSE fill:#2B89AC,stroke:#194E61,color:#fff
-    style RESPOND fill:#34A7D2,stroke:#24718E,color:#fff
-    style ESCALATE fill:#E4F7FD,stroke:#24718E,stroke-width:2px
-    style R1_TRIGGER fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style STAGE2 fill:#90C83D,stroke:#2D801B,color:#fff
+    class R1_TRIGGER,ESCALATION alert
+    class BLOCKER,TTV secondary
+    class REPLAN,MILESTONE primary
+    class STAGE2 success
+    class EXECUTIVE risk
+    class R1_EXIT risk
 ```
 
 ### Recovery 2 — Adoption Stall
@@ -1020,8 +1070,13 @@ flowchart TD
 **Trigger:** Stage 2 health score declining; success plan milestones missed; low feature adoption in core use cases.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     R2_TRIGGER([Adoption Stall Health Declining]) --> HEALTH
 
     subgraph DIAGNOSE ["Diagnosis — Plugin Supported"]
@@ -1038,14 +1093,11 @@ flowchart TD
     PLAN --> PREP
     STAKE --> VS
     VS --> R2_EXIT{Adoption Recovering?}
-    R2_EXIT -->|Yes| STAGE3([Resume Stage 3])
-    R2_EXIT -->|No| ESCALATION([csm.escalation-memo Escalate to Leadership])
-
-    style DIAGNOSE fill:#2B89AC,stroke:#194E61,color:#fff
-    style RESPOND fill:#34A7D2,stroke:#24718E,color:#fff
-    style R2_TRIGGER fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style STAGE3 fill:#90C83D,stroke:#2D801B,color:#fff
-    style ESCALATION fill:#E4F7FD,stroke:#24718E,stroke-width:2px
+    R2_EXIT --> STAGE3([Recovering: Resume Stage 3])
+    R2_EXIT --> ESCALATION([Not Recovering: csm.escalation-memo Escalate to Leadership])
+    class R2_TRIGGER alert
+    class STAGE3 success
+    class ESCALATION risk
 ```
 
 ### Recovery 3 — Health Score Deterioration
@@ -1053,8 +1105,13 @@ flowchart TD
 **Trigger:** Stage 3 health score crosses red threshold; risk-flag fires; escalation criteria met.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     R3_TRIGGER([Health Score Red Risk Flag Active]) --> RISK
 
     subgraph DIAGNOSE ["Diagnosis — Plugin Supported"]
@@ -1070,14 +1127,11 @@ flowchart TD
 
     PLAYBOOK --> TARO
     ESCALATION --> R3_EXIT{Health Score Improving?}
-    R3_EXIT -->|Yes| STAGE4([Resume Stage 4])
-    R3_EXIT -->|No| RENEWAL([Accelerate to Stage 5 Renewal Assessment])
-
-    style DIAGNOSE fill:#2B89AC,stroke:#194E61,color:#fff
-    style RESPOND fill:#34A7D2,stroke:#24718E,color:#fff
-    style R3_TRIGGER fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style STAGE4 fill:#90C83D,stroke:#2D801B,color:#fff
-    style RENEWAL fill:#2B89AC,stroke:#194E61,color:#fff
+    R3_EXIT --> STAGE4([Improving: Resume Stage 4])
+    R3_EXIT --> RENEWAL([Not Improving: Accelerate to Stage 5 Renewal Assessment])
+    class R3_TRIGGER alert
+    class STAGE4 success
+    class RENEWAL secondary
 ```
 
 ### Recovery 4 — Value Realization Gap
@@ -1085,8 +1139,13 @@ flowchart TD
 **Trigger:** `rev-ops.outcome-to-value-tracking` shows realized value below expected value threshold; deal-to-outcome tracing identifies undelivered commitments.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     R4_TRIGGER([Value Gap Detected Realized < Expected]) --> TRACE
 
     subgraph DIAGNOSE ["Diagnosis — Plugin Supported"]
@@ -1104,14 +1163,11 @@ flowchart TD
     VS --> NBA
     LEAK --> NBA
     NBA --> R4_EXIT{Value Gap Closing?}
-    R4_EXIT -->|Yes| STAGE5_PREP([Proceed to Renewal with Adjusted Narrative])
-    R4_EXIT -->|No| EXECUTIVE([Executive Alignment Conversation Required])
-
-    style DIAGNOSE fill:#2B89AC,stroke:#194E61,color:#fff
-    style RESPOND fill:#34A7D2,stroke:#24718E,color:#fff
-    style R4_TRIGGER fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style STAGE5_PREP fill:#2B89AC,stroke:#194E61,color:#fff
-    style EXECUTIVE fill:#E4F7FD,stroke:#24718E,stroke-width:2px
+    R4_EXIT --> STAGE5_PREP([Closing: Proceed to Renewal with Adjusted Narrative])
+    R4_EXIT --> EXECUTIVE([Not Closing: Executive Alignment Conversation Required])
+    class R4_TRIGGER alert
+    class STAGE5_PREP secondary
+    class EXECUTIVE risk
 ```
 
 ### Recovery 5 — Renewal At-Risk
@@ -1119,8 +1175,13 @@ flowchart TD
 **Trigger:** `renewals.renewal-forecast` returns low-confidence or high-risk; Stage 5 risk assessment flags multiple HIGH-severity items; churn signals active.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     R5_TRIGGER([Renewal At-Risk Multiple HIGH Severity Flags]) --> CHURN
 
     subgraph DIAGNOSE ["Diagnosis — Plugin Supported"]
@@ -1141,17 +1202,13 @@ flowchart TD
     RISK --> NEGO
     CONTRACT --> PRICE
     PRICE --> R5_EXIT{Renewal Saved?}
-    R5_EXIT -->|Yes| STAGE6([Stage 6 — Advocacy])
-    R5_EXIT -->|Downgrade| STAGE4([Adjusted Renewal Return to Stage 4])
-    R5_EXIT -->|Churn| STAGE7([Stage 7 — Churn Analysis])
-
-    style DIAGNOSE fill:#E4F7FD,stroke:#24718E,stroke-width:2px
-    style RESPOND fill:#34A7D2,stroke:#24718E,color:#fff
-    style SAVE fill:#2B89AC,stroke:#194E61,color:#fff
-    style R5_TRIGGER fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style STAGE6 fill:#90C83D,stroke:#2D801B,color:#fff
-    style STAGE4 fill:#2B89AC,stroke:#194E61,color:#fff
-    style STAGE7 fill:#DC3F30,stroke:#9B2D23,color:#fff
+    R5_EXIT --> STAGE6([Saved: Stage 6 — Advocacy])
+    R5_EXIT --> STAGE4([Downgrade: Adjusted Renewal Return to Stage 4])
+    R5_EXIT --> STAGE7([Churned: Stage 7 — Churn Analysis])
+    class R5_TRIGGER alert
+    class STAGE6 success
+    class STAGE4 secondary
+    class STAGE7 alert
 ```
 
 ### Recovery 6 — Post-Churn Learning Loop
@@ -1159,8 +1216,13 @@ flowchart TD
 **Trigger:** Stage 7 entry — churn confirmed. Not a save motion; a systemic learning motion.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart TD
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     R6_TRIGGER([Churn Confirmed Stage 7 Entry]) --> CHURN
 
     subgraph FORENSIC ["Post-Mortem — Plugin Supported"]
@@ -1180,17 +1242,14 @@ flowchart TD
         ICP[Stage 0 ICP Refinement cs-ops.cold-start-interview + cs-ops.customize]
     end
 
-    CLASSIFY -->|Product/Capability Gap| L1
-    CLASSIFY -->|Process/Execution Gap| PLAYBOOK
+    CLASSIFY --> PROD_ROUTE([Product/Capability Gap])
+    CLASSIFY --> PROC_ROUTE([Process/Execution Gap])
+    PROD_ROUTE --> L1
+    PROC_ROUTE --> PLAYBOOK
     L1 --> ICP
     PLAYBOOK --> ICP
-
-    style FORENSIC fill:#2B89AC,stroke:#194E61,color:#fff
-    style PRODUCT_TRACK fill:#2B89AC,stroke:#194E61,color:#fff
-    style PROCESS_TRACK fill:#2B89AC,stroke:#194E61,color:#fff
-    style SIGNAL fill:#34A7D2,stroke:#24718E,color:#fff
-    style R6_TRIGGER fill:#DC3F30,stroke:#9B2D23,color:#fff
-    style ICP fill:#34A7D2,stroke:#24718E,color:#fff
+    class R6_TRIGGER alert
+    class ICP primary
 ```
 
 Recovery 6 is the only workflow where the terminal node is a system input, not an account outcome. The churn learning loop feeds directly into Stage 0 configuration, completing the feedback cycle that makes the entire framework adaptive over time.
@@ -1271,8 +1330,13 @@ These four skills operate at the organizational design level — territory alloc
 ### Cross-Cutting Operations — Summary View
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'primaryColor': '#E4F7FD', 'primaryBorderColor': '#24718E', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#24718E', 'lineColor': '#424343', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'fontFamily': 'Poppins', 'fontSize': '13px', 'primaryColor': '#E4F7FD', 'primaryTextColor': '#424343', 'primaryBorderColor': '#6BBFDE', 'secondaryColor': '#E4F7FD', 'tertiaryColor': '#E4F7FD', 'tertiaryBorderColor': '#6BBFDE', 'clusterBkg': '#E4F7FD', 'clusterBorder': '#6BBFDE', 'titleColor': '#24718E', 'lineColor': '#2B89AC', 'nodeBorder': '#24718E', 'mainBkg': '#E4F7FD', 'edgeLabelBackground': 'transparent'}}}%%
 flowchart LR
+    classDef primary fill:#34A7D2,stroke:#24718E,color:#fff
+    classDef secondary fill:#2B89AC,stroke:#194E61,color:#fff
+    classDef success fill:#90C83D,stroke:#2D801B,color:#fff
+    classDef alert fill:#DC3F30,stroke:#DC3F30,color:#fff
+    classDef risk fill:#E4F7FD,stroke:#24718E,stroke-width:2px
     subgraph CS_OPS ["CS Operations (5 skills) Portfolio & Process Health"]
         CO1[cs-ops.capacity-planner]
         CO2[cs-ops.data-quality-check]
@@ -1313,18 +1377,13 @@ flowchart LR
         TC4[change-communication-packaging]
     end
 
-    CS_OPS -->|Data quality feeds| LIFECYCLE[(Stage 0–7 Lifecycle Skills)]
-    DEAL -->|Deal data feeds| LIFECYCLE
-    PIPELINE -->|Revenue model feeds| FORECAST[(Stage 5–6 Forecast & Renewal)]
-    TERRITORY -->|Capacity feeds| STAGE0[(Stage 0 Configuration)]
-
-    style CS_OPS fill:#34A7D2,stroke:#24718E,color:#fff
-    style PIPELINE fill:#2B89AC,stroke:#194E61,color:#fff
-    style DEAL fill:#2B89AC,stroke:#194E61,color:#fff
-    style TERRITORY fill:#2B89AC,stroke:#194E61,color:#fff
-    style LIFECYCLE fill:#2B89AC,stroke:#194E61,color:#fff
-    style FORECAST fill:#90C83D,stroke:#2D801B,color:#fff
-    style STAGE0 fill:#2B89AC,stroke:#194E61,color:#fff
+    CS_OPS --> LIFECYCLE[(CS Ops: Data Quality → Stage 0–7 Lifecycle Skills)]
+    DEAL --> LIFECYCLE
+    PIPELINE --> FORECAST[(RevOps: Revenue Model → Stage 5–6 Forecast & Renewal)]
+    TERRITORY --> STAGE0[(RevOps: Capacity → Stage 0 Configuration)]
+    class LIFECYCLE secondary
+    class FORECAST success
+    class STAGE0 secondary
 ```
 
 The diagram shows how the four subsections connect to the lifecycle skills. CS Operations and Deal Quality feed data quality into the lifecycle. Pipeline & Forecast feeds the renewal and revenue intelligence layers. Territory & Strategy feeds Stage 0 capacity configuration — the starting condition for every customer journey.

@@ -1,6 +1,6 @@
 # Claude for Customer Success
 
-A suite of five Claude Code plugins that bring AI-native support to every function in a modern Customer Success and Revenue Operations organization — CSMs, CS Ops, renewals specialists, onboarding teams, and RevOps. Methodology-opinionated (SuccessCOACHING), tool-agnostic.
+A suite of five Claude Code/Claude Cowork plugins that bring AI-native support to every function in a modern Customer Success and Revenue Operations organization — CSMs, CS Ops, renewals specialists, onboarding teams, and RevOps. Methodology-opinionated (SuccessCOACHING methodologies and frameworks), tool-agnostic.
 
 ---
 
@@ -20,9 +20,9 @@ Each plugin installs independently. Install only what your team needs.
 
 ## Methodology
 
-This suite is built on the **SuccessCOACHING** methodology — specifically the **TARO framework** (Trigger, Action, Resource, Outcome) and the **Customer Journey Workflow** (Onboarding → Adoption → Value Realization → Renewal/Expansion). Skills reference these frameworks natively.
+This suite is built on the **SuccessCOACHING** Customer Success Managment methodologies and frameworks — specifically the **TARO Playbook framework** (Trigger, Action, Resource, Outcome) and the **Customer Value Chain** (Onboarding → Adoption → Value Realization → Renewal/Expansion). Skills reference these frameworks natively.
 
-You don't need prior SuccessCOACHING certification. Cold-start interviews introduce relevant methodology concepts contextually, tied to your actual accounts and tools.
+You don't need prior experience with the SuccessCOACHING methodologies and fraemworks as they are encoded into the design of the plugins. Cold-start interviews introduce relevant methodology concepts contextually, tied to your actual accounts and tools.
 
 ---
 
@@ -51,7 +51,7 @@ Subsequent plugin installs reuse the shared company profile and skip company-lev
 
 Each plugin works with whatever you have connected. Cold-start will detect what's available and report which integrations are live. Skills have fallbacks for every integration — no connector required to get value, but connected tools give significantly richer outputs.
 
-**CSM** — CRM (Salesforce, HubSpot, Gainsight), CS Platform (Gainsight, Totango, ChurnZero, Vitally, Planhat), Call recording (Gong, Chorus, Clari)
+**CSM** — CRM (Salesforce, HubSpot), CS Platform (Gainsight, Totango, ChurnZero, Vitally, Planhat), Call recording (Gong, Chorus, Clari, Krisp)
 
 **CS Ops** — Data warehouse (Snowflake, BigQuery, Redshift), CS Platform, BI (Looker, Tableau, Metabase)
 
@@ -59,7 +59,7 @@ Each plugin works with whatever you have connected. Cold-start will detect what'
 
 **Onboarding** — Project management (Asana, Linear, Jira, Monday), CRM
 
-**Rev-Ops** — CRM (HubSpot), Slack, Google Drive, Linear, CS Platform, Zapier
+**Rev-Ops** — CRM (Salesforce, HubSpot), Slack, Google Drive, CS Platform, Zapier
 
 ---
 
@@ -97,7 +97,7 @@ The [`managed-agent-cookbooks/`](./managed-agent-cookbooks/) directory contains 
 | [`deal-desk-watcher`](./rev-ops/managed-agent-cookbooks/deal-desk-watcher/) | SLA breach monitor across stage age, approval aging, close date drift, and single-threaded risk |
 | [`planning-cycle-orchestrator`](./rev-ops/managed-agent-cookbooks/planning-cycle-orchestrator/) | Five-phase GTM planning cycle with phase-gate governance and Slack digest after every run |
 
-Agent registration files for the CS suite agents live in `csm/agents/` and `renewals/agents/`; rev-ops agent cookbooks live in `rev-ops/managed-agent-cookbooks/`. See each cookbook's `README.md` for deployment instructions and `steering-examples.json` for prompting patterns. Full architecture documentation is in [`managed-agent-cookbooks/README.md`](./managed-agent-cookbooks/README.md).
+Agent registration files for the CS plugin agents live in `csm/agents/` and `renewals/agents/`; rev-ops agent cookbooks live in `rev-ops/managed-agent-cookbooks/`. See each cookbook's `README.md` for deployment instructions and `steering-examples.json` for prompting patterns. Full architecture documentation is in [`managed-agent-cookbooks/README.md`](./managed-agent-cookbooks/README.md).
 
 ---
 
@@ -117,7 +117,7 @@ All five plugins enforce these constraints — they are not optional and cannot 
 
 ## Architecture Extensions
 
-The 72 skills across these five plugins are built on the standard Claude Code SKILL.md pattern — frontmatter metadata, trigger blocks, instruction body, and guardrails. That baseline is sufficient for a standalone skill. It isn't sufficient for a coordinated suite where 72 skills across 5 plugins need to produce consistent outputs, apply the same domain formulas, enforce the same behavioral constraints, and remain maintainable over time.
+The 72 skills across these five plugins are built on the standard [Agent Skills](https://agentskills.io/) SKILL.md pattern — frontmatter metadata, trigger blocks, instruction body, and guardrails. That baseline is sufficient for a standalone skill. It isn't sufficient for a coordinated suite where 72 skills across 5 plugins need to produce consistent outputs, apply the same domain formulas, enforce the same behavioral constraints, and remain maintainable over time.
 
 A single-skill codebase gets away with embedding domain logic in the skill itself. A 72-skill suite that does that drifts — health score bands defined differently in the CSM health review skill vs. the CS Ops health model review skill, GRR formulas that don't match across renewals and ops, guardrails that exist in some skills but not others. The extensions below solve that problem.
 
@@ -209,11 +209,11 @@ Plugin templates (this directory) ship with the plugin and are replaced on updat
 
 ## Add-ons
 
-### AUQ Failsafe
+### AUQ Resilience
 
 **Package:** [`auq-resilience/`](./auq-resilience/)
 
-An optional infrastructure add-on that makes `ask_user_input_v0` resilient to render failures. The CS suite plugins use `ask_user_input_v0` extensively — when it works, the user gets an interactive multiple-choice widget; when it fails (unsupported client, missed render, tool error), Claude receives an empty response with no recoverable path.
+An optional infrastructure add-on that makes `ask_user_input_v0` resilient to render failures. The CS plugins use `ask_user_input_v0` extensively — when it works, the user gets an interactive multiple-choice widget; when it fails (unsupported client, missed render, tool error), Claude receives an empty response with no recoverable path.
 
 The `auq-resilience` plugin installs two Claude Code hooks that detect failures and inject a plain-text multiple-choice fallback so Claude can always proceed. It does not change how AUQ works when it works — it only catches failures.
 
@@ -225,6 +225,6 @@ See [`auq-resilience/README.md`](./auq-resilience/README.md) for install steps a
 
 ## Version
 
-`claude-for-customer-success` v1.0.0 · Built for Anthropic Claude Code.
+`claude-for-customer-success` v1.0.0 · Built for Anthropic Claude Code and Claude Cowork.
 
 Compatible with Claude claude-sonnet-4-6 and claude-opus-4-6.
