@@ -196,7 +196,7 @@ The table below shows which connectors are required vs. optional per plugin. Ski
 
 ## Managed Agent Cookbooks
 
-The [`managed-agent-cookbooks/`](./managed-agent-cookbooks/) directory contains ten agents for teams running Claude as a background workflow engine, plus five rev-ops agents in [`rev-ops/managed-agent-cookbooks/`](./rev-ops/managed-agent-cookbooks/). Six CS suite agents are scheduled headless agents that run autonomously on a cron cadence; four are on-demand agents. All five rev-ops agents support both scheduled and on-demand modes.
+The [`managed-agent-cookbooks/`](./managed-agent-cookbooks/) directory contains fifteen agents for teams running Claude as a background workflow engine, plus five rev-ops agents in [`rev-ops/managed-agent-cookbooks/`](./rev-ops/managed-agent-cookbooks/). Six CS suite agents are scheduled headless agents that run autonomously on a cron cadence; four are on-demand agents; and five form the coordinated value-map-system fleet. All five rev-ops agents support both scheduled and on-demand modes.
 
 Each cookbook agent is a thin orchestration layer over the existing plugin skills. It does not define new capabilities. The scheduled agents call the same skills available interactively; what changes is invocation authority (the agent runs unattended) and output routing (Slack digest, Linear issue, or file write instead of chat response).
 
@@ -229,6 +229,20 @@ Each cookbook agent is a thin orchestration layer over the existing plugin skill
 | [`churn-signal-scanner`](./rev-ops/managed-agent-cookbooks/churn-signal-scanner/) | Tier 1/2/3 churn signal scan; Tier-3 triggers Linear escalation with human confirmation |
 | [`deal-desk-watcher`](./rev-ops/managed-agent-cookbooks/deal-desk-watcher/) | SLA breach monitor across stage age, approval aging, close date drift, and single-threaded risk |
 | [`planning-cycle-orchestrator`](./rev-ops/managed-agent-cookbooks/planning-cycle-orchestrator/) | Five-phase GTM planning cycle with phase-gate governance and Slack digest after every run |
+
+### Value map system (multi-cookbook fleet)
+
+The [`value-map-system`](./managed-agent-cookbooks/value-map-system/) is a coordinated fleet of five cookbooks operating on a shared filesystem control plane — the Customer Value Map. Unlike the single-purpose agents above, this system maintains persistent per-account state across the full customer lifecycle. Agents are classified by write authority: **Blue agents** write to the Value Map; **Green agents** read from it. P1/P2 leakage blocks Green agent output completely — no score, brief, or expansion angle is produced until leakage is resolved.
+
+| Agent | Color | Trigger | What it does |
+|-------|-------|---------|--------------|
+| [`hie`](./managed-agent-cookbooks/value-map-system/) — Handoff Integrity Enforcer | 🔵 Blue | CRM `opportunity.won` | Builds the initial Value Map from the sales handoff; enforces seven-stage value chain alignment before kickoff |
+| [`vmb`](./managed-agent-cookbooks/value-map-system/) — Value Map Builder | 🔵 Blue | CS platform `kickoff_completed` | Populates all four quadrants from kickoff interviews, early usage data, and the success plan |
+| [`vcs`](./managed-agent-cookbooks/value-map-system/) — Value Chain Position Scanner | 🟢 Green | Weekly, Mon 06:00 | Scores position health (stage alignment, evidence density, active leakage); flags P1/P2 leakage patterns |
+| [`qbr`](./managed-agent-cookbooks/value-map-system/) — QBR Intelligence Agent | 🟢 Green | 14 days before renewal | Generates QBR brief from full Value Map history; hard-blocked by active P1/P2 leakage |
+| [`erd`](./managed-agent-cookbooks/value-map-system/) — Expansion Readiness Detector | 🟢 Green | Weekly, Mon 06:00 + Growth stage entry | Evaluates expansion signal against leakage state; produces no score or brief when active leakage exists |
+
+See [`managed-agent-cookbooks/value-map-system/README.md`](./managed-agent-cookbooks/value-map-system/README.md) for the full Value Map schema, position health scoring model, and leakage pattern taxonomy.
 
 Agent registration files for the CS plugin agents live in `csm/agents/` and `renewals/agents/`; rev-ops agent cookbooks live in `rev-ops/managed-agent-cookbooks/`. See each cookbook's `README.md` for deployment instructions and `steering-examples.json` for prompting patterns. Full architecture documentation is in [`managed-agent-cookbooks/README.md`](./managed-agent-cookbooks/README.md).
 
