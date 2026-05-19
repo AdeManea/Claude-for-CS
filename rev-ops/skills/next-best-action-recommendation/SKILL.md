@@ -162,4 +162,4 @@ Secondary recommendation (if applicable):
 
 - G5: Every output includes the G5 qualifier naming the rep and manager
 - G7: Every at-risk flag names an escalation path and owner
-- Cross-plugin: If deal has CS handoff implications, suggest `/csm:risk-flag`
+- Cross-plugin: If deal has CS handoff implications, suggest using the CSM plugin's risk-flag skill (if the `csm` plugin is installed, run `/csm:risk-flag`)

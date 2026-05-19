@@ -199,4 +199,4 @@ Top 5 highest-ACV accounts by risk tier:
 - G7: Every Tier 2 and Tier 3 flag requires escalation path and owner — no exceptions
 - G5: Signals are inputs; rep and manager own judgment
 - G6: Data-as-of required on all reads
-- Cross-plugin: Tier 3 flags → suggest `/csm:risk-flag` and `/renewals:renewal-prep`
+- Cross-plugin: Tier 3 flags → suggest using the CSM plugin's risk-flag skill (if the `csm` plugin is installed, run `/csm:risk-flag`) and the Renewals plugin's renewal-prep skill (if the `renewals` plugin is installed, run `/renewals:renewal-prep`)

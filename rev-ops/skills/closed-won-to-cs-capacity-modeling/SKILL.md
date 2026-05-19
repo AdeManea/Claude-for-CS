@@ -24,7 +24,7 @@ The skill that prevents hiring CSMs one quarter after you needed them.
 - Onboarding capacity planning requires modeling against pipeline close projections
 - CS hiring or resource decisions need to be tied to revenue intake rate
 
-**Upstream dependency:** Before using this skill, run `/cs-ops:capacity-planner` to establish current CSM load and coverage ratios — this skill models incoming volume against that capacity baseline.
+**Upstream dependency:** Before using this skill, establish current CSM load and coverage ratios using the CS Ops plugin's capacity-planner skill (if the `cs-ops` plugin is installed, run `/cs-ops:capacity-planner`) — this skill models incoming volume against that capacity baseline.
 
 ## Do NOT use for
 - Individual CS assignment decisions (use handoff workflow)

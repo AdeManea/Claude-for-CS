@@ -41,7 +41,7 @@ Note from config: `crm_system`, `primary_segment`
 - Stage entry/exit criteria validation (use stage-integrity-audit)
 - Duplicate contact or company detection (use duplicate-detection)
 - Field completion rate monitoring over time (use field-completion-monitoring)
-- CS platform data quality — use /cs-ops:data-quality-check
+- CS platform data quality — use the CS Ops plugin's data-quality-check skill (if the `cs-ops` plugin is installed, run `/cs-ops:data-quality-check`)
 
 ## Typical Activation
 "CRM hygiene audit", "audit the CRM", "hygiene sweep before forecast", "clean up the pipeline"

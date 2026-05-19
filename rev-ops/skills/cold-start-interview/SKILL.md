@@ -106,7 +106,7 @@ profile. Would you like to update specific fields, or run the full setup again?"
 Update mode: ask only which fields need changing. Full re-run: proceed with all steps.
 
 **If neither exists:** Run the full interview. Company-level questions are NOT in scope
-— direct the user to run `/csm:cold-start-interview` (or any other C4CS plugin) first
+— direct the user to run the CSM plugin's cold-start-interview skill (if the `csm` plugin is installed, run `/csm:cold-start-interview`) or any other C4CS plugin first
 if company profile is missing. Offer to proceed with a minimal profile using only
 session-provided values if they want to skip full setup.
 
@@ -226,7 +226,7 @@ If Planned on quota/pipeline:
   Ask: "What version is it, and when was it last ratified?" (to populate `catalog_version` and `ratified_date` if PLACEHOLDER).
 - If `catalog_path` is `[PLACEHOLDER]` or `[PENDING]` (catalog not yet built):
   Tell the user: "No Outcome & Value Catalog is registered yet. Your rev-ops skills will run in degraded mode for outcome-linked skills until one exists."
-  Offer: "Run `/csm:cold-start-interview --generate-outcome-catalog` to automatically build your catalog from public product sources. The path will be registered in company-profile.md and read by all C4CS agents — including rev-ops — automatically."
+  Offer: "Use the CSM plugin's cold-start-interview skill with --generate-outcome-catalog to automatically build your catalog from public product sources (if the `csm` plugin is installed, run `/csm:cold-start-interview --generate-outcome-catalog`). The path will be registered in company-profile.md and read by all C4CS agents — including rev-ops — automatically."
   Write `catalog_path: [PENDING]` in the company profile and move on.
 
 **Group F — Optional enrichment**
@@ -306,7 +306,7 @@ Skills running in degraded mode:
   deal-to-outcome-tracing      [Confidence: Low] — OCV catalog absent
   early-churn-downgrade        [Tier 1: Rule mode] — no cohort data
 
-To improve: run /csm:cold-start-interview --generate-outcome-catalog to build your OCV catalog.
+To improve: use the CSM plugin's cold-start-interview skill with --generate-outcome-catalog to build your OCV catalog (if the csm plugin is installed, run /csm:cold-start-interview --generate-outcome-catalog).
 The path will be registered in company-profile.md and read automatically by rev-ops skills.
 ─────────────────────────────────────────────────────────────
 ```

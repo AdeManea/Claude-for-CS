@@ -29,7 +29,7 @@ Know whether CSMs have too much on their plate — and what to do about it.
   product or relationship issue
 - A segment analysis has flagged a coverage gap and you need the capacity follow-up
 
-**Downstream dependency:** After this skill produces capacity analysis, use `/rev-ops:closed-won-to-cs-capacity-modeling` to model whether CS can absorb projected closed-won volume given current capacity.
+**Downstream dependency:** After this skill produces capacity analysis, use the Rev-Ops plugin's closed-won-to-cs-capacity-modeling skill to model whether CS can absorb projected closed-won volume given current capacity (if the `rev-ops` plugin is installed, run `/rev-ops:closed-won-to-cs-capacity-modeling`).
 
 ## Do NOT use for
 

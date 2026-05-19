@@ -5,9 +5,9 @@ description: >
   metrics definitions, tooling stack, health model governance, reporting
   cadence, and team structure to produce the cs-ops practice config file.
   Runs automatically on first use of any cs-ops skill when config is missing.
-  Distinct from /csm:cold-start-interview: this skill configures the CS-Ops
-  plugin (portfolio analytics, capacity planning, data quality) rather than
-  the CSM skill set (account-level execution).
+  Distinct from the CSM plugin's cold-start-interview skill (which configures
+  the CSM skill set for account-level execution); this skill configures the
+  CS-Ops plugin (portfolio analytics, capacity planning, data quality).
 argument-hint: "[--full | --section <section-name>]"
 version: "1.0.0"
 deployment_target: plugin

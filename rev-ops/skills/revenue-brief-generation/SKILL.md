@@ -47,7 +47,7 @@ dashboard — it synthesizes across functions for leadership or board consumptio
 - Detailed forecast variance decomposition (use forecast-variance-analysis)
 - Deal-level detail (this is a brief, not a deal review)
 - CS-internal operational reporting — weekly triage, CSM performance summaries,
-  or GRR/NRR dashboards for the CS team (use `/cs-ops:metric-dashboard`)
+  or GRR/NRR dashboards for the CS team (use the CS Ops plugin's metric-dashboard skill; if the `cs-ops` plugin is installed, run `/cs-ops:metric-dashboard`)
 - Cross-functional metrics dashboard covering pipeline, handoff quality, and CS capacity signals — use `gtm-unified-metrics-pulse`
 
 ## Typical Activation
