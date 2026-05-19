@@ -81,7 +81,7 @@ Install `auq-resilience` alongside any other plugin to prevent dead-end AUQ widg
 
 Each plugin is a self-contained Claude Code / Cowork bundle containing skills, commands, and connector configuration. Skills are triggered automatically when their conditions match; commands are invoked explicitly with `/[plugin]:[command]`.
 
-The `cold-start-interview` in each plugin writes a **practice profile** — a Markdown file at `~/.claude/plugins/config/claude-for-customer-success/[plugin]/CLAUDE.md`. Every subsequent skill reads that file for firm context: your CRM field names, health score thresholds, escalation matrix, renewal risk criteria, and template preferences. Update it at any time with `/[plugin]:customize`.
+The `cold-start-interview` in each plugin writes a **company profile** — a Markdown file at `~/.claude/plugins/config/claude-for-customer-success/[plugin]/CLAUDE.md`. Every subsequent skill reads that file for firm context: your CRM field names, health score thresholds, escalation matrix, renewal risk criteria, and template preferences. Update it at any time with `/[plugin]:customize`.
 
 Connector dependencies are soft. Skills degrade gracefully when a connector is absent — they tell you what data they couldn't retrieve rather than failing silently. Edit `.mcp.json` in the plugin directory to point connectors at your specific CRM instance, CS platform, or Slack workspace.
 
@@ -111,7 +111,7 @@ Close and reopen Cowork or restart Claude Code. If the plugin still doesn't appe
 **Cold-start interview widget doesn't render**
 Install `auq-resilience` alongside the plugin. It catches empty widget responses and injects a prose fallback so the interview can complete. Alternatively, type `/auq force-prose` to switch the session to prose-only questions.
 
-**Skills say "practice profile not found"**
+**Skills say "company profile not found"**
 Run `/[plugin]:cold-start-interview` to create the profile. If you've already done that, check whether the plugin is installed at project scope but the profile is at the user path — reinstall at user scope with no `--scope` flag.
 
 **Connector returns auth failure or timeout**
