@@ -1,5 +1,13 @@
 # Claude for Customer Success
 
+[![License](https://img.shields.io/github/license/t0ddc3by/claude-for-customer-success)](./LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/t0ddc3by/claude-for-customer-success)](https://github.com/t0ddc3by/claude-for-customer-success/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/t0ddc3by/claude-for-customer-success)](https://github.com/t0ddc3by/claude-for-customer-success/commits)
+[![Plugins](https://img.shields.io/badge/plugins-6-34A7D2)](./dist/)
+[![Skills](https://img.shields.io/badge/skills-81-2B89AC)](./csm/)
+[![Built for Claude](https://img.shields.io/badge/built%20for-Claude%20Code%20%7C%20Cowork-24718E)](https://claude.com/product/cowork)
+[![Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-90C83D)](./CHANGELOG.md)
+
 A reference implementation showing what AI-native Customer Success looks like when built on deep domain knowledge — not a deployment-ready product, but a working demonstration of what's possible and what a minimum viable architecture requires.
 
 Six Claude Code/Claude Cowork plugins covering every function in a modern CS organization: CSMs, CS Ops, renewals specialists, onboarding teams, RevOps (for Customer Success), and the infrastructure that connects them. Methodology-opinionated (SuccessCOACHING Customer Success methodologies and frameworks), tool-agnostic.
