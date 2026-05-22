@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/claude-for-cs-hero.png" alt="Claude for Customer Success" width="100%"/>
+  <img src="./public/claude-for-cs-hero.png" alt="Claude for Customer Success" width="100%"/>
 </p>
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-34A7D2)](./LICENSE)
