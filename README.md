@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/hero.png" alt="Claude for Customer Success" width="100%"/>
+  <img src="./docs/claude-for-cs-hero.png" alt="Claude for Customer Success" width="100%"/>
 </p>
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-34A7D2)](./LICENSE)
@@ -617,10 +617,10 @@ The coverage gaps in Stages 6 and 7 are architectural decisions, not oversights.
 
 Plugin templates (this directory) ship with the plugin and are replaced on update. User data lives only in `~/.claude/plugins/config/`.
 
-Practitioner deployment guides live in the repository under `user-cookbooks/`:
+Practitioner deployment guides live in the repository under `deployment-cookbooks/`:
 
 ```
-user-cookbooks/
+deployment-cookbooks/
 ├── README.md                   # Reference build explanation and tailoring guidance
 └── solo-csm-cookbook.md        # Solo CSM deployment guide — full lifecycle, personal use
 ```
@@ -659,17 +659,17 @@ The [`docs/`](./docs/) directory contains extended reference documentation:
 
 ---
 
-## User Cookbooks
+## Deployment Cookbooks
 
-The [`user-cookbooks/`](./user-cookbooks/) directory contains operational guides for practitioners deploying the suite. These are role-specific deployment companions — not the same as the automated managed-agent cookbooks in `managed-agent-cookbooks/`.
+The [`deployment-cookbooks/`](./deployment-cookbooks/) directory contains operational guides for practitioners deploying the suite. These are role-specific deployment companions — not the same as the automated managed-agent cookbooks in `managed-agent-cookbooks/`.
 
-> **These are reference builds, not plug-and-play deployments.** The plugins and workflows described in the cookbooks are designed around generalizable patterns. Every deployment requires tailoring to the specific tools, data schema, and CS motion of the organization using them. See [`user-cookbooks/README.md`](./user-cookbooks/README.md) for the full explanation of what "reference build" means and what tailoring is required before going live.
+> **These are reference builds, not plug-and-play deployments.** The plugins and workflows described in the cookbooks are designed around generalizable patterns. Every deployment requires tailoring to the specific tools, data schema, and CS motion of the organization using them. See [`deployment-cookbooks/README.md`](./deployment-cookbooks/README.md) for the full explanation of what "reference build" means and what tailoring is required before going live.
 
 | Cookbook | Audience | Status |
 |----------|----------|--------|
-| [`solo-csm-cookbook.md`](./user-cookbooks/solo-csm-cookbook.md) | Individual CSMs deploying the full suite for solo use across the customer lifecycle | [PROPOSED] |
+| [`solo-csm-cookbook.md`](./deployment-cookbooks/solo-csm-cookbook.md) | Individual CSMs deploying the full suite for solo use across the customer lifecycle | [PROPOSED] |
 
-To add a cookbook for a different role, motion, or deployment variant, follow the instructions in [`user-cookbooks/README.md`](./user-cookbooks/README.md).
+To add a cookbook for a different role, motion, or deployment variant, follow the instructions in [`deployment-cookbooks/README.md`](./deployment-cookbooks/README.md).
 
 ---
 

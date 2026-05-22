@@ -1,4 +1,4 @@
-# user-cookbooks/
+# deployment-cookbooks/
 
 This folder contains operational cookbooks for users deploying the `claude-for-customer-success` plugin suite.
 
