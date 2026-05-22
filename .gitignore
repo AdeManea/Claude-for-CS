@@ -45,3 +45,6 @@ context/
 **/skills/*/evals/
 **/skills/*-workspace/evals/
 # references/ is intentionally NOT ignored — it holds skill scripts, assets, and reference materials
+
+# Skill zip artifacts
+**/skills/*.zip
