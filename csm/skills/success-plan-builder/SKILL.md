@@ -319,7 +319,7 @@ Return specific edits with section references.
 ## Reviewer note (internal)
 
 > **⚠️ Reviewer note**
-> - **Sources:** [Customer goals: [source] | CRM ✓ live | Document: [doc name, date] | user-provided]
+> - **Sources:** [Customer goals: [source] | CRM ✓ live | CRM [configured but unverified] | Document: [doc name, date] | user-provided | not connected — conversation context only]
 > - **Success criteria source:** [Account-specific from [source] | configured standard template — customize before finalizing]
 > - **Data as of:** [timestamp]
 > - **Flagged for your judgment:** [N items marked `[review]` inline | none]

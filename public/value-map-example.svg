@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" font-family="Poppins, 'Helvetica Neue', Arial, sans-serif" role="img" aria-label="Sample Customer Value Map for Acme Corp showing four quadrants, position vector across seven value chain stages, and signal flags">
+  <title>Customer Value Map — Acme Corp (sample)</title>
+
+  <!-- canvas background -->
+  <rect width="900" height="680" fill="#F8F8F8"/>
+
+  <!-- outer card -->
+  <rect x="24" y="24" width="852" height="632" rx="14" fill="#E4F7FD" stroke="#6BBFDE" stroke-width="1.5"/>
+
+  <!-- header strip -->
+  <rect x="40" y="40" width="820" height="56" rx="10" fill="#24718E"/>
+  <text x="60" y="70" fill="#F8F8F8" font-size="20" font-weight="600">Customer Value Map</text>
+  <text x="60" y="88" fill="#E4F7FD" font-size="12">Acme Corp · value-maps/acme/value-map.yaml · Last updated 2026-05-22</text>
+  <text x="840" y="70" fill="#F8F8F8" font-size="14" font-weight="600" text-anchor="end">Position Health: 78 / 100</text>
+  <text x="840" y="88" fill="#90C83D" font-size="12" font-weight="500" text-anchor="end">Tier 4 — routine engagement</text>
+
+  <!-- POSITION VECTOR section -->
+  <text x="40" y="125" fill="#24718E" font-size="13" font-weight="600">POSITION VECTOR — 7-Stage Value Chain</text>
+
+  <!-- track line -->
+  <line x1="100" y1="170" x2="800" y2="170" stroke="#6BBFDE" stroke-width="3"/>
+
+  <!-- Stage 1 (completed) -->
+  <circle cx="100" cy="170" r="16" fill="#90C83D" stroke="#2D801B" stroke-width="2"/>
+  <text x="100" y="175" fill="#F8F8F8" font-size="12" font-weight="700" text-anchor="middle">1</text>
+  <text x="100" y="200" fill="#424343" font-size="10" text-anchor="middle">Product</text>
+  <text x="100" y="212" fill="#424343" font-size="10" text-anchor="middle">Capabilities</text>
+
+  <!-- Stage 2 (completed) -->
+  <circle cx="217" cy="170" r="16" fill="#90C83D" stroke="#2D801B" stroke-width="2"/>
+  <text x="217" y="175" fill="#F8F8F8" font-size="12" font-weight="700" text-anchor="middle">2</text>
+  <text x="217" y="200" fill="#424343" font-size="10" text-anchor="middle">Deliverable</text>
+  <text x="217" y="212" fill="#424343" font-size="10" text-anchor="middle">Outcomes</text>
+
+  <!-- Stage 3 (completed) -->
+  <circle cx="334" cy="170" r="16" fill="#90C83D" stroke="#2D801B" stroke-width="2"/>
+  <text x="334" y="175" fill="#F8F8F8" font-size="12" font-weight="700" text-anchor="middle">3</text>
+  <text x="334" y="200" fill="#424343" font-size="10" text-anchor="middle">Desired</text>
+  <text x="334" y="212" fill="#424343" font-size="10" text-anchor="middle">Outcomes</text>
+
+  <!-- Stage 4 (completed) -->
+  <circle cx="451" cy="170" r="16" fill="#90C83D" stroke="#2D801B" stroke-width="2"/>
+  <text x="451" y="175" fill="#F8F8F8" font-size="12" font-weight="700" text-anchor="middle">4</text>
+  <text x="451" y="200" fill="#424343" font-size="10" text-anchor="middle">Business</text>
+  <text x="451" y="212" fill="#424343" font-size="10" text-anchor="middle">Goals</text>
+
+  <!-- Stage 5 (completed) -->
+  <circle cx="568" cy="170" r="16" fill="#90C83D" stroke="#2D801B" stroke-width="2"/>
+  <text x="568" y="175" fill="#F8F8F8" font-size="12" font-weight="700" text-anchor="middle">5</text>
+  <text x="568" y="200" fill="#424343" font-size="10" text-anchor="middle">Expected</text>
+  <text x="568" y="212" fill="#424343" font-size="10" text-anchor="middle">Value</text>
+
+  <!-- Stage 6 (in progress) -->
+  <circle cx="685" cy="170" r="16" fill="#34A7D2" stroke="#24718E" stroke-width="2"/>
+  <text x="685" y="175" fill="#F8F8F8" font-size="12" font-weight="700" text-anchor="middle">6</text>
+  <text x="685" y="200" fill="#24718E" font-size="10" font-weight="600" text-anchor="middle">Realized</text>
+  <text x="685" y="212" fill="#24718E" font-size="10" font-weight="600" text-anchor="middle">Value</text>
+
+  <!-- Stage 7 (not started) -->
+  <circle cx="802" cy="170" r="16" fill="#E4F7FD" stroke="#6BBFDE" stroke-width="2"/>
+  <text x="802" y="175" fill="#6BBFDE" font-size="12" font-weight="700" text-anchor="middle">7</text>
+  <text x="802" y="200" fill="#6BBFDE" font-size="10" text-anchor="middle">Business</text>
+  <text x="802" y="212" fill="#6BBFDE" font-size="10" text-anchor="middle">Impact</text>
+
+  <!-- FOUR QUADRANTS section -->
+  <text x="40" y="245" fill="#24718E" font-size="13" font-weight="600">FOUR QUADRANTS — Current Value State</text>
+
+  <!-- Top-Left: Promised Outcomes -->
+  <rect x="40" y="258" width="400" height="170" rx="8" fill="#F8F8F8" stroke="#34A7D2" stroke-width="1.5"/>
+  <path d="M 40 266 a 8 8 0 0 1 8 -8 h 384 a 8 8 0 0 1 8 8 v 24 h -400 z" fill="#34A7D2"/>
+  <text x="56" y="278" fill="#F8F8F8" font-size="12" font-weight="600">PROMISED OUTCOMES — set at Stage 0 (frozen)</text>
+  <circle cx="420" cy="274" r="11" fill="#F8F8F8"/>
+  <text x="420" y="278" fill="#24718E" font-size="11" font-weight="700" text-anchor="middle">3</text>
+  <text x="56" y="315" fill="#424343" font-size="12">• Reduce tier-2 escalation cycle 40–60%</text>
+  <text x="56" y="335" fill="#424343" font-size="12">• Improve first-contact resolution by 20pp</text>
+  <text x="56" y="355" fill="#424343" font-size="12">• Cut agent ramp time by 30%</text>
+  <text x="56" y="385" fill="#6BBFDE" font-size="11" font-style="italic">Source: sales handoff payload</text>
+  <text x="56" y="403" fill="#6BBFDE" font-size="11" font-style="italic">Linked OCV entries: 3 ratified</text>
+
+  <!-- Top-Right: Delivered Capabilities -->
+  <rect x="460" y="258" width="400" height="170" rx="8" fill="#F8F8F8" stroke="#2B89AC" stroke-width="1.5"/>
+  <path d="M 460 266 a 8 8 0 0 1 8 -8 h 384 a 8 8 0 0 1 8 8 v 24 h -400 z" fill="#2B89AC"/>
+  <text x="476" y="278" fill="#F8F8F8" font-size="12" font-weight="600">DELIVERED CAPABILITIES — Stages 1–3 (live)</text>
+  <circle cx="840" cy="274" r="11" fill="#F8F8F8"/>
+  <text x="840" y="278" fill="#194E61" font-size="11" font-weight="700" text-anchor="middle">3</text>
+  <text x="476" y="315" fill="#424343" font-size="12">• Article-match agent console (deployed)</text>
+  <text x="476" y="335" fill="#424343" font-size="12">• Tier-2 reporting dashboard (live)</text>
+  <text x="476" y="355" fill="#424343" font-size="12">• Routing rule engine (in progress)</text>
+  <text x="476" y="385" fill="#6BBFDE" font-size="11" font-style="italic">Source: CS Platform deployment events</text>
+  <text x="476" y="403" fill="#6BBFDE" font-size="11" font-style="italic">2 active · 1 in progress (ETA 2026-06-15)</text>
+
+  <!-- Bottom-Left: Realized Value -->
+  <rect x="40" y="442" width="400" height="170" rx="8" fill="#F8F8F8" stroke="#90C83D" stroke-width="1.5"/>
+  <path d="M 40 450 a 8 8 0 0 1 8 -8 h 384 a 8 8 0 0 1 8 8 v 24 h -400 z" fill="#90C83D"/>
+  <text x="56" y="462" fill="#F8F8F8" font-size="12" font-weight="600">REALIZED VALUE — evidence-based</text>
+  <circle cx="420" cy="458" r="11" fill="#F8F8F8"/>
+  <text x="420" y="462" fill="#2D801B" font-size="11" font-weight="700" text-anchor="middle">2</text>
+  <text x="56" y="499" fill="#424343" font-size="12">✓ Cycle 4.2d → 1.9d (2026-03-12, dashboard)</text>
+  <text x="56" y="519" fill="#424343" font-size="12">✓ FCR 73% → 91% (Q1 QBR, Sarah Kim VP)</text>
+  <text x="56" y="569" fill="#2D801B" font-size="11" font-style="italic">2 named-source entries · NEVER-rule-1 verified</text>
+  <text x="56" y="587" fill="#2D801B" font-size="11" font-style="italic">Stage 6 position: in_progress</text>
+
+  <!-- Bottom-Right: Unrealized Potential -->
+  <rect x="460" y="442" width="400" height="170" rx="8" fill="#F8F8F8" stroke="#6BBFDE" stroke-width="1.5"/>
+  <path d="M 460 450 a 8 8 0 0 1 8 -8 h 384 a 8 8 0 0 1 8 8 v 24 h -400 z" fill="#6BBFDE"/>
+  <text x="476" y="462" fill="#F8F8F8" font-size="12" font-weight="600">UNREALIZED POTENTIAL — leakage gaps</text>
+  <circle cx="840" cy="458" r="11" fill="#F8F8F8"/>
+  <text x="840" y="462" fill="#194E61" font-size="11" font-weight="700" text-anchor="middle">1</text>
+  <text x="476" y="499" fill="#424343" font-size="12">• Pattern: capability_outcome_gap</text>
+  <text x="476" y="519" fill="#424343" font-size="12">  Routing engine deployed; ramp metric</text>
+  <text x="476" y="539" fill="#424343" font-size="12">  not yet improved (Stage 6 evidence absent)</text>
+  <text x="476" y="569" fill="#194E61" font-size="11" font-style="italic">Priority: P3 (caution) · no hard block</text>
+  <text x="476" y="587" fill="#194E61" font-size="11" font-style="italic">Diagnosed: 2026-05-15 by VCS</text>
+
+  <!-- Footer signal flags -->
+  <rect x="40" y="624" width="820" height="24" rx="6" fill="#E4F7FD" stroke="#6BBFDE" stroke-width="1"/>
+  <text x="56" y="640" fill="#424343" font-size="11" font-weight="600">SIGNAL FLAGS</text>
+  <circle cx="156" cy="636" r="4" fill="#90C83D"/>
+  <text x="166" y="640" fill="#424343" font-size="11">stale_flag: false</text>
+  <text x="280" y="640" fill="#6BBFDE" font-size="11" text-anchor="middle">·</text>
+  <circle cx="297" cy="636" r="4" fill="#6BBFDE"/>
+  <text x="307" y="640" fill="#424343" font-size="11">intervention_priority: P3</text>
+  <text x="450" y="640" fill="#6BBFDE" font-size="11" text-anchor="middle">·</text>
+  <text x="466" y="640" fill="#424343" font-size="11">crm_opportunity_id: hubspot/4429181</text>
+  <text x="730" y="640" fill="#6BBFDE" font-size="11" text-anchor="middle">·</text>
+  <text x="745" y="640" fill="#24718E" font-size="11" font-weight="600">version: 2026-05-22</text>
+</svg>

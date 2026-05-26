@@ -1,44 +1,36 @@
 {
   "mcpServers": {
     "hubspot": {
-      "type": "url",
-      "url": "${HUBSPOT_MCP_URL}",
-      "note": "CRM — pipeline stages, deal data, contact records, activity history"
+      "type": "http",
+      "url": "https://hubspot-mcp.example.com/mcp"
     },
     "slack": {
-      "type": "url",
-      "url": "${SLACK_MCP_URL}",
-      "note": "Team communication — GTM pulse delivery, capacity alerts, churn signal digests, deal desk notifications"
+      "type": "http",
+      "url": "https://slack-mcp.example.com/mcp"
     },
     "gdrive": {
-      "type": "url",
-      "url": "${GDRIVE_MCP_URL}",
-      "note": "Document storage — annual plan docs, OCV catalog, unit-of-growth baseline, board materials"
+      "type": "http",
+      "url": "https://gdrive-mcp.example.com/mcp"
     },
     "linear": {
-      "type": "url",
-      "url": "${LINEAR_MCP_URL}",
-      "note": "Issue tracking — churn escalation tickets, deal desk SLA breach issues, planning cycle tasks"
+      "type": "http",
+      "url": "https://linear-mcp.example.com/mcp"
     },
     "zapier": {
-      "type": "url",
-      "url": "${ZAPIER_MCP_URL}",
-      "note": "Workflow automation — cross-system data triggers, alert routing, CRM field update hooks"
+      "type": "http",
+      "url": "https://zapier-mcp.example.com/mcp"
     },
     "gainsight": {
-      "type": "url",
-      "url": "${GAINSIGHT_MCP_URL}",
-      "note": "CS Platform — health scores, renewal dates, adoption signals, churn risk flags"
+      "type": "http",
+      "url": "https://gainsight-mcp.example.com/mcp"
     },
     "totango": {
-      "type": "url",
-      "url": "${TOTANGO_MCP_URL}",
-      "note": "CS Platform alternative"
+      "type": "http",
+      "url": "https://totango-mcp.example.com/mcp"
     },
     "churnzero": {
-      "type": "url",
-      "url": "${CHURNZERO_MCP_URL}",
-      "note": "CS Platform alternative"
+      "type": "http",
+      "url": "https://churnzero-mcp.example.com/mcp"
     }
   }
 }

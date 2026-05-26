@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<!--
+  Customer Value Map — production artifact (live in Cowork)
+
+  This file is a self-contained implementation of the SuccessCOACHING
+  Cowork Artifact theme. The canonical theme spec lives at:
+    projects/design-system/themes/cowork-artifact/theme-spec.md
+
+  When the theme spec changes (e.g. new component, color, or layout
+  rule), update the inline CSS in this file to match. The theme spec
+  is the source of truth — this artifact must conform to it.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Value Map — Live View</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --primary: #24718E;
+  --secondary: #2B89AC;
+  --accent: #34A7D2;
+  --success: #90C83D;
+  --success-dark: #2D801B;
+  --alert: #DC3F30;
+  --text: #424343;
+  --bg: #F8F8F8;
+  --tint: #E4F7FD;
+  --mid: #6BBFDE;
+  --dark: #194E61;
+  --darker: #103341;
+  --card: #F8F8F8;
+  --page: #F8F8F8;  /* v1.6: white page */
+  --shadow-sm: 0 1px 3px #6BBFDE;
+  --shadow-md: 0 2px 8px #6BBFDE;
+  --shadow-lg: 0 4px 14px #6BBFDE;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --border-hairline: 0.5px;
+  --border-standard: 1px;
+  --border-strong: 2px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--page);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100%;
+}
+
+body {
+  padding: 24px;
+}
+
+.page {
+  max-width: 1600px;     /* v1.10: landscape */
+  margin: 0 auto;
+}
+
+/* ===== BRAND BAR ===== */
+.brand-bar {
+  background: var(--primary);
+  color: var(--bg);
+  padding: 18px 24px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.brand-bar .brand-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;            /* v1.8: round default */
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--bg);
+  letter-spacing: 0;
+  box-shadow: 0 1px 4px var(--darker);
+}
+.brand-bar h1 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.brand-bar .subtitle {
+  font-size: 11px;
+  color: var(--tint);
+  font-weight: 400;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ===== CONTROL BAR ===== */
+.control-bar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: var(--card);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  border: var(--border-hairline) solid var(--mid);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.label {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.value {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+  font-family: 'Poppins', monospace;
+}
+select.account-pick {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 36px 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--mid);
+  background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2 4 L6 8 L10 4' fill='none' stroke='%2324718E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") right 12px center no-repeat;
+  background-size: 12px;
+  color: var(--primary);
+  cursor: pointer;
+  appearance: none;
+}
+select.account-pick:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.spacer { flex: 1; }
+button.btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--mid);
+  background: var(--bg);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+button.btn:hover {
+  background: var(--tint);
+  border-color: var(--accent);
+}
+button.btn.primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+button.btn.primary:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ===== OVERVIEW ROW ===== */
+.overview-row {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 880px) {
+  .overview-row { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--card);
+  border: var(--border-hairline) solid var(--mid);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.health-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.health-score {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.health-score .max {
+  font-size: 18px;
+  color: var(--mid);
+  font-weight: 500;
+  margin-left: 4px;
+}
+.health-label {
+  font-size: 11px;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+  font-weight: 600;
+}
+.health-tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--success);
+  color: var(--bg);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 12px;
+  letter-spacing: 0.2px;
+  align-self: flex-start;
+}
+.health-tier .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+/* ===== POSITION VECTOR (v1.7 redesign) ===== */
+.position-card .position-title {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+.position-vector {
+  --progress: 33%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  position: relative;
+  padding: 4px 8px 0;
+}
+.position-vector::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left:  calc(100% / 14);
+  right: calc(100% / 14);
+  height: 2px;
+  z-index: 0;
+  background: linear-gradient(
+    to right,
+    var(--success) 0,
+    var(--success) var(--progress),
+    var(--mid)     var(--progress),
+    var(--mid) 100%
+  );
+}
+.stage-node {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.stage-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bg);
+  box-shadow: var(--shadow-sm);
+}
+.stage-circle.completed {
+  background: var(--success);
+  border: var(--border-hairline) solid var(--success);
+}
+.stage-circle.completed svg { width: 16px; height: 16px; }
+.stage-circle.in_progress {
+  width: 42px;
+  height: 42px;
+  background: var(--accent);
+  border: none;
+  font-size: 16px;
+  margin-top: -4px;
+  box-shadow: 0 0 0 4px var(--tint), 0 2px 6px var(--mid);
+  animation: pulse-halo 2.4s ease-in-out infinite;
+}
+@keyframes pulse-halo {
+  0%, 100% { box-shadow: 0 0 0 4px var(--tint), 0 2px 6px var(--mid); }
+  50%      { box-shadow: 0 0 0 7px var(--tint), 0 2px 8px var(--mid); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage-circle.in_progress { animation: none; }
+}
+.stage-circle.not_started {
+  background: var(--bg);
+  border: var(--border-hairline) solid var(--mid);
+  color: var(--mid);
+}
+.stage-node.in_progress::before {
+  content: '';
+  display: block;
+  margin: 6px auto 0;
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--accent);
+}
+.stage-name {
+  font-size: 10px;
+  color: var(--text);
+  margin-top: 8px;
+  line-height: 1.3;
+}
+.stage-node.in_progress .stage-name {
+  color: var(--primary);
+  font-weight: 600;
+  margin-top: 4px;
+}
+.stage-node.not_started .stage-name {
+  color: var(--mid);
+}
+
+/* ===== QUADRANTS — v1.10: landscape, all 4 quadrants in one row ===== */
+.quadrants-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 1200px) {
+  .quadrants-grid { grid-template-columns: 1fr 1fr; }  /* 2x2 on narrow */
+}
+@media (max-width: 640px) {
+  .quadrants-grid { grid-template-columns: 1fr; }      /* stacked on phone */
+}
+
+.quadrant {
+  background: var(--card);
+  border: var(--border-hairline) solid var(--mid);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+.quadrant-header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.quadrant-header .head-text { flex: 1; min-width: 0; }
+.quadrant-header h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--bg);
+}
+.quadrant-header .sub {
+  font-size: 11px;
+  color: var(--tint);
+  margin-top: 2px;
+  font-weight: 400;
+}
+.count-badge {
+  background: var(--bg);
+  color: var(--primary);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.quadrant-body {
+  padding: 16px 20px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.quadrant-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  flex: 1;
+}
+.quadrant-body li {
+  font-size: 13px;
+  color: var(--text);
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+}
+.quadrant-body li::before {
+  content: '•';
+  color: var(--mid);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.quadrant.realized .quadrant-body li::before {
+  content: '✓';
+  color: var(--success-dark);
+}
+.meta {
+  font-size: 11px;
+  color: var(--mid);
+  font-style: italic;
+  padding-top: 10px;
+  border-top: 1px solid var(--tint);
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+/* Quadrant header color variants */
+.quadrant.promised .quadrant-header { background: var(--accent); }
+.quadrant.delivered .quadrant-header { background: var(--secondary); }
+.quadrant.realized .quadrant-header { background: var(--success); }
+.quadrant.potential .quadrant-header { background: var(--mid); }
+.quadrant.potential .quadrant-header h3 { color: var(--darker); }
+.quadrant.potential .quadrant-header .sub { color: var(--dark); }
+.quadrant.potential .count-badge { color: var(--dark); }
+
+/* Quadrant border accents (subtle) */
+.quadrant.promised { border-color: var(--accent); }
+.quadrant.delivered { border-color: var(--secondary); }
+.quadrant.realized { border-color: var(--success); }
+.quadrant.potential { border-color: var(--mid); }
+
+/* ===== SIGNAL FLAGS BAR ===== */
+.signal-flags-bar {
+  background: var(--card);
+  border: var(--border-hairline) solid var(--mid);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+.signal-label {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.flag {
+  background: var(--tint);
+  border: 1px solid var(--mid);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.flag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.flag-dot.success { background: var(--success); }
+.flag-dot.caution { background: var(--mid); }
+.flag-dot.alert { background: var(--alert); }
+.flag-dot.neutral { background: var(--mid); }
+.flag.alert {
+  background: var(--bg);
+  border-color: var(--alert);
+  color: var(--alert);
+  font-weight: 600;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 24px;
+  padding: 14px 4px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.footer .footer-meta {
+  font-weight: 500;
+  color: var(--primary);
+}
+.footer code {
+  font-family: 'Poppins', 'SF Mono', Menlo, monospace;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--dark);
+  border: 1px solid var(--mid);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Brand bar -->
+  <div class="brand-bar">
+    <div class="brand-title">
+      <div class="brand-mark">V</div>
+      <div>
+        <h1>Customer Value Map</h1>
+        <div class="subtitle">SuccessCOACHING · Claude for Customer Success</div>
+      </div>
+    </div>
+    <button class="btn primary" id="refreshBtn" type="button">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1.5 7 A 5.5 5.5 0 1 1 7 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M1.5 3.5 L1.5 7 L5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Refresh
+    </button>
+  </div>
+
+  <!-- Control bar -->
+  <div class="control-bar">
+    <div class="control-group">
+      <span class="label">Account</span>
+      <select class="account-pick" id="accountSelect">
+        <option value="acme">Acme Corp</option>
+        <option value="globex">Globex Industries</option>
+        <option value="initech">Initech Solutions</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <span class="label">CRM ID</span>
+      <span class="value" id="crmId">hubspot/4429181</span>
+    </div>
+    <div class="control-group">
+      <span class="label">Last Updated</span>
+      <span class="value" id="lastUpdated">2026-05-22</span>
+    </div>
+    <div class="spacer"></div>
+    <div class="control-group">
+      <span class="label">History</span>
+      <span class="value" id="historyCount">14 snapshots</span>
+    </div>
+  </div>
+
+  <!-- Overview row -->
+  <div class="overview-row">
+    <div class="card health-card">
+      <div class="health-score"><span id="healthScore">78</span><span class="max"> / 100</span></div>
+      <div class="health-label">Position Health Score</div>
+      <div class="health-tier" id="healthTier"><span class="dot"></span><span id="healthTierText">Tier 4 — routine engagement</span></div>
+    </div>
+
+    <div class="card position-card">
+      <div class="position-title">Position Vector · 7-Stage Value Chain</div>
+      <div class="position-vector" id="positionVector"></div>
+    </div>
+  </div>
+
+  <!-- Quadrants -->
+  <div class="quadrants-grid" id="quadrants"></div>
+
+  <!-- Signal flags -->
+  <div class="signal-flags-bar" id="signalFlags"></div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <span class="footer-meta">Data source:</span>
+      Sample data embedded in artifact. In production this view reads from
+      <code>value-maps/&lt;account&gt;/value-map.yaml</code>
+      via the Value Map System control plane (HIE / VMB write · VCS / QBR / ERD read).
+    </div>
+    <div style="margin-top:6px;">
+      Brand-compliant per SuccessCOACHING Color NEVER Rules · approved palette only · no #FFFFFF fills · no opacity modifiers.
+    </div>
+  </div>
+
+</div>
+
+<script>
+const accounts = {
+  acme: {
+    name: "Acme Corp",
+    crm_id: "hubspot/4429181",
+    last_updated: "2026-05-22",
+    history_count: 14,
+    position_health: 78,
+    tier_label: "Tier 4 — routine engagement",
+    tier_class: "success",
+    position_vector: [
+      { stage: 1, name: "Product Capabilities", status: "completed" },
+      { stage: 2, name: "Deliverable Outcomes", status: "completed" },
+      { stage: 3, name: "Desired Outcomes", status: "completed" },
+      { stage: 4, name: "Business Goals", status: "completed" },
+      { stage: 5, name: "Expected Value", status: "completed" },
+      { stage: 6, name: "Realized Value", status: "in_progress" },
+      { stage: 7, name: "Business Impact", status: "not_started" }
+    ],
+    quadrants: {
+      promised: {
+        title: "Promised Outcomes",
+        subtitle: "set at Stage 0 · frozen",
+        entries: [
+          "Reduce tier-2 escalation cycle by 40–60%",
+          "Improve first-contact resolution by 20pp",
+          "Cut agent ramp time by 30%"
+        ],
+        meta: "Source: sales handoff payload · 3 ratified OCV entries"
+      },
+      delivered: {
+        title: "Delivered Capabilities",
+        subtitle: "Stages 1–3 · live",
+        entries: [
+          "Article-match agent console (deployed)",
+          "Tier-2 reporting dashboard (live)",
+          "Routing rule engine (in progress · ETA 2026-06-15)"
+        ],
+        meta: "Source: CS Platform deployment events · 2 active · 1 in progress"
+      },
+      realized: {
+        title: "Realized Value",
+        subtitle: "evidence-based",
+        entries: [
+          "Cycle time 4.2d → 1.9d (2026-03-12, Acme support dashboard)",
+          "FCR 73% → 91% (Q1 QBR, Sarah Kim VP Support)"
+        ],
+        meta: "2 named-source entries · NEVER-rule-1 verified · Stage 6 in progress"
+      },
+      potential: {
+        title: "Unrealized Potential",
+        subtitle: "leakage gaps",
+        entries: [
+          "Pattern: capability_outcome_gap — routing engine deployed but ramp metric not yet improved"
+        ],
+        meta: "1 entry · P3 (caution) · no hard block · diagnosed 2026-05-15 by VCS"
+      }
+    },
+    signal_flags: [
+      { label: "stale_flag: false", level: "success" },
+      { label: "intervention_priority: P3", level: "caution" },
+      { label: "expansion: gated", level: "caution" },
+      { label: "version: 2026-05-22", level: "neutral" }
+    ]
+  },
+
+  globex: {
+    name: "Globex Industries",
+    crm_id: "hubspot/8814422",
+    last_updated: "2026-05-19",
+    history_count: 23,
+    position_health: 94,
+    tier_label: "Tier 6 — healthy",
+    tier_class: "success",
+    position_vector: [
+      { stage: 1, name: "Product Capabilities", status: "completed" },
+      { stage: 2, name: "Deliverable Outcomes", status: "completed" },
+      { stage: 3, name: "Desired Outcomes", status: "completed" },
+      { stage: 4, name: "Business Goals", status: "completed" },
+      { stage: 5, name: "Expected Value", status: "completed" },
+      { stage: 6, name: "Realized Value", status: "completed" },
+      { stage: 7, name: "Business Impact", status: "in_progress" }
+    ],
+    quadrants: {
+      promised: {
+        title: "Promised Outcomes",
+        subtitle: "set at Stage 0 · frozen",
+        entries: [
+          "$2M annual labor savings via automation",
+          "Reduce SLA breach rate from 12% to under 3%",
+          "Integrate with 4 existing data warehouses"
+        ],
+        meta: "Source: sales handoff payload · 3 ratified OCV entries"
+      },
+      delivered: {
+        title: "Delivered Capabilities",
+        subtitle: "Stages 1–3 · live",
+        entries: [
+          "Full automation platform (deployed Q3 2025)",
+          "SLA monitoring dashboard (live, integrated with PagerDuty)",
+          "Warehouse connectors: Snowflake, Redshift, BigQuery, Databricks (all live)"
+        ],
+        meta: "Source: CS Platform deployment events · 4 capabilities active"
+      },
+      realized: {
+        title: "Realized Value",
+        subtitle: "evidence-based",
+        entries: [
+          "$2.4M labor savings tracked YTD (CFO confirmation, 2026-04-30)",
+          "SLA breach rate: 2.1% Q1, 1.8% Q2 (executive dashboard)",
+          "Warehouse data freshness improved 8x (engineering memo)",
+          "NPS lift +18 points (Q1 survey, n=147)"
+        ],
+        meta: "4 named-source entries · 1 executive QBR cite · Stage 7 in progress"
+      },
+      potential: {
+        title: "Unrealized Potential",
+        subtitle: "leakage gaps",
+        entries: [
+          "No active leakage findings"
+        ],
+        meta: "0 entries · expansion-ready (ERD signal scheduled for next Mon sweep)"
+      }
+    },
+    signal_flags: [
+      { label: "stale_flag: false", level: "success" },
+      { label: "intervention_priority: none", level: "success" },
+      { label: "expansion_signal: ready", level: "success" },
+      { label: "version: 2026-05-19", level: "neutral" }
+    ]
+  },
+
+  initech: {
+    name: "Initech Solutions",
+    crm_id: "hubspot/2284991",
+    last_updated: "2026-05-21",
+    history_count: 8,
+    position_health: 52,
+    tier_label: "Tier 2 — at risk",
+    tier_class: "alert",
+    position_vector: [
+      { stage: 1, name: "Product Capabilities", status: "completed" },
+      { stage: 2, name: "Deliverable Outcomes", status: "completed" },
+      { stage: 3, name: "Desired Outcomes", status: "completed" },
+      { stage: 4, name: "Business Goals", status: "in_progress" },
+      { stage: 5, name: "Expected Value", status: "not_started" },
+      { stage: 6, name: "Realized Value", status: "not_started" },
+      { stage: 7, name: "Business Impact", status: "not_started" }
+    ],
+    quadrants: {
+      promised: {
+        title: "Promised Outcomes",
+        subtitle: "set at Stage 0 · frozen",
+        entries: [
+          "Streamline procurement approvals from 14 to 3 days",
+          "Eliminate duplicate vendor records across 6 entities",
+          "Standardize commercial terms across regions"
+        ],
+        meta: "Source: sales handoff payload · 3 ratified OCV entries"
+      },
+      delivered: {
+        title: "Delivered Capabilities",
+        subtitle: "Stages 1–3 · live",
+        entries: [
+          "Procurement approval workflow (deployed, adoption < 20%)",
+          "Vendor dedup engine (deployed, limited use)",
+          "Standard terms templates (pending deployment Q3)"
+        ],
+        meta: "Source: CS Platform deployment events · 2 underused · 1 pending"
+      },
+      realized: {
+        title: "Realized Value",
+        subtitle: "evidence-based",
+        entries: [
+          "No realized-value evidence captured yet"
+        ],
+        meta: "0 entries · awaiting evidence per NEVER rule 1"
+      },
+      potential: {
+        title: "Unrealized Potential",
+        subtitle: "leakage gaps",
+        entries: [
+          "Pattern: capability_outcome_gap — workflow deployed but adoption < 20%",
+          "Pattern: value_perception_disconnect — VP Procurement low login frequency"
+        ],
+        meta: "2 entries · P2 (likely impact) · expansion blocked · diagnosed 2026-05-15"
+      }
+    },
+    signal_flags: [
+      { label: "stale_flag: false", level: "success" },
+      { label: "intervention_priority: P2", level: "alert" },
+      { label: "expansion_blocked: true", level: "alert" },
+      { label: "version: 2026-05-21", level: "neutral" }
+    ]
+  }
+};
+
+function setTierColor(tierClass) {
+  const el = document.getElementById('healthTier');
+  if (tierClass === 'alert') el.style.background = 'var(--alert)';
+  else if (tierClass === 'caution') el.style.background = 'var(--accent)';
+  else el.style.background = 'var(--success)';
+}
+
+function renderAccount(key) {
+  const a = accounts[key];
+  if (!a) return;
+
+  document.getElementById('crmId').textContent = a.crm_id;
+  document.getElementById('lastUpdated').textContent = a.last_updated;
+  document.getElementById('historyCount').textContent = a.history_count + ' snapshots';
+  document.getElementById('healthScore').textContent = a.position_health;
+  document.getElementById('healthTierText').textContent = a.tier_label;
+  setTierColor(a.tier_class);
+
+  const pv = document.getElementById('positionVector');
+  // v1.7: compute --progress for the split-gradient track.
+  // Progress = (currentStage - 1) / (totalStages - 1) * 100%.
+  // Falls back to last completed stage if no in_progress; 100% if all completed.
+  const total = a.position_vector.length;
+  const currentIdx = a.position_vector.findIndex(s => s.status === 'in_progress');
+  const lastCompleted = a.position_vector.reduce(
+    (max, s, i) => s.status === 'completed' ? i + 1 : max, 0);
+  const progressStage = currentIdx >= 0 ? currentIdx + 1 : lastCompleted || 1;
+  const progressPct = total > 1 ? ((progressStage - 1) / (total - 1)) * 100 : 0;
+  pv.style.setProperty('--progress', `${progressPct}%`);
+
+  // v1.7: completed stages render a checkmark; current and not-started keep the number.
+  const checkmark = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>';
+  pv.innerHTML = a.position_vector.map(s => `
+    <div class="stage-node ${s.status}">
+      <div class="stage-circle ${s.status}">${s.status === 'completed' ? checkmark : s.stage}</div>
+      <div class="stage-name">${s.name}</div>
+    </div>
+  `).join('');
+
+  const q = document.getElementById('quadrants');
+  q.innerHTML = ['promised', 'delivered', 'realized', 'potential'].map(qkey => {
+    const qd = a.quadrants[qkey];
+    return `
+      <div class="quadrant ${qkey}">
+        <div class="quadrant-header">
+          <div class="head-text">
+            <h3>${qd.title.toUpperCase()}</h3>
+            <div class="sub">${qd.subtitle}</div>
+          </div>
+          <div class="count-badge">${qd.entries.length}</div>
+        </div>
+        <div class="quadrant-body">
+          <ul>${qd.entries.map(e => `<li><span>${e}</span></li>`).join('')}</ul>
+          <div class="meta">${qd.meta}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const sf = document.getElementById('signalFlags');
+  sf.innerHTML =
+    '<span class="signal-label">Signal Flags</span>' +
+    a.signal_flags.map(f =>
+      `<div class="flag ${f.level === 'alert' ? 'alert' : ''}"><span class="flag-dot ${f.level}"></span>${f.label}</div>`
+    ).join('');
+}
+
+document.getElementById('accountSelect').addEventListener('change', e => {
+  renderAccount(e.target.value);
+});
+
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  const btn = document.getElementById('refreshBtn');
+  const original = btn.innerHTML;
+  btn.innerHTML = '<span>Refreshing…</span>';
+  btn.disabled = true;
+  setTimeout(() => {
+    const key = document.getElementById('accountSelect').value;
+    renderAccount(key);
+    btn.innerHTML = original;
+    btn.disabled = false;
+  }, 300);
+});
+
+// Initial render
+renderAccount('acme');
+</script>
+</body>
+</html>

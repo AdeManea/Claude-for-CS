@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<!--
+  SuccessPLAN Canvas — production artifact (live in Cowork)
+
+  This file is a self-contained implementation of the SuccessCOACHING
+  Cowork Artifact theme. The canonical theme spec lives at:
+    projects/design-system/themes/cowork-artifact/theme-spec.md
+
+  When the theme spec changes (e.g. new component, color, or layout
+  rule), update the inline CSS in this file to match. The theme spec
+  is the source of truth — this artifact must conform to it.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SuccessPLAN Canvas — Live View</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --primary: #24718E;
+  --secondary: #2B89AC;
+  --accent: #34A7D2;
+  --success: #90C83D;
+  --success-dark: #2D801B;
+  --alert: #DC3F30;
+  --text: #424343;
+  --bg: #F8F8F8;
+  --tint: #E4F7FD;
+  --mid: #6BBFDE;
+  --dark: #194E61;
+  --darker: #103341;
+  --card: #F8F8F8;
+  --page: #F8F8F8;  /* v1.6: white page */
+  --shadow-sm: 0 1px 3px #6BBFDE;
+  --shadow-md: 0 2px 8px #6BBFDE;
+  --shadow-lg: 0 4px 14px #6BBFDE;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --border-hairline: 0.5px;
+  --border-standard: 1px;
+  --border-strong: 2px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--page);
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100%;
+}
+
+body { padding: 24px; }
+.page { max-width: 1600px; margin: 0 auto; }  /* v1.10: landscape */
+
+/* ===== BRAND BAR ===== */
+.brand-bar {
+  background: var(--primary);
+  color: var(--bg);
+  padding: 18px 24px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.brand-title { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;          /* v1.8: round default */
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--bg);
+  letter-spacing: 0;
+  box-shadow: 0 1px 4px var(--darker);
+}
+.brand-bar h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.2px; }
+.brand-bar h1 .canvas { font-weight: 700; }
+.brand-bar .subtitle {
+  font-size: 11px;
+  color: var(--tint);
+  font-weight: 400;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ===== CONTROL BAR ===== */
+.control-bar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: var(--card);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  border: var(--border-hairline) solid var(--mid);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+.control-group { display: flex; align-items: center; gap: 10px; }
+.label {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.value { font-size: 13px; color: var(--text); font-weight: 500; }
+select.account-pick {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 36px 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--mid);
+  background: var(--bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2 4 L6 8 L10 4' fill='none' stroke='%2324718E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") right 12px center no-repeat;
+  background-size: 12px;
+  color: var(--primary);
+  cursor: pointer;
+  appearance: none;
+}
+select.account-pick:focus { outline: none; border-color: var(--accent); box-shadow: var(--shadow-sm); }
+.spacer { flex: 1; }
+button.btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--mid);
+  background: var(--bg);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+button.btn:hover { background: var(--tint); border-color: var(--accent); }
+button.btn.primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+button.btn.primary:hover { background: var(--primary); border-color: var(--primary); }
+
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: var(--success);
+  color: var(--bg);
+}
+.plan-badge.initial { background: var(--success); }
+.plan-badge.expansion { background: var(--accent); }
+.plan-badge.renewal { background: var(--secondary); }
+.plan-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bg); }
+
+/* ===== CANVAS HEADER ===== */
+.canvas-title-bar {
+  background: var(--card);
+  border: var(--border-hairline) solid var(--mid);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+.canvas-title-bar .title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.canvas-title-bar .title-block .title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.canvas-title-bar .title-block .title .a { color: var(--accent); }
+.canvas-title-bar .title-block .title .b { color: var(--darker); }
+.canvas-title-bar .meta-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 14px;
+  background: var(--tint);
+  border-radius: var(--radius-sm);
+  border: var(--border-hairline) solid var(--mid);
+}
+.canvas-title-bar .meta-field .field-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.canvas-title-bar .meta-field .field-value {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (max-width: 880px) {
+  .canvas-title-bar { grid-template-columns: 1fr; }
+}
+
+/* ===== CANVAS GRID ===== */
+.canvas-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.canvas-panel {
+  background: var(--card);
+  border: var(--border-hairline) solid var(--mid);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--tint);
+}
+.panel-header .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.panel-header h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.2px;
+}
+
+.panel-body {
+  padding: 14px 18px 18px;
+  flex: 1;
+  font-size: 13px;
+  color: var(--text);
+}
+.panel-body p {
+  line-height: 1.55;
+}
+.panel-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.panel-body li {
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.45;
+}
+.panel-body li::before {
+  content: '•';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.panel-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.panel-body table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 8px 8px;
+  border-bottom: 2px solid var(--mid);
+}
+.panel-body table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--tint);
+  vertical-align: top;
+  color: var(--text);
+  line-height: 1.35;
+}
+.panel-body table tr:last-child td { border-bottom: none; }
+
+/* Panel column spans — v1.10 landscape layout
+   Row 1: Highlights (3) + Objectives (5) + Challenges (2) + Benefits (2) = 12
+   Row 2: Actions (8) + Measurements (4) = 12 */
+.panel-highlights  { grid-column: span 3; }
+.panel-objectives  { grid-column: span 5; }
+.panel-risks       { grid-column: span 2; }
+.panel-rewards     { grid-column: span 2; }
+.panel-actions     { grid-column: span 8; }
+.panel-measurements{ grid-column: span 4; }
+
+@media (max-width: 1200px) {
+  .panel-highlights, .panel-objectives { grid-column: span 6; }
+  .panel-risks, .panel-rewards { grid-column: span 6; }
+  .panel-actions { grid-column: span 12; }
+  .panel-measurements { grid-column: span 12; }
+}
+@media (max-width: 640px) {
+  .panel-highlights, .panel-objectives,
+  .panel-risks, .panel-rewards { grid-column: span 12; }
+}
+
+/* Two-column body (measurements) */
+.panel-body.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.panel-body.two-col h4 {
+  font-size: 11px;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+@media (max-width: 720px) {
+  .panel-body.two-col { grid-template-columns: 1fr; }
+}
+
+/* Plan-type-specific color accents on panel headers (tinted-title only) */
+.canvas-grid.plan-initial .panel-header:not(.filled) h3 { color: var(--accent); }
+.canvas-grid.plan-expansion .panel-header:not(.filled) h3 { color: var(--primary); }
+.canvas-grid.plan-renewal .panel-header:not(.filled) h3 { color: var(--secondary); }
+.canvas-grid.plan-initial .panel-header:not(.filled) .icon { color: var(--accent); }
+.canvas-grid.plan-expansion .panel-header:not(.filled) .icon { color: var(--primary); }
+.canvas-grid.plan-renewal .panel-header:not(.filled) .icon { color: var(--secondary); }
+
+/* ===== PANEL HEADER · FILLED VARIANT (v1.10) =====
+   All 6 panels use filled headers with distinct color modifiers:
+   Highlights=primary, Objectives=accent (default), Challenges=secondary,
+   Benefits=success, Actions=dark, Measurements=mid. */
+.panel-header.filled {
+  background:      var(--accent);
+  border-bottom:   none;
+  padding:         14px 18px;
+}
+.panel-header.filled h3 {
+  font-size:       12px;
+  font-weight:     700;
+  letter-spacing:  0.5px;
+  color:           var(--bg);
+  text-transform:  uppercase;
+}
+.panel-header.filled .icon {
+  background:      transparent;
+  color:           var(--bg);
+}
+/* Color modifiers */
+.panel-header.filled.primary    { background: var(--primary); }
+.panel-header.filled.secondary  { background: var(--secondary); }
+.panel-header.filled.success    { background: var(--success); }
+.panel-header.filled.dark       { background: var(--dark); }     /* v1.10.1 */
+.panel-header.filled.mid        { background: var(--mid); }
+.panel-header.filled.mid h3     { color: var(--darker); }
+.panel-header.filled.mid .icon  { color: var(--darker); }
+
+/* Footer — v1.9: plain centered text, no card chrome */
+.footer {
+  margin-top: 24px;
+  padding: 14px 8px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.footer .credit, .footer .footer-meta { color: var(--primary); font-weight: 600; }
+.footer code {
+  font-family: 'Poppins', 'SF Mono', Menlo, monospace;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--dark);
+  border: 1px solid var(--mid);
+}
+.footer .cc {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--mid);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Brand bar -->
+  <div class="brand-bar">
+    <div class="brand-title">
+      <div class="brand-mark">SP</div>
+      <div>
+        <h1>SuccessPLAN <span class="canvas">Canvas</span></h1>
+        <div class="subtitle">SuccessCOACHING · Claude for Customer Success</div>
+      </div>
+    </div>
+    <button class="btn primary" id="refreshBtn" type="button">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1.5 7 A 5.5 5.5 0 1 1 7 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M1.5 3.5 L1.5 7 L5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Refresh
+    </button>
+  </div>
+
+  <!-- Control bar -->
+  <div class="control-bar">
+    <div class="control-group">
+      <span class="label">Account</span>
+      <select class="account-pick" id="accountSelect">
+        <option value="orion">Orion Health Group</option>
+        <option value="acme">Acme Corp</option>
+        <option value="globex">Globex Industries</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <span class="label">Plan Type</span>
+      <span class="plan-badge" id="planBadge"><span class="dot"></span><span id="planBadgeText">Initial</span></span>
+    </div>
+    <div class="spacer"></div>
+    <div class="control-group">
+      <span class="label">Plan ID</span>
+      <span class="value" id="planId">CANVAS-ORIO-20260517</span>
+    </div>
+    <div class="control-group">
+      <span class="label">CSM</span>
+      <span class="value" id="csmName">Ella Roberts</span>
+    </div>
+  </div>
+
+  <!-- Canvas title bar (matches the SuccessPLAN Canvas PDF header style) -->
+  <div class="canvas-title-bar">
+    <div class="title-block">
+      <div class="title"><span class="a">SuccessPLAN</span> <span class="b">Canvas</span></div>
+      <div style="font-size: 11px; color: var(--mid); margin-top: 4px;">Designed by SuccessCOACHING · CC BY-SA 4.0</div>
+    </div>
+    <div class="meta-field">
+      <span class="field-label">Account Name</span>
+      <span class="field-value" id="metaAccount">Orion Health Group</span>
+    </div>
+    <div class="meta-field">
+      <span class="field-label">Prepared By</span>
+      <span class="field-value" id="metaPreparedBy">Ella Roberts</span>
+    </div>
+    <div class="meta-field">
+      <span class="field-label">Date / Version</span>
+      <span class="field-value" id="metaDate">2026-05-17 · v1</span>
+    </div>
+  </div>
+
+  <!-- Canvas grid (6 panels matching the PDF layout) -->
+  <div class="canvas-grid plan-initial" id="canvasGrid">
+
+    <!-- Row 1: Highlights (3) + Objectives (5) + Challenges (2) + Benefits (2) -->
+    <div class="canvas-panel panel-highlights">
+      <div class="panel-header filled primary">
+        <span class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="1"/>
+            <line x1="9" y1="9" x2="9" y2="9"/>
+            <line x1="15" y1="9" x2="15" y2="9"/>
+            <line x1="9" y1="13" x2="9" y2="13"/>
+            <line x1="15" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="9" y2="17"/>
+            <line x1="15" y1="17" x2="15" y2="17"/>
+          </svg>
+        </span>
+        <h3 id="hlTitle">Company Highlights</h3>
+      </div>
+      <div class="panel-body">
+        <p id="companyHighlights"></p>
+      </div>
+    </div>
+
+    <div class="canvas-panel panel-objectives">
+      <div class="panel-header filled">
+        <span class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          </svg>
+        </span>
+        <h3 id="objTitle">Objectives</h3>
+      </div>
+      <div class="panel-body">
+        <ul id="objectivesList"></ul>
+      </div>
+    </div>
+
+    <div class="canvas-panel panel-risks">
+      <div class="panel-header filled secondary">
+        <span class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3 L22 20 L2 20 Z"/>
+            <line x1="12" y1="10" x2="12" y2="14"/>
+            <line x1="12" y1="17" x2="12" y2="17"/>
+          </svg>
+        </span>
+        <h3 id="riskTitle">Key Challenges</h3>
+      </div>
+      <div class="panel-body">
+        <ul id="risksList"></ul>
+      </div>
+    </div>
+
+    <div class="canvas-panel panel-rewards">
+      <div class="panel-header filled success">
+        <span class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 9 22 9 16.5 13.5 19 21 12 17 5 21 7.5 13.5 2 9 9 9 12 2"/>
+          </svg>
+        </span>
+        <h3 id="rewardTitle">Key Benefits</h3>
+      </div>
+      <div class="panel-body">
+        <ul id="rewardsList"></ul>
+      </div>
+    </div>
+
+    <!-- Row 2: Actions (8) + Measurements (4) -->
+    <div class="canvas-panel panel-actions">
+      <div class="panel-header filled dark">
+        <span class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <path d="M8 14 L11 17 L16 12"/>
+          </svg>
+        </span>
+        <h3 id="actionsTitle">Objectives, Key Actions, Dates &amp; Owners</h3>
+      </div>
+      <div class="panel-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Objective</th>
+              <th>Key Action(s)</th>
+              <th>Date / Milestone</th>
+              <th>Owner(s)</th>
+            </tr>
+          </thead>
+          <tbody id="actionsTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="canvas-panel panel-measurements">
+      <div class="panel-header filled mid">
+        <span class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="20" x2="21" y2="20"/>
+            <rect x="5" y="13" width="3" height="7"/>
+            <rect x="10.5" y="9" width="3" height="11"/>
+            <rect x="16" y="5" width="3" height="15"/>
+          </svg>
+        </span>
+        <h3 id="measureTitle">Value Realization Measurements</h3>
+      </div>
+      <div class="panel-body two-col">
+        <div>
+          <h4>Criteria</h4>
+          <ul id="criteriaList"></ul>
+        </div>
+        <div>
+          <h4>Measures</h4>
+          <ul id="measuresList"></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <span class="footer-meta">Data source:</span>
+      Sample data embedded in artifact. In production this view reads from
+      <code>context/success-plan-&lt;account&gt;-&lt;date&gt;.md</code>
+      generated by <code>csm:success-plan-canvas</code>.
+    </div>
+    <div style="margin-top:6px;">
+      Designed by SuccessCOACHING — Licensed CC BY-SA 4.0
+    </div>
+  </div>
+
+</div>
+
+<script>
+const accounts = {
+
+  // ===== ORION HEALTH GROUP — Initial Plan (matches PDF example verbatim) =====
+  orion: {
+    account_name: "Orion Health Group",
+    csm_name: "Ella Roberts",
+    plan_id: "CANVAS-ORIO-20260517",
+    prepared_by: "Ella Roberts, Implementation PM",
+    date_version: "2026-05-17 · v1",
+    plan_type: "initial",
+    panel_labels: {
+      hl: "Company Highlights",
+      obj: "Objectives",
+      risk: "Key Challenges",
+      reward: "Key Benefits",
+      actions: "Objectives, Key Actions, Dates & Owners",
+      measure: "Value Realization Measurements"
+    },
+    company_highlights: "Orion Health Group is a regional healthcare network with three primary divisions — outpatient, behavioral health, and administrative services. The organization manages over 75,000 patient records annually and operates under strict compliance and audit protocols. They are in the process of digitizing all records and workflows to improve efficiency, reduce audit exceptions, and enhance interdepartmental communication.",
+    objectives: [
+      "Reduce document retrieval time by 80% within 90 days.",
+      "Improve audit compliance accuracy from 86% to 100%.",
+      "Increase collaboration satisfaction scores by 20% within four months.",
+      "Strengthen trust and transparency between the administrative and IT departments."
+    ],
+    risks: [
+      "Legacy systems cause inconsistent data synchronization.",
+      "Overextended IT staff may delay full platform integration.",
+      "Resistance to workflow change in the Outpatient division.",
+      "Competing departmental priorities could slow collaboration."
+    ],
+    rewards: [
+      "Streamlined compliance documentation process.",
+      "Real-time visibility into record retrieval metrics.",
+      "Improved cross-department trust and engagement.",
+      "Measurable ROI through time savings and audit success."
+    ],
+    actions: [
+      { objective: "Reduce document retrieval time by 80%", action: "Deploy DigiSync system and conduct user training sessions", date: "Phase 1 by Day 30", owners: "DigiSopht Implementation PM (Ella Roberts) + Orion IT (Lamar Kim)" },
+      { objective: "Improve audit compliance accuracy", action: "Establish audit tracking workflow using DigiStorage", date: "Phase 2 by Day 60", owners: "Orion Compliance (Chandra Yates)" },
+      { objective: "Increase collaboration satisfaction", action: "Schedule cross-department Sync Huddles every two weeks", date: "Ongoing from Day 15", owners: "DigiSopht CS Manager (Jon Wu) + Orion Health Records (Nina Reyes)" },
+      { objective: "Strengthen transparency and trust", action: "Conduct biweekly leadership reviews of adoption data", date: "Every other Friday", owners: "Joint Account Team" }
+    ],
+    criteria: [
+      "All three divisions successfully onboarded to DigiSync within 60 days.",
+      "Compliance audit exceptions reduced to zero by next audit cycle.",
+      "Cross-department collaboration satisfaction scores exceed 85%.",
+      "IT and business leads validate time savings during success review."
+    ],
+    measures: [
+      "80% reduction in retrieval time (6.8 → 1.2 minutes).",
+      "0 audit exceptions in Q2 compliance cycle.",
+      "Cross-department satisfaction increased from 63 → 85.",
+      "100% of departments holding biweekly syncs for three consecutive months."
+    ]
+  },
+
+  // ===== ACME CORP — Renewal-Refresh Plan =====
+  acme: {
+    account_name: "Acme Corp",
+    csm_name: "Jane Smith",
+    plan_id: "CANVAS-ACME-20260522",
+    prepared_by: "Jane Smith, Sr CSM",
+    date_version: "2026-05-22 · v3",
+    plan_type: "renewal-refresh",
+    panel_labels: {
+      hl: "Renewal Context",
+      obj: "Renewal Objectives",
+      risk: "At-Risk Outcomes",
+      reward: "Delivered Outcomes",
+      actions: "OCV Gap Analysis · Actions, Dates & Owners",
+      measure: "Renewal Success Criteria"
+    },
+    company_highlights: "Acme Corp is a mid-market technology firm entering pre-renewal review. Renewal target date is 2026-08-15. The relationship spans 18 months with $720K ARR. Two of three committed OCV outcomes have been delivered; one remains at risk. The renewal narrative centers on demonstrating realized value and closing the open outcome before the renewal conversation.",
+    objectives: [
+      "Close the open OCV outcome (agent ramp time) before T-60.",
+      "Quantify cumulative business impact across 18 months for the executive review.",
+      "Confirm executive sponsor renewal intent and surface any commercial concerns.",
+      "Set the next-term success criteria with the customer champion."
+    ],
+    risks: [
+      "Routing engine adoption below 20%; ramp metric not yet improved (P3 leakage).",
+      "Executive sponsor turnover risk — VP Support is in transition.",
+      "Procurement timing could compress the renewal negotiation window."
+    ],
+    rewards: [
+      "Cycle time reduced 4.2d → 1.9d (Mar 2026 dashboard, confirmed).",
+      "FCR improved 73% → 91% (Q1 QBR, Sarah Kim VP Support).",
+      "Strong champion advocacy through executive level.",
+      "Expansion-ready once gap closes — adjacent department has expressed interest."
+    ],
+    actions: [
+      { objective: "Close ramp-time OCV gap", action: "Run adoption campaign for routing engine; pair with VP Support office hours", date: "T-60 (2026-06-15)", owners: "Jane Smith + VP Support" },
+      { objective: "Quantify business impact", action: "Build cumulative ROI narrative for executive review", date: "T-45 (2026-07-01)", owners: "Jane Smith + Acme Finance" },
+      { objective: "Confirm renewal intent", action: "Schedule executive sponsor meeting", date: "T-30 (2026-07-15)", owners: "Jane Smith + Mark Torres (Exec Sponsor)" },
+      { objective: "Set next-term criteria", action: "Renewal QBR with champion and executive sponsor", date: "T-15 (2026-07-30)", owners: "Joint Account Team" }
+    ],
+    criteria: [
+      "Open OCV outcome (ramp time) marked delivered before T-60.",
+      "Executive sponsor confirms renewal intent verbally before T-30.",
+      "Renewal QBR completed with executive sponsor in attendance.",
+      "Next-term success criteria signed by customer champion."
+    ],
+    measures: [
+      "OCV outcome status transitions from in_progress to delivered.",
+      "Renewal classification: Watch → Healthy by T-30.",
+      "Cumulative ROI documented and shared with sponsor.",
+      "Renewal contract signed before contract end date."
+    ]
+  },
+
+  // ===== GLOBEX INDUSTRIES — Expansion Canvas =====
+  globex: {
+    account_name: "Globex Industries",
+    csm_name: "Carlos Rivera",
+    plan_id: "CANVAS-GLOB-20260519",
+    prepared_by: "Carlos Rivera, Sr CSM",
+    date_version: "2026-05-19 · v1",
+    plan_type: "expansion",
+    panel_labels: {
+      hl: "Expansion Rationale",
+      obj: "Proposed Outcomes",
+      risk: "Expansion Risks",
+      reward: "Current Outcomes (Delivered)",
+      actions: "Expansion Opportunity · Actions, Dates & Owners",
+      measure: "Expansion Success Metrics"
+    },
+    company_highlights: "Globex Industries is a Fortune 500 enterprise customer. Current ARR is $2.4M across the core automation platform. The customer has fully delivered all three committed OCV outcomes — $2.4M labor savings tracked YTD, SLA breach rate reduced from 12% to 1.8%, and all four warehouse integrations live. The customer's automation maturity has crossed the threshold for expansion into Data Quality and Observability modules.",
+    objectives: [
+      "Build the business case for expansion into Data Quality and Observability modules.",
+      "Secure executive sponsor approval before fiscal year-end.",
+      "Define new OCV outcomes tied to the expanded scope.",
+      "Coordinate with the AE on commercial terms and close timing."
+    ],
+    risks: [
+      "Budget cycle timing must align with the Globex FY budget freeze.",
+      "Change management capacity in the data team is limited.",
+      "A competitor with an adjacent product is making inroads."
+    ],
+    rewards: [
+      "$2.4M labor savings tracked YTD (CFO confirmation 2026-04-30).",
+      "SLA breach rate: 2.1% Q1, 1.8% Q2 (executive dashboard).",
+      "All four warehouse integrations live — Snowflake, Redshift, BigQuery, Databricks.",
+      "NPS lift +18 points (Q1 survey, n=147)."
+    ],
+    actions: [
+      { objective: "Build expansion business case", action: "Draft expansion proposal with quantified ROI projection", date: "Week of 2026-06-01", owners: "Carlos Rivera + Solutions Engineer" },
+      { objective: "Executive sponsor approval", action: "Schedule executive briefing for the expansion business case", date: "2026-06-15", owners: "Carlos Rivera + Globex CFO" },
+      { objective: "Define new OCV outcomes", action: "Workshop with the data team to define commitment criteria", date: "2026-06-22", owners: "Carlos Rivera + Globex VP Data" },
+      { objective: "AE handoff and commercial terms", action: "Run CSQL through expansion pipeline; AE finalizes terms", date: "2026-07-15", owners: "Carlos Rivera + AE Sarah Park" }
+    ],
+    criteria: [
+      "Expansion business case approved by executive sponsor.",
+      "New OCV outcomes defined and committed by customer champion.",
+      "Commercial terms finalized before the Globex FY budget freeze.",
+      "Expansion CSQL closed-won by 2026-09-30."
+    ],
+    measures: [
+      "$800K+ incremental ARR booked.",
+      "3 new OCV outcomes added to the Globex Value Map.",
+      "Data Quality module deployed within 60 days of close.",
+      "Observability module deployed within 90 days of close."
+    ]
+  }
+};
+
+function planClass(planType) {
+  if (planType === 'expansion') return 'expansion';
+  if (planType === 'renewal-refresh') return 'renewal';
+  return 'initial';
+}
+
+function planLabel(planType) {
+  if (planType === 'expansion') return 'Expansion Canvas';
+  if (planType === 'renewal-refresh') return 'Renewal-Refresh';
+  return 'Initial Plan';
+}
+
+function renderAccount(key) {
+  const a = accounts[key];
+  if (!a) return;
+
+  // Header / control bar fields
+  document.getElementById('planId').textContent = a.plan_id;
+  document.getElementById('csmName').textContent = a.csm_name;
+
+  // Plan badge
+  const badge = document.getElementById('planBadge');
+  const cls = planClass(a.plan_type);
+  badge.classList.remove('initial','expansion','renewal');
+  badge.classList.add(cls);
+  document.getElementById('planBadgeText').textContent = planLabel(a.plan_type);
+
+  // Canvas title-bar meta fields
+  document.getElementById('metaAccount').textContent = a.account_name;
+  document.getElementById('metaPreparedBy').textContent = a.prepared_by;
+  document.getElementById('metaDate').textContent = a.date_version;
+
+  // Canvas grid plan-type class for header tinting
+  const grid = document.getElementById('canvasGrid');
+  grid.classList.remove('plan-initial','plan-expansion','plan-renewal');
+  grid.classList.add('plan-' + cls);
+
+  // Panel titles (adapt to plan type semantics)
+  document.getElementById('hlTitle').textContent = a.panel_labels.hl;
+  document.getElementById('objTitle').textContent = a.panel_labels.obj;
+  document.getElementById('riskTitle').textContent = a.panel_labels.risk;
+  document.getElementById('rewardTitle').textContent = a.panel_labels.reward;
+  document.getElementById('actionsTitle').textContent = a.panel_labels.actions;
+  document.getElementById('measureTitle').textContent = a.panel_labels.measure;
+
+  // Panel bodies
+  document.getElementById('companyHighlights').textContent = a.company_highlights;
+  document.getElementById('objectivesList').innerHTML = a.objectives.map(o => `<li><span>${o}</span></li>`).join('');
+  document.getElementById('risksList').innerHTML = a.risks.map(r => `<li><span>${r}</span></li>`).join('');
+  document.getElementById('rewardsList').innerHTML = a.rewards.map(r => `<li><span>${r}</span></li>`).join('');
+  document.getElementById('criteriaList').innerHTML = a.criteria.map(c => `<li><span>${c}</span></li>`).join('');
+  document.getElementById('measuresList').innerHTML = a.measures.map(m => `<li><span>${m}</span></li>`).join('');
+
+  // Actions table
+  document.getElementById('actionsTable').innerHTML = a.actions.map(row => `
+    <tr>
+      <td>${row.objective}</td>
+      <td>${row.action}</td>
+      <td>${row.date}</td>
+      <td>${row.owners}</td>
+    </tr>
+  `).join('');
+}
+
+document.getElementById('accountSelect').addEventListener('change', e => {
+  renderAccount(e.target.value);
+});
+
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  const btn = document.getElementById('refreshBtn');
+  const original = btn.innerHTML;
+  btn.innerHTML = '<span>Refreshing…</span>';
+  btn.disabled = true;
+  setTimeout(() => {
+    const key = document.getElementById('accountSelect').value;
+    renderAccount(key);
+    btn.innerHTML = original;
+    btn.disabled = false;
+  }, 300);
+});
+
+renderAccount('orion');
+</script>
+</body>
+</html>

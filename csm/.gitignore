@@ -10,6 +10,8 @@
 # Output files
 out/
 outputs/
+output/
+design/
 
 # OS
 .DS_Store

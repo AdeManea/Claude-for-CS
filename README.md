@@ -154,6 +154,30 @@ The OCV is produced once and referenced by many skills. Account value statements
 
 > **Production-grade, not production-ready.** This suite is a reference implementation — built to production standards so the architecture, patterns, and domain knowledge are real, but not designed to drop into your team's workflow without adaptation. Customer Success is practiced differently across organizations. Lifecycle stage definitions, segmentation models, health scoring logic, toolstacks, and team structures vary enough that any honest implementation requires deliberate tailoring. What this suite answers is the harder question: what does a complete, domain-grounded, AI-native CS capability look like, and what does building one actually require? Use it as a working reference and starting point, not a finished product.
 
+### Install from the marketplace
+
+This repository ships a Claude Code plugin marketplace. Add it once, then install any plugin by name. Users get version pinning and `/plugin marketplace update` for refreshes.
+
+```bash
+# 1. Add the marketplace (one-time)
+/plugin marketplace add t0ddc3by/claude-for-customer-success
+
+# 2. Install the plugins you need
+/plugin install csm@claude-for-customer-success
+/plugin install cs-ops@claude-for-customer-success
+/plugin install renewals@claude-for-customer-success
+/plugin install onboarding@claude-for-customer-success
+/plugin install rev-ops@claude-for-customer-success
+/plugin install auq-resilience@claude-for-customer-success
+
+# 3. Later, refresh to pick up new versions
+/plugin marketplace update claude-for-customer-success
+```
+
+Each plugin installs independently — install only what your team needs. The marketplace catalog lives at [`.claude-plugin/marketplace.json`](./.claude-plugin/marketplace.json).
+
+**Alternative — install from `dist/` archives.** Pre-built `.plugin` files are also published in [`dist/`](./dist/) for users who prefer file-based installation or are working offline. Drop the archive into your Claude plugin directory or use the Cowork plugin install flow.
+
 ### First install (any plugin)
 
 Run the cold-start interview in whichever plugin you install first. It will:
@@ -593,7 +617,7 @@ The YAML model and the SKILL.md files are parallel representations of the same s
 
 ## Coverage Notes
 
-The suite's 81 skills break down as 47 lifecycle skills (Stages 0–6) and 34 cross-cutting ops skills. Coverage is not uniform across lifecycle stages (but will be expanded in subsequent releases and can augmented by solutions like our skill-enabled TARO playbooks that feature 850+ additional skills see the **taro-play-runner** skill):
+The suite's 81 skills break down as 47 lifecycle skills (Stages 0–6) and 34 cross-cutting ops skills. Coverage is not uniform across lifecycle stages (but will be expanded in subsequent releases and can be augmented by solutions like our skill-enabled TARO playbooks that feature 850+ additional skills see the **taro-play-runner** skill):
 
 - **Stages 0–5** have full or near-full skill coverage with documented workflows and stage gate criteria.
 - **Stage 6 (Advocacy)** has minimal dedicated coverage: two skills, `csm.advocate-identification` and `csm.advocacy-ask`. Broader advocacy program design, community management, and reference program coordination are deliberately out of scope for v1.1.0. These activities require human relationship judgment that doesn't compress well into a skill interaction; the agent cookbook `advocacy-agent` handles the research and qualification work that does.

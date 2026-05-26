@@ -1,49 +1,40 @@
 {
   "mcpServers": {
     "salesforce": {
-      "type": "url",
-      "url": "${SALESFORCE_MCP_URL}",
-      "note": "CRM — account data, opportunity stage, contact hierarchy, activity history"
+      "type": "http",
+      "url": "https://salesforce-mcp.example.com/mcp"
     },
     "hubspot": {
-      "type": "url",
-      "url": "${HUBSPOT_MCP_URL}",
-      "note": "CRM alternative"
+      "type": "http",
+      "url": "https://hubspot-mcp.example.com/mcp"
     },
     "gainsight": {
-      "type": "url",
-      "url": "${GAINSIGHT_MCP_URL}",
-      "note": "CS Platform — health scores, CTAs, success plans, timeline, usage data"
+      "type": "http",
+      "url": "https://gainsight-mcp.example.com/mcp"
     },
     "totango": {
-      "type": "url",
-      "url": "${TOTANGO_MCP_URL}",
-      "note": "CS Platform alternative"
+      "type": "http",
+      "url": "https://totango-mcp.example.com/mcp"
     },
     "churnzero": {
-      "type": "url",
-      "url": "${CHURNZERO_MCP_URL}",
-      "note": "CS Platform alternative"
+      "type": "http",
+      "url": "https://churnzero-mcp.example.com/mcp"
     },
     "vitally": {
-      "type": "url",
-      "url": "${VITALLY_MCP_URL}",
-      "note": "CS Platform alternative"
+      "type": "http",
+      "url": "https://vitally-mcp.example.com/mcp"
     },
     "gong": {
-      "type": "url",
-      "url": "${GONG_MCP_URL}",
-      "note": "Call recording — transcripts, highlights, action items"
+      "type": "http",
+      "url": "https://gong-mcp.example.com/mcp"
     },
     "gdrive": {
-      "type": "url",
-      "url": "${GDRIVE_MCP_URL}",
-      "note": "Document storage — QBR decks, success plan docs, templates"
+      "type": "http",
+      "url": "https://gdrive-mcp.example.com/mcp"
     },
     "g2": {
-      "type": "url",
-      "url": "${G2_MCP_URL}",
-      "note": "Review platform — product reviews, buyer intent signals, competitive intelligence, market intelligence reviews with company context"
+      "type": "http",
+      "url": "https://g2-mcp.example.com/mcp"
     }
   }
 }

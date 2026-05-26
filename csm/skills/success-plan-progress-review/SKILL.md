@@ -384,7 +384,7 @@ If `success_criteria_status` is provided, render the success criteria table with
 
 **Step 8 — Build CSM Action List**
 
-Apply action generation logic from `reference/milestone-rating-guide.md` § 3. For each `At Risk` milestone, generate investigation and intervention actions. For each `Missed` milestone, generate recovery and escalation actions. Apply escalation threshold logic from § 2. If all milestones are `On Track`, render: "No immediate actions required — continue standard monitoring cadence."
+Apply action generation logic from `references/milestone-rating-guide.md` § 3. For each `At Risk` milestone, generate investigation and intervention actions. For each `Missed` milestone, generate recovery and escalation actions. Apply escalation threshold logic from § 2. If all milestones are `On Track`, render: "No immediate actions required — continue standard monitoring cadence."
 
 **Step 9 — Build Customer-Facing Summary (conditional)**
 
@@ -397,6 +397,16 @@ If `include_qbr_note: true`, generate the QBR Pre-Work Note using the template f
 **Step 11 — Assemble and write output file**
 
 Construct the YAML frontmatter block with all required fields. Assemble document sections in fixed order: Progress Scorecard → OCV Outcome Status → Success Criteria Evaluation → CSM Action List → Customer-Facing Summary → QBR Pre-Work Note → Notes. Write the complete document to `context/progress-review-[safe_account]-[review_date].md`. Return the console summary.
+
+---
+
+## Reviewer note
+
+> **⚠️ Reviewer note**
+> - **Sources:** [CS Platform ✓ live — usage, milestone data | CS Platform [configured but unverified] | CRM ✓ live — account context | CRM [configured but unverified] | document storage: canvas from [date] | user provided | not connected — conversation context only]
+> - **Data as of:** [timestamp per source]
+> - **Flagged for your judgment:** [N items marked `[review]` inline | none]
+> - **Before sending:** Confirm progress data is current (CS Platform data >30 days old is directional only). Do not share internal health score components in customer-facing progress summary.
 
 ---
 
@@ -429,9 +439,9 @@ The following reference files are loaded on-demand during skill execution:
 
 | File | Purpose | Loaded When |
 |------|---------|-------------|
-| `reference/progress-review-schema.md` | Canonical review record format, YAML frontmatter field definitions, section assembly order, field validation rules, auto-ID generation rules | Every `review` operation |
-| `reference/milestone-rating-guide.md` | Rating criteria for On Track / At Risk / Missed; escalation thresholds; CSM action generation logic per rating; Success Criteria evaluation logic; Measures of Success assessment; Key Benefits Already Realized guidance | Every `review` operation |
-| `reference/customer-summary-templates.md` | Customer-facing language templates by milestone status (positive, cautionary, escalation tones); QBR pre-work note structure and language guidance | When `include_customer_summary: true` or `include_qbr_note: true` |
+| `references/progress-review-schema.md` | Canonical review record format, YAML frontmatter field definitions, section assembly order, field validation rules, auto-ID generation rules | Every `review` operation |
+| `references/milestone-rating-guide.md` | Rating criteria for On Track / At Risk / Missed; escalation thresholds; CSM action generation logic per rating; Success Criteria evaluation logic; Measures of Success assessment; Key Benefits Already Realized guidance | Every `review` operation |
+| `references/customer-summary-templates.md` | Customer-facing language templates by milestone status (positive, cautionary, escalation tones); QBR pre-work note structure and language guidance | When `include_customer_summary: true` or `include_qbr_note: true` |
 | `references/reasoning-blueprint.md` | Problem classification taxonomy, domain heuristics, common failure modes, and expert judgment patterns for this skill | On-demand per Reasoning Protocol |
 
 ---

@@ -205,6 +205,32 @@ Report findings:
 > - ⚪ [CS Platform] — configured but not verified. Open your MCP settings to confirm.
 > - ✗ [Gong] — not found. Call transcript features fall back to pasted notes. [How to connect.] Re-run `/csm:cold-start-interview --check-integrations` after connecting.
 
+#### Tenant verification
+
+After confirming each connector with a successful tool call, run the identity probe
+for that connector type (see `shared/which-tenant-am-i-on.md`):
+
+| Connector type | Identity probe call | Display to user |
+|----------------|---------------------|-----------------|
+| CRM (HubSpot, Salesforce) | List 1 account/contact with name | `CRM tenant: [Account name]. Is this your company's CRM?` |
+| CS Platform (Gainsight, Totango, ChurnZero) | Read authenticated user or company info | `CS Platform tenant: [company or user org]. Correct?` |
+| Ticketing (Zendesk, Jira) | Read organization name from account | `Ticketing tenant: [org name]. Correct?` |
+| Calendar/Email (Google, Microsoft 365) | Read authenticated user email domain | `Calendar/Email: Connected as [user@domain.com]. Correct?` |
+| Generic / unknown | Any read call; surface first field | `Connector returned: [summary]. Does this look like your data?` |
+
+Present result and ask for tenant confirmation before continuing. If the user says "no" (wrong tenant), mark `⚠️ wrong tenant — re-authenticate before use` and surface reauthentication instructions. Continue interview — do not block on wrong-tenant connectors; surface a summary of flagged connectors at close.
+
+If the probe call fails (identity endpoint unavailable): mark `✓ connected (tenant unverified — probe call failed)`.
+
+Write the expanded integrations table to config:
+
+| Connector | Status | Tenant |
+|-----------|--------|--------|
+| HubSpot CRM | ✓ verified | Acme Corp |
+| Gainsight | ✓ connected (tenant unverified) | — |
+| Google Calendar | ⚠️ wrong tenant | previous-employer.com (re-authenticate) |
+| Jira | ⚪ configured, not tested | — |
+
 Write `## Who's using this` and `## Available integrations` sections to the config immediately after Part 0.
 
 ---

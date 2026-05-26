@@ -314,7 +314,7 @@ response rate significantly."]
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CS Platform ✓ live | CRM ✓ live | call notes: [date] | user-provided context | conversation context only]
+> - **Sources:** [CS Platform ✓ live | CS Platform [configured but unverified] | CRM ✓ live | CRM [configured but unverified] | call notes: [date] | user-provided context | not connected — conversation context only]
 > - **Data as of:** [timestamp per source]
 > - **Risk signals:** [Confirmed from data | CSM-reported — not independently verified]
 > - **Escalation routing:** [Applied configured matrix — verify contact names are current]

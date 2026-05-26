@@ -233,6 +233,29 @@ the completed config file for review before writing to disk.
 24. Which tools have live API access or MCP connectors in this environment?
     (These will be used for live data in cs-ops skills where available)
 
+    **Tenant verification:** For each tool that responds to a test call, run the
+    identity probe for that connector type (see `shared/which-tenant-am-i-on.md`)
+    to confirm the connected tenant before using live data in any skill.
+
+    | Connector type | Identity probe | Ask user |
+    |----------------|---------------|---------|
+    | CRM (HubSpot, Salesforce) | List 1 account/contact with name | `CRM tenant: [Account name]. Is this your company's CRM?` |
+    | CS Platform (Gainsight, Totango, ChurnZero) | Read authenticated user or org info | `CS Platform tenant: [org name]. Correct?` |
+    | Ticketing (Zendesk, Jira) | Read organization name from account | `Ticketing tenant: [org name]. Correct?` |
+    | Calendar/Email (Google, Microsoft 365) | Read authenticated user email | `Calendar/Email: Connected as [user@domain.com]. Correct?` |
+    | Generic / unknown | Any read call; surface first field | `Connector returned: [summary]. Does this look like your data?` |
+
+    Write the following to config after tenant verification:
+
+    | Connector | Status | Tenant |
+    |-----------|--------|--------|
+    | [tool name] | ✓ verified / ✓ connected (tenant unverified) / ⚠️ wrong tenant / ⚪ configured, not tested | [tenant identifier or —] |
+
+    If the user confirms "wrong tenant": mark `⚠️ wrong tenant — re-authenticate before use`.
+    Do not block on wrong-tenant connectors — continue the interview and surface a summary of
+    flagged connectors at close. If the probe call fails: mark `✓ connected (tenant unverified
+    — probe call failed)`.
+
 25. For each tool, what is the primary CS data it holds?
     (e.g., "Gainsight: health scores, CTAs, lifecycle stage /
     Salesforce: ARR, renewal date, contacts, opportunity history")

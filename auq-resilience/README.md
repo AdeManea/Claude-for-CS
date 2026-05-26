@@ -1,6 +1,6 @@
 # auq-resilience
 
-**AskUserQuestion (AUQ) Resilience System — hook-based failsafe for `AskUserQuestion`**
+**AskUserQuestion (AUQ) Resilience System — hook-based fallback for `AskUserQuestion`**
 
 The `ask_user_input_v0` tool (AUQ) renders an interactive multiple-choice widget in Claude Code. When the widget renders correctly, the user picks an option and Claude proceeds. When it fails — due to an unsupported client, a missed render, or a tool error — Claude receives an empty or null response and has no recoverable path.
 

@@ -394,7 +394,7 @@ in the trust-building phase with the platform."]
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CS Platform ✓ live | CRM ✓ live | success plan from [date] | user provided | conversation context only]
+> - **Sources:** [CS Platform ✓ live | CS Platform [configured but unverified] | CRM ✓ live | CRM [configured but unverified] | success plan from [date] | user provided | not connected — conversation context only]
 > - **Success criteria source:** [Account-specific from [source] | configured standard template | CSM-provided — verify with customer before using in customer-facing communication]
 > - **Value claims:** [Sourced from data — see inline annotations | CSM-reported — not independently verified]
 > - **Data as of:** [timestamp per source]

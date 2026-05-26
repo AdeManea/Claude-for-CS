@@ -325,7 +325,7 @@ Return specific edits with line references, not a summary score.
 Every QBR output includes:
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CRM ✓ live | CS Platform ✓ live | user-provided success plan | prior QBR from [date]]
+> - **Sources:** [CRM ✓ live | CRM [configured but unverified] | CS Platform ✓ live | CS Platform [configured but unverified] | user-provided success plan | prior QBR from [date] | not connected — conversation context only]
 > - **Data as of:** [timestamp per source]
 > - **Success criteria source:** [account-specific from [doc] | configured default — verify with customer]
 > - **Flagged for your judgment:** [N items marked `[review]` inline | none]

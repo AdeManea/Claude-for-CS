@@ -280,7 +280,7 @@ full map rebuild.
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CRM ✓ live — [N] contacts retrieved | call recording: attendees from last [N] calls | user provided | conversation context]
+> - **Sources:** [CRM ✓ live — [N] contacts retrieved | CRM [configured but unverified] | call recording: attendees from last [N] calls | user provided | not connected — conversation context only]
 > - **Data as of:** [timestamp]
 > - **Relationship health assessments:** [Based on last-contact dates from CRM | partially inferred from call attendee patterns | user-provided description]
 > - **Flagged for your judgment:** [N items marked `[review]` inline | none]

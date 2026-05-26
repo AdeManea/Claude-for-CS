@@ -412,7 +412,7 @@ Thank you for your continued partnership.
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [Support platform ✓ live — ticket details | CRM ✓ live — ARR, history | user provided | conversation context only]
+> - **Sources:** [Support platform ✓ live — ticket details | Support platform [configured but unverified] | CRM ✓ live — ARR, history | CRM [configured but unverified] | user provided | not connected — conversation context only]
 > - **Escalation type:** [Technical / Complaint / Executive / Internal]
 > - **Escalation routing:** [Applied configured matrix — verify escalation owner name and contact is current]
 > - **Data as of:** [timestamp per source]

@@ -29,7 +29,9 @@ venv/
 .env.*.local
 
 # Claude / Cowork internals
+.claude/
 .claude-plugin/
+**/.claude-plugin/
 context/
 
 # Skill build artifacts
@@ -48,3 +50,16 @@ context/
 
 # Skill zip artifacts
 **/skills/*.zip
+
+# Top-level scratch directories — not for version control
+output/
+design/
+evals/
+
+
+# Project runtime files — not for version control
+.safety-project.ini
+AGENTS.md
+CLAUDE.md
+
+docs/claude-for-cs-deep-dive.md

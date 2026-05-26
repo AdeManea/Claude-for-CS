@@ -206,7 +206,7 @@ refreshed_at: null
 [CSM notes — append-only on refresh]
 ```
 
-See `reference/success-plan-canvas-schema.md` for complete field definitions and section structure per plan type.
+See `references/success-plan-canvas-schema.md` for complete field definitions and section structure per plan type.
 
 ---
 
@@ -228,7 +228,7 @@ Note from config:
 
 ## Reasoning Protocol
 
-> Blueprint: `reference/reasoning-blueprint.md` (on-demand only)
+> Blueprint: `references/reasoning-blueprint.md` (on-demand only)
 
 Before generating output, apply these primers:
 
@@ -312,6 +312,16 @@ Before generating output, apply these primers:
 
 ---
 
+## Reviewer note
+
+> **⚠️ Reviewer note**
+> - **Sources:** [CRM ✓ live — contract terms, stakeholder contacts | CRM [configured but unverified] | document storage: existing canvas or kickoff notes | user provided | not connected — conversation context only]
+> - **Data as of:** [timestamp per source]
+> - **Flagged for your judgment:** [N items marked `[review]` inline | none]
+> - **Before sending:** Verify success criteria in the canvas have been reviewed and agreed with the customer sponsor before treating as a mutual plan. Canvas contains no internal health scores or expansion signals.
+
+---
+
 ## Security & Permissions
 
 - **Network access:** none
@@ -352,10 +362,10 @@ The following reference files govern this skill's detailed behavior. They are lo
 
 | File | Purpose |
 |------|---------|
-| `reference/success-plan-canvas-schema.md` | Canonical canvas record format, complete YAML frontmatter field list with types and validation rules, section structure per plan type, auto-ID generation rules, immutable field list and enforcement behavior |
-| `reference/plan-type-guide.md` | CCSM-104 7-component framework definition, per-plan-type section templates with placeholder content guidance, OCV integration rules by plan type, expansion canvas distinction rules (header branding and framing language), renewal-refresh OCV gap detection logic, component presence rules (required vs optional per plan type) |
-| `reference/ocv-integration-contract.md` | OCV snapshot input format spec, valid status values, field mappings (`outcome_name`, `status`, `owner`), rendering format for OCV outcomes in canvas sections per plan type, gap detection logic for renewal-refresh, advisory-only contract (skill NEVER writes to OCV files) |
-| `reference/reasoning-blueprint.md` | Problem classification taxonomy, domain heuristics, common failure modes, and expert judgment patterns for this skill |
+| `references/success-plan-canvas-schema.md` | Canonical canvas record format, complete YAML frontmatter field list with types and validation rules, section structure per plan type, auto-ID generation rules, immutable field list and enforcement behavior |
+| `references/plan-type-guide.md` | CCSM-104 7-component framework definition, per-plan-type section templates with placeholder content guidance, OCV integration rules by plan type, expansion canvas distinction rules (header branding and framing language), renewal-refresh OCV gap detection logic, component presence rules (required vs optional per plan type) |
+| `references/ocv-integration-contract.md` | OCV snapshot input format spec, valid status values, field mappings (`outcome_name`, `status`, `owner`), rendering format for OCV outcomes in canvas sections per plan type, gap detection logic for renewal-refresh, advisory-only contract (skill NEVER writes to OCV files) |
+| `references/reasoning-blueprint.md` | Problem classification taxonomy, domain heuristics, common failure modes, and expert judgment patterns for this skill |
 
 ---
 

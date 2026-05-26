@@ -305,7 +305,7 @@ Return a ranked list — highest risk first.
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CS Platform ✓ live — health score + components | CRM ✓ live — usage + engagement | user provided | conversation context only]
+> - **Sources:** [CS Platform ✓ live — health score + components | CS Platform [configured but unverified] | CRM ✓ live — usage + engagement | CRM [configured but unverified] | user provided | not connected — conversation context only]
 > - **Health model applied:** [Components and weights from config | user-defined signals | no formal model — signals only]
 > - **Data as of:** [timestamp per source]
 > - **Staleness flags:** [NPS from [N] months ago — stale | usage data confirmed live | engagement from last call [date]]

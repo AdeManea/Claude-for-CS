@@ -390,15 +390,27 @@ Skip the interview. For each integration configured in CLAUDE.md, test live conn
 
 > "Running integration health check — [timestamp]
 >
-> | Tool | Configured | Live connection | Data accessible |
-> |------|-----------|----------------|-----------------|
-> | Asana | ✅ configured | ✅ connected | Tasks, milestones |
-> | Salesforce | ✅ configured | ⚠️ auth expired | — |
-> | Google Drive | ✅ configured | ✅ connected | Docs, sheets |
-> | Gainsight | ❌ not configured | — | — |
+> | Tool | Configured | Live connection | Tenant | Data accessible |
+> |------|-----------|----------------|--------|-----------------|
+> | Asana | ✅ configured | ✅ connected | ✓ verified: Acme Corp | Tasks, milestones |
+> | Salesforce | ✅ configured | ⚠️ auth expired | — | — |
+> | Google Drive | ✅ configured | ✅ connected | ✓ verified: user@acme.com | Docs, sheets |
+> | Gainsight | ❌ not configured | — | — | — |
 >
 > Action: Salesforce auth needs refresh. Re-authenticate via [method].
 > Updated integration status written to config — [timestamp]."
+
+For each ✅ connected tool, run the identity probe for that connector type
+(see `shared/which-tenant-am-i-on.md`) and confirm with the user before writing
+the Tenant column. Probe result states:
+
+- **✓ verified ([tenant])** — probe succeeded and user confirmed correct tenant
+- **✓ connected (tenant unverified)** — probe endpoint unavailable or timed out
+- **⚠️ wrong tenant — re-authenticate before use** — user confirmed wrong tenant
+- **⚪ configured, not tested** — connector configured but not tested this run
+
+Surface any `⚠️ wrong tenant` connectors in the action summary at the end of the
+health check output.
 
 ---
 

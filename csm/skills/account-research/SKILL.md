@@ -292,7 +292,7 @@ Examples by state:
 Every brief includes:
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CRM ✓ live | CS Platform ✓ live | Gong ✓ live | user provided | conversation context only]
+> - **Sources:** [CRM ✓ live | CRM [configured but unverified] | CS Platform ✓ live | CS Platform [configured but unverified] | Gong ✓ live | Gong [configured but unverified] | user provided | not connected — conversation context only]
 > - **Data as of:** [timestamp per source, or "N/A — user-provided"]
 > - **Retrieved:** [what was actually pulled — account record, health signals, last 2 calls, etc.]
 > - **Gaps:** [what was not available — e.g., "no CS Platform data; health based on user-provided context"]

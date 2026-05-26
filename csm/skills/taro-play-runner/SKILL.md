@@ -300,6 +300,16 @@ See **Play execution output** section for field-level detail.
 
 > [review before sending]
 
+## Reviewer note
+
+> **⚠️ Reviewer note**
+> - **Sources:** [CS Platform ✓ live — health signals, CTAs, lifecycle stage | CS Platform [configured but unverified] | CRM ✓ live — ARR, stakeholders, account history | CRM [configured but unverified] | user provided | not connected — conversation context only]
+> - **Data as of:** [timestamp per source]
+> - **Flagged for your judgment:** [N items marked `[review]` inline | none]
+> - **Before sending:** Confirm the triggering signal is current and not a stale alert. Play execution outputs are CSM-facing — verify any customer-facing deliverable in the play excludes internal health data.
+
+---
+
 ## Guardrails
 
 **TARO plays are leads, not mandates.** The skill selects and contextualizes

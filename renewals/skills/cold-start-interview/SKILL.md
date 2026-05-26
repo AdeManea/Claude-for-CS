@@ -223,6 +223,30 @@ connector is available.
 For each connected tool: record the specific platform name. For unconnected tools:
 record the fallback (e.g., "will paste contract excerpts").
 
+#### Tenant verification
+
+For each tool that responds to a test call, run the identity probe for that connector
+type (see `shared/which-tenant-am-i-on.md`) before recording it as verified:
+
+| Connector type | Identity probe | Ask user |
+|----------------|---------------|---------|
+| CRM (HubSpot, Salesforce) | List 1 account/contact with name | `CRM tenant: [Account name]. Is this your company's CRM?` |
+| CS Platform (Gainsight, Totango, ChurnZero) | Read authenticated user or org info | `CS Platform tenant: [org name]. Correct?` |
+| CPQ / Contract (DocuSign, Ironclad) | Read authenticated org or account name | `Contract tenant: [org name]. Correct?` |
+| Call recording (Gong, Chorus) | Read authenticated user email or org | `Call recording tenant: [org or user]. Correct?` |
+| Generic / unknown | Any read call; surface first field | `Connector returned: [summary]. Does this look like your data?` |
+
+Write the following expanded table to config after verification:
+
+| Connector | Status | Tenant |
+|-----------|--------|--------|
+| [tool name] | ✓ verified / ✓ connected (tenant unverified) / ⚠️ wrong tenant / ⚪ configured, not tested | [tenant identifier or —] |
+
+If the user confirms "wrong tenant": mark `⚠️ wrong tenant — re-authenticate before use`.
+Do not block on wrong-tenant connectors — continue the interview and surface a summary of
+flagged connectors at close. If the probe call fails: mark `✓ connected (tenant unverified
+— probe call failed)`.
+
 ---
 
 ### Section 8 — Methodology and communication preferences
@@ -276,13 +300,13 @@ For each integration:
 
 Output table:
 
-| Integration | Tool | Status | Last verified |
-|-------------|------|--------|---------------|
-| CRM | [name] | [✅/❌/⚠️] | [timestamp] |
-| CS Platform | [name] | [✅/❌/⚠️] | [timestamp] |
-| CPQ | [name] | [✅/❌/⚠️] | [timestamp] |
-| Contract storage | [name] | [✅/❌/⚠️] | [timestamp] |
-| Call recording | [name] | [✅/❌/⚠️] | [timestamp] |
+| Integration | Tool | Status | Tenant | Last verified |
+|-------------|------|--------|--------|---------------|
+| CRM | [name] | [✅/❌/⚠️] | [tenant or —] | [timestamp] |
+| CS Platform | [name] | [✅/❌/⚠️] | [tenant or —] | [timestamp] |
+| CPQ | [name] | [✅/❌/⚠️] | [tenant or —] | [timestamp] |
+| Contract storage | [name] | [✅/❌/⚠️] | [tenant or —] | [timestamp] |
+| Call recording | [name] | [✅/❌/⚠️] | [tenant or —] | [timestamp] |
 
 Update integration status fields in CLAUDE.md after the check. Confirm the update:
 

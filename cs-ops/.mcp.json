@@ -1,54 +1,44 @@
 {
   "mcpServers": {
     "snowflake": {
-      "type": "url",
-      "url": "${SNOWFLAKE_MCP_URL}",
-      "note": "Data warehouse — usage events, health metrics, product analytics"
+      "type": "http",
+      "url": "https://snowflake-mcp.example.com/mcp"
     },
     "bigquery": {
-      "type": "url",
-      "url": "${BIGQUERY_MCP_URL}",
-      "note": "Data warehouse alternative"
+      "type": "http",
+      "url": "https://bigquery-mcp.example.com/mcp"
     },
     "gainsight": {
-      "type": "url",
-      "url": "${GAINSIGHT_MCP_URL}",
-      "note": "CS Platform — health model config, segment rules, playbooks"
+      "type": "http",
+      "url": "https://gainsight-mcp.example.com/mcp"
     },
     "totango": {
-      "type": "url",
-      "url": "${TOTANGO_MCP_URL}",
-      "note": "CS Platform alternative — health scores, segment health data"
+      "type": "http",
+      "url": "https://totango-mcp.example.com/mcp"
     },
     "churnzero": {
-      "type": "url",
-      "url": "${CHURNZERO_MCP_URL}",
-      "note": "CS Platform alternative — health scores, segment health data"
+      "type": "http",
+      "url": "https://churnzero-mcp.example.com/mcp"
     },
     "vitally": {
-      "type": "url",
-      "url": "${VITALLY_MCP_URL}",
-      "note": "CS Platform alternative — health scores, segment health data"
+      "type": "http",
+      "url": "https://vitally-mcp.example.com/mcp"
     },
     "looker": {
-      "type": "url",
-      "url": "${LOOKER_MCP_URL}",
-      "note": "BI — CS dashboards, metric definitions, saved explores"
+      "type": "http",
+      "url": "https://looker-mcp.example.com/mcp"
     },
     "tableau": {
-      "type": "url",
-      "url": "${TABLEAU_MCP_URL}",
-      "note": "BI alternative"
+      "type": "http",
+      "url": "https://tableau-mcp.example.com/mcp"
     },
     "salesforce": {
-      "type": "url",
-      "url": "${SALESFORCE_MCP_URL}",
-      "note": "CRM — account list, ARR, segment assignments"
+      "type": "http",
+      "url": "https://salesforce-mcp.example.com/mcp"
     },
     "slack": {
-      "type": "url",
-      "url": "${SLACK_MCP_URL}",
-      "note": "Slack — portfolio-segment-digest delivery to CS Ops channel"
+      "type": "http",
+      "url": "https://slack-mcp.example.com/mcp"
     }
   }
 }

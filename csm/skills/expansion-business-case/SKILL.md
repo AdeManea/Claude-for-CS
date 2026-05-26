@@ -1,19 +1,16 @@
 ---
-name: csm:expansion-business-case
-version: "1.0.0"
+name: expansion-business-case
 description: >
   Generate a customer-facing expansion proposal (csm-led) or a CSQL Qualification
   Package for Sales handoff (csql) based on account health, usage signals, and
   expansion opportunity context. Applies 5 constraints, 5 expert checks, and 5
   anti-pattern guards before output generation.
+argument-hint: "[--csm-led | --csql] [account name or ID]"
+version: "1.0.0"
 deployment_target: plugin
-enhancement_level: P1
-task_id: expansion-business-case
-duration_minutes: 3
-lifecycle_stage: stage-4-expansion
 ---
 
-# /csm:expansion-business-case
+# /expansion-business-case
 
 [PROPOSED]
 
@@ -498,6 +495,16 @@ Before delivering output, verify:
    rather than inserting placeholders that degrade document quality
 5. `reference/reasoning-blueprint.md` is NOT loaded at skill start — load only when
    debugging phase behavior or validating expert check logic
+
+---
+
+## Reviewer note
+
+> **⚠️ Reviewer note**
+> - **Sources:** [CS Platform ✓ live | CS Platform [configured but unverified] | CRM ✓ live — ARR, deal context | CRM [configured but unverified] | success plan from [date] | user provided | not connected — conversation context only]
+> - **Data as of:** [timestamp per source]
+> - **Flagged for your judgment:** [N items marked `[review]` inline | none]
+> - **Before sending:** Verify ARR and expansion deal context with CRM before sharing this business case with leadership or AE. Expansion signals are internal — do not include in customer-facing output.
 
 ---
 

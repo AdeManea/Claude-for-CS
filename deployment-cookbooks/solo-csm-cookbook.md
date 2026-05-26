@@ -60,7 +60,7 @@ If you want to understand before you configure, read the full document top to bo
 
 ### Step 1 — Install the plugins (5 minutes)
 
-Go to **§0.0 Install Your Plugins** and follow the environment-specific steps for Cowork or Claude Code. Install order matters — install `csm` first, then `cs-ops`, then the remaining plugins. When all five are installed, slash commands will resolve correctly.
+Go to [§0.0 Install Your Plugins](#00-install-your-plugins--environment-specific-steps) and follow the environment-specific steps for Cowork or Claude Code. Install order matters — install `csm` first, then `cs-ops`, then the remaining plugins. When all five are installed, slash commands will resolve correctly.
 
 ### Step 2 — Run cold-start (15 minutes)
 
@@ -570,7 +570,7 @@ Before you open any section of this cookbook, verify you have the right plugins 
 
 Plugin installation is the one step that differs between Cowork and Claude Code. Everything after installation — slash commands, managed agent behavior, G-code enforcement, cold-start interviews — is identical.
 
-> **[Cowork]** Open the desktop app. In the left sidebar, click **Plugins** → **Browse**. Search for `claude-for-customer-success`. Install the `csm` plugin first, then add `renewals`, `cs-ops`, and `onboarding` as needed. Each plugin appears in your sidebar as a named plugin group. You do not need to touch the filesystem — the plugin manager handles everything.
+> **[Cowork]** Open the desktop app. In the left sidebar, click **Customize** → **Browse plugins** -> **Personal**, then click on the "+" or search for `claude-for-customer-success`. Install the `csm` plugin first, then add `renewals`, `cs-ops`, and `onboarding` as needed. Each plugin appears in your sidebar as a named plugin group. You do not need to touch the filesystem — the plugin manager handles everything.
 
 > **[Claude Code]** In your terminal, run:
 > ```

@@ -308,7 +308,7 @@ within [SLA]."
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CRM ✓ live | CS Platform ✓ live | Gong ✓ live | prior account-research session | user provided]
+> - **Sources:** [CRM ✓ live | CRM [configured but unverified] | CS Platform ✓ live | CS Platform [configured but unverified] | Gong ✓ live | Gong [configured but unverified] | prior account-research session | user provided | not connected — conversation context only]
 > - **Data as of:** [timestamp per source]
 > - **Flagged for your judgment:** [N items marked `[review]` inline | none]
 > - **Before the call:** [1-2 specific things to confirm — e.g., "verify attendee list is current", "confirm exec sponsor is joining"]

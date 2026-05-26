@@ -1,34 +1,28 @@
 {
   "mcpServers": {
     "asana": {
-      "type": "url",
-      "url": "${ASANA_MCP_URL}",
-      "note": "Project management — onboarding project templates, task status, milestones"
+      "type": "http",
+      "url": "https://asana-mcp.example.com/mcp"
     },
     "linear": {
-      "type": "url",
-      "url": "${LINEAR_MCP_URL}",
-      "note": "Project management alternative"
+      "type": "http",
+      "url": "https://linear-mcp.example.com/mcp"
     },
     "jira": {
-      "type": "url",
-      "url": "${JIRA_MCP_URL}",
-      "note": "Project management alternative"
+      "type": "http",
+      "url": "https://jira-mcp.example.com/mcp"
     },
     "salesforce": {
-      "type": "url",
-      "url": "${SALESFORCE_MCP_URL}",
-      "note": "CRM — account details, contacts, deal context, handoff notes"
+      "type": "http",
+      "url": "https://salesforce-mcp.example.com/mcp"
     },
     "hubspot": {
-      "type": "url",
-      "url": "${HUBSPOT_MCP_URL}",
-      "note": "CRM alternative"
+      "type": "http",
+      "url": "https://hubspot-mcp.example.com/mcp"
     },
     "gdrive": {
-      "type": "url",
-      "url": "${GDRIVE_MCP_URL}",
-      "note": "Document storage — kickoff decks, onboarding templates, handoff docs"
+      "type": "http",
+      "url": "https://gdrive-mcp.example.com/mcp"
     }
   }
 }

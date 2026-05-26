@@ -126,6 +126,32 @@ Checking connectors...
   CS Platform:  [connected via [platform] / not connected]
 ```
 
+**Tenant verification:** For each connector that reports "connected", run the identity
+probe for that connector type (see `shared/which-tenant-am-i-on.md`) before recording
+it as verified. Present the probe result and ask for confirmation:
+
+| Connector type | Identity probe | Ask user |
+|----------------|---------------|---------|
+| CRM (HubSpot) | List 1 account/contact with name | `CRM tenant: [Account name]. Is this your company's CRM?` |
+| CS Platform (Gainsight, Totango, ChurnZero) | Read authenticated user or org info | `CS Platform tenant: [org name]. Correct?` |
+| Collaboration (Google Drive, Slack) | Read authenticated user email or workspace name | `Connected as [user@domain.com / workspace name]. Correct?` |
+| Generic / unknown | Any read call; surface first field | `Connector returned: [summary]. Does this look like your data?` |
+
+Write the expanded connector table to config:
+
+| Connector | Status | Tenant |
+|-----------|--------|--------|
+| HubSpot | ✓ verified / ✓ connected (tenant unverified) / ⚠️ wrong tenant / ⚪ configured, not tested | [tenant or —] |
+| Google Drive | [same] | [tenant or —] |
+| Slack | [same] | [tenant or —] |
+| Linear | [same] | [tenant or —] |
+| CS Platform | [same] | [tenant or —] |
+
+If the user confirms "wrong tenant": mark `⚠️ wrong tenant — re-authenticate before use`.
+Do not block on wrong-tenant connectors — continue setup and surface a flagged-connector
+summary at close. If the probe call fails: mark `✓ connected (tenant unverified — probe
+call failed)`.
+
 Connectors affect which skills have full vs. degraded capability. Confirm the list
 with the user and ask them to connect any missing connectors before proceeding — or
 continue with degraded mode acknowledged.

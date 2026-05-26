@@ -4,7 +4,7 @@ Canonical reference for all skills across all plugins. Use this registry to dete
 which skill and command to invoke for a given task. Do not hardcode skill command
 strings in individual SKILL.md files — reference this document instead.
 
-Last updated: 2026-05-18
+Last updated: 2026-05-20
 
 ---
 
@@ -149,7 +149,7 @@ grouped by Skill Area for navigation; all commands follow the `/rev-ops:<skill-n
 |-------|---------|-------|--------------------------|
 | early-churn-downgrade-signal-detection | `/rev-ops:early-churn-downgrade-signal-detection` | — | Three-tier churn model: structural risk at close, behavioral signals 30–90 days post-onboarding, late-stage risk pre-renewal |
 | outcome-to-value-tracking | `/rev-ops:outcome-to-value-tracking` | — | Mapping customers to L0–L3 rubric levels on OCV entries; surfacing systemic outcome delivery gaps |
-| deal-to-outcome-tracing | `/rev-ops:deal-to-outcome-tracing` | — | Linking closed/won deals to CS trajectory and OCV rubric checkpoints at 30/60/90/180 days |
+| csql-tracking | `/rev-ops:csql-tracking` | — | Tracking CS-Qualified Leads from identification through closed expansion; feeds expansion pipeline reporting and closes the loop between expansion-business-case and expansion-onboarding |
 | outcome-statement-builder | `/rev-ops:outcome-statement-builder` | — | Transforming product capabilities into structured outcome statements for OCV catalog development |
 
 ### SA6 — Deal Desk
@@ -179,7 +179,7 @@ Common multi-skill workflows that cross plugin boundaries:
 | Onboarding close → CSM handoff | `/onboarding:handoff-doc`, `/onboarding:ttv-analysis`, `/csm:success-plan-builder` | Handoff doc → TtV final → success plan creation |
 | Portfolio health ops review | `/csm:health-score-review --portfolio`, `/cs-ops:health-model-review`, `/cs-ops:metric-dashboard` | Portfolio triage → model calibration → metrics snapshot |
 | Capacity change event | `/cs-ops:capacity-planner --departure`, `/cs-ops:capacity-planner --redistribution` | Departure flag → redistribution plan |
-| Expansion CSQL → onboarding plan | `/csm:expansion-business-case`, `/rev-ops:csql-tracking`, `/csm:expansion-onboarding operation=create` | Build business case → log CSQL win in Rev-Ops → create expansion onboarding plan |
+| Expansion CSQL → onboarding plan | `/csm:expansion-business-case`, `/rev-ops:csql-tracking`, `/csm:expansion-onboarding operation=create` | Build business case → log and track CSQL through expansion pipeline → create expansion onboarding plan |
 
 ---
 

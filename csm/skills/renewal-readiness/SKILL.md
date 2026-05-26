@@ -384,7 +384,7 @@ Looking forward to it.
 ## Reviewer note
 
 > **⚠️ Reviewer note**
-> - **Sources:** [CRM ✓ live — renewal date, ARR, contract | CS Platform ✓ live — health, usage | call recording: [date] | user provided | conversation context only]
+> - **Sources:** [CRM ✓ live — renewal date, ARR, contract | CRM [configured but unverified] | CS Platform ✓ live — health, usage | CS Platform [configured but unverified] | call recording: [date] | user provided | not connected — conversation context only]
 > - **Health model applied:** [Configured model — [components] | signals only — no formal model]
 > - **Success criteria source:** [Account-specific from [doc] | not established — see action plan]
 > - **Data as of:** [timestamp per source]
