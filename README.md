@@ -41,11 +41,11 @@ This README serves three audiences. Jump to the section most relevant to you.
 | [`renewals/`](./renewals/) | Renewals managers and AMs owning GRR/NRR | Renewal forecasting, expansion signals, churn analysis, negotiation prep, contract review |
 | [`onboarding/`](./onboarding/) | Onboarding teams and implementation managers | Kickoff prep, onboarding plans, milestone tracking, TtV review, handoff documentation |
 | [`rev-ops/`](./rev-ops/) | CS revenue operations — the infrastructure CS needs to report and forecast like a revenue center | CRM data quality, expansion and renewal pipeline, forecasting, quota and incentive planning, deal desk governance, outcome-to-value tracking, revenue leakage scanning |
-| [`auq-resilience/`](./auq-resilience/) | Infrastructure for all teams using interactive workflows | Fallback protocol when `ask_user_input_v0` fails to render; T1/T2/T3 recovery hooks |
+| [`auq-resilience/`](./auq-resilience/) | Infrastructure for all teams using interactive workflows | Fallback protocol when `AskUserQuestion` fails to render; T1/T2/T3 recovery hooks (Claude Code) plus the `/auq` command for Cowork |
 
 Each plugin installs independently. Install only what your team needs.
 
-The rev-ops plugin carries the largest footprint (34 of the 81 total skills) and acts as the portfolio intelligence and revenue operations layer for the suite. The auq-resilience plugin is optional infrastructure: it adds no skills but makes interactive AUQ prompts resilient to render failures across all five CS plugins.
+The rev-ops plugin carries the largest footprint (34 of the 81 total skills) and acts as the portfolio intelligence and revenue operations layer for the suite. The auq-resilience plugin is optional infrastructure: it ships no skills (one command, `/auq`) but makes interactive AUQ prompts resilient to render failures across all five CS plugins — via hooks in Claude Code, and via the `/auq` command plus per-plugin `CLAUDE.md` rules in Cowork.
 
 All six plugins are distributed as pre-built `.plugin` files in [`dist/`](./dist/).
 
@@ -211,7 +211,7 @@ Each plugin works with whatever you have connected. Cold-start will detect what'
 
 **Rev-Ops** — CRM (Salesforce, HubSpot), Slack, Google Drive, CS Platform, Zapier
 
-**AUQ Resilience** — No MCP connectors required. Operates through Claude Code hooks only.
+**AUQ Resilience** — No MCP connectors required. Operates through Claude Code hooks; in Cowork (no hooks) it operates through the `/auq` command plus each plugin's `CLAUDE.md` rules.
 
 #### MCP Dependency Matrix
 
@@ -699,9 +699,9 @@ To add a cookbook for a different role, motion, or deployment variant, follow th
 
 ## AUQ Resilience
 
-**Package:** [`auq-resilience/`](./auq-resilience/) · **Distributed:** [`dist/auq-resilience-v1.0.0.plugin`](./dist/)
+**Package:** [`auq-resilience/`](./auq-resilience/) · **Distributed:** [`dist/auq-resilience-v1.1.0.plugin`](./dist/)
 
-The CS plugins use `ask_user_input_v0` (AUQ) extensively for cold-start interviews, skill mode selection, and interactive clarification. When AUQ works, the user gets an interactive multiple-choice widget. When it fails (unsupported client, missed render, tool error), Claude receives an empty response with no recoverable path. Without a fallback, the entire skill interaction stops.
+The CS plugins use `AskUserQuestion` (AUQ) extensively for cold-start interviews, skill mode selection, and interactive clarification. When AUQ works, the user gets an interactive multiple-choice widget. When it fails (unsupported client, missed render, tool error), Claude receives an empty response with no recoverable path. Without a fallback, the entire skill interaction stops.
 
 The `auq-resilience` plugin installs two Claude Code hooks:
 
@@ -712,7 +712,16 @@ The hooks implement a T1/T2/T3 protocol: T1 retries the widget once, T2 injects 
 
 Installing the plugin is a one-step install. Wiring it into a plugin requires adding two entries to that plugin's `hooks/hooks.json`. All five CS plugins ship with empty hook slots ready to receive the wiring. The auq-resilience plugin does not change how AUQ works when it succeeds. It only catches failures.
 
-See [`auq-resilience/README.md`](./auq-resilience/README.md) for install steps and the full T1/T2/T3 protocol.
+### Enabling in Cowork
+
+Claude Code hooks do not run in Cowork — `PreToolUse`/`PostToolUse`/`UserPromptSubmit` never fire there, so the mechanical fallback above is unavailable. In Cowork the same protocol is delivered two ways, both already in place:
+
+- **Behavioral rules** — every CS plugin's `CLAUDE.md` carries an **AskUserQuestion (AUQ) Resilience** section (single-question, T2 prose fallback, T3 embedded default). These apply automatically whenever that plugin is active. No setup beyond installing the plugin.
+- **The `/auq` command** (v1.1.0+) — `auq-resilience` ships `commands/auq.md`, invoked as `/auq-resilience:auq` with `force-prose`, `status`, or `reset`. Commands are the one plugin surface that runs in Cowork, so the command auto-registers on install — no wiring required.
+
+To enable: install `auq-resilience` in Cowork (desktop plugin install), then restart Cowork so the command registers. Nothing else is needed — the behavioral rules ship inside each CS plugin.
+
+See [`auq-resilience/README.md`](./auq-resilience/README.md) for install steps, the `/auq` command reference, and the full T1/T2/T3 protocol.
 
 ---
 
@@ -865,7 +874,7 @@ Run `/[plugin]:cold-start-interview` first in any plugin — it writes the compa
 
 ### auq-resilience
 
-Hook-only plugin. Installs `PreToolUse` and `PostToolUse` hooks; ships no user-facing skills or commands. See [AUQ Resilience](#auq-resilience) for the T1/T2/T3 fallback protocol.
+Infrastructure plugin. Ships no skills. Installs `PreToolUse`/`PostToolUse` hooks (Claude Code) and one command, `/auq` (`/auq-resilience:auq` — `force-prose` / `status` / `reset`), which is the Cowork-native control surface. See [AUQ Resilience](#auq-resilience) for the T1/T2/T3 fallback protocol and Cowork enablement.
 
 ---
 

@@ -7,6 +7,30 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.2.0] — 2026-05-29
+
+### Added
+- `auq-resilience` **v1.1.0** — `/auq` command (`commands/auq.md`, invoked as
+  `/auq-resilience:auq` with `force-prose` / `status` / `reset`). This is the
+  Cowork-native control surface for the AUQ protocol and auto-registers on
+  install; Claude Code hooks do not run in Cowork.
+- `auq-resilience/CHANGELOG.md` — previously linked from the root README but
+  missing.
+- Root README "Enabling in Cowork" subsection under AUQ Resilience, documenting
+  the hooks-vs-command/CLAUDE.md split and the no-wiring Cowork path.
+
+### Changed
+- `auq-resilience` `plugin.json` and marketplace entry: version 1.0.x → 1.1.0,
+  descriptions updated to cover both the Claude Code hook path and the Cowork
+  command path. (Marketplace previously listed 1.0.0 while `plugin.json` was
+  1.0.1 — drift corrected.)
+- Root README and QUICKSTART: AUQ/dist references updated from the nonexistent
+  `auq-resilience-v1.0.0.plugin` to `v1.1.0`; "hooks only" corrected to note the
+  `/auq` command; `ask_user_input_v0` references aligned to `AskUserQuestion`.
+- `dist/auq-resilience-v1.1.0.plugin` rebuilt.
+
+---
+
 ## [1.1.0] — 2026-05-18
 
 ### Added

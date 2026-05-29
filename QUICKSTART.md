@@ -43,7 +43,7 @@ Get a plugin running in under 60 seconds. Pick your install path below, run the 
 | `cs-ops-v1.0.0.plugin` | CS operations |
 | `onboarding-v1.0.0.plugin` | Customer onboarding |
 | `rev-ops-v1.1.0.plugin` | Revenue operations |
-| `auq-resilience-v1.0.0.plugin` | AUQ fallback hooks |
+| `auq-resilience-v1.1.0.plugin` | AUQ fallback hooks (Claude Code) + `/auq` command (Cowork) |
 
 ---
 
@@ -96,7 +96,7 @@ Connector dependencies are soft. Skills degrade gracefully when a connector is a
 | cs-ops | 9 | 1 (portfolio-segment-digest) |
 | onboarding | 10 | 1 (onboarding-milestone-tracker) |
 | rev-ops | 36 | 5 (gtm-pulse-runner, capacity-monitor, churn-signal-scanner, deal-desk-watcher, planning-cycle-orchestrator) |
-| auq-resilience | 0 skills — hooks only | — |
+| auq-resilience | 0 skills — hooks + `/auq` command | — |
 | **Total** | **86 skills** | **16 cookbook agents** |
 
 Full skill and command descriptions are in the [Skill & Command Reference](./README.md#skill--command-reference) section of the README.
@@ -109,7 +109,7 @@ Full skill and command descriptions are in the [Skill & Command Reference](./REA
 Close and reopen Cowork or restart Claude Code. If the plugin still doesn't appear, check that the `.plugin` file is not corrupted by verifying its file size is greater than zero.
 
 **Cold-start interview widget doesn't render**
-Install `auq-resilience` alongside the plugin. It catches empty widget responses and injects a prose fallback so the interview can complete. Alternatively, type `/auq force-prose` to switch the session to prose-only questions.
+Install `auq-resilience` alongside the plugin. It catches empty widget responses and injects a prose fallback so the interview can complete. Alternatively, type `/auq-resilience:auq force-prose` to switch the session to prose-only questions for the rest of the session.
 
 **Skills say "company profile not found"**
 Run `/[plugin]:cold-start-interview` to create the profile. If you've already done that, check whether the plugin is installed at project scope but the profile is at the user path — reinstall at user scope with no `--scope` flag.

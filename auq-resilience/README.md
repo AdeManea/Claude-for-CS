@@ -54,11 +54,16 @@ Both hooks are stateless across invocations except for the temp state file (`/tm
 auq-resilience/
 ├── .claude-plugin/
 │   └── plugin.json
+├── commands/
+│   └── auq.md             ← /auq command (force-prose | status | reset) — works in Cowork
 ├── hooks/
+│   ├── hooks.json         ← self-contained Pre/PostToolUse + UserPromptSubmit registration (Claude Code)
 │   ├── auq_hook.py        ← PreToolUse + PostToolUse + Notification handlers
 │   └── auq_parser.py      ← Response parser (letter / keyword / semantic / default)
-├── README.md              ← this file
-└── AUQ_PROTOCOL_SPEC.md   ← full behavioral spec for the T1/T2/T3 protocol
+├── design/
+│   └── AUQ_PROTOCOL_SPEC.md   ← full behavioral spec for the T1/T2/T3 protocol
+├── CHANGELOG.md
+└── README.md              ← this file
 ```
 
 ---
@@ -147,7 +152,26 @@ Each file includes an **AskUserQuestion (AUQ) Resilience** section that covers:
 - **Single-question protocol** — never batch multiple questions into one `AskUserQuestion` call; if more than one decision is needed, ask the first and wait for a response before asking the next
 - **T2 prose fallback** — if the widget returns empty, null, or unparseable output, immediately present a formatted prose multiple-choice block and do not proceed as if the question was answered
 - **T3 embedded default** — every T2 block marks one option with `← proceeding with this if no response`; if the user doesn't respond within the session, Claude proceeds with that option
-- **`/auq force-prose` command** — user-triggered override that skips the widget for the remainder of the session and goes directly to T2 prose blocks
+- **`/auq` command** — a real slash command shipped in `commands/auq.md`, invoked
+  as `/auq-resilience:auq`. Subcommands: `force-prose` (skip the widget and use
+  prose blocks for the rest of the session), `status` (report the current mode),
+  `reset` (return to widget-first). See below.
+
+### The `/auq` command (works in Cowork)
+
+As of v1.1.0 the plugin ships `commands/auq.md`. In Cowork, slash commands are the
+one part of a plugin that does run — so this is the plugin's Cowork-native control
+surface, and it **auto-registers on install with no wiring required**. Invoke it as:
+
+```
+/auq-resilience:auq force-prose   # prose-only for the rest of this session
+/auq-resilience:auq status        # report current AUQ mode + queued questions
+/auq-resilience:auq reset         # back to widget-first
+```
+
+The command does not contain the protocol — it points at the **AskUserQuestion
+(AUQ) Resilience** rules in each plugin's `CLAUDE.md` and sets the session mode.
+Those `CLAUDE.md` rules remain the single source of truth for T1/T2/T3 behavior.
 
 ### Behavioral vs. mechanical enforcement
 
