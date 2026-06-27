@@ -22,15 +22,24 @@ Get a plugin running in under 60 seconds. Pick your install path below, run the 
 ## Install in Claude Code
 
 1. Clone or download this repository
-2. From the repo root, install the plugin:
+2. From the repo root, run the install script for the plugin you want:
 
 ```bash
-/install dist/[plugin]-[version].plugin
+PLUGIN=csm VERSION=v1.0.8   # change these to match the plugin you want
+mkdir -p ~/.claude/plugins/$PLUGIN
+unzip -o dist/${PLUGIN}-${VERSION}.plugin -d ~/.claude/plugins/$PLUGIN
 ```
 
-Use the exact filename from `dist/` (versions are listed below). For example: `/install dist/csm-v1.0.8.plugin`.
+Use the exact filename from `dist/` (versions are listed below). For example, to install `csm-v1.0.8.plugin`:
 
-3. Run the cold-start interview:
+```bash
+mkdir -p ~/.claude/plugins/csm
+unzip -o dist/csm-v1.0.8.plugin -d ~/.claude/plugins/csm
+```
+
+> **Note:** `claude plugin install` only works for plugins registered in a marketplace — it does not accept local `.plugin` file paths. The manual `unzip` method above is the correct approach for plugins distributed as files.
+
+3. Restart Claude Code (close and reopen the terminal or IDE extension), then run the cold-start interview:
 
 ```bash
 /[plugin]:cold-start-interview
@@ -51,13 +60,9 @@ Use the exact filename from `dist/` (versions are listed below). For example: `/
 
 ## User-scoped vs. project-scoped install
 
-Install at **user scope** (the default) when your CSM workflow touches files outside a single project folder — for example, when you're working across multiple account folders or reading from `~/.claude/plugins/config/`. User-scoped plugins are available in every Claude Code session regardless of the working directory.
+The manual `unzip` install method above always installs at **user scope** (`~/.claude/plugins/`). This is the right default — CS workflows touch files across multiple account folders and read from `~/.claude/plugins/config/`, so they need to be available in every Claude Code session regardless of working directory.
 
-Install at **project scope** only when the plugin is purpose-built for a specific repo and you want it isolated to that folder:
-
-```bash
-/install dist/[plugin]-[version].plugin --scope project
-```
+Project-scoped installs (placing plugin content under `.claude/plugins/` inside a specific repo) are only useful when the plugin is purpose-built for that repo and must be isolated to it. To do a project-scoped install, unzip into `.claude/plugins/[plugin-name]/` inside the target repo instead of into `~/.claude/plugins/`.
 
 If skills fail to read the company profile or connector config, the most likely cause is a project-scoped install trying to read a user-level path. Reinstall at user scope.
 
