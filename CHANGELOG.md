@@ -7,6 +7,13 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.2.1] — 2026-06-27
+
+### Fixed
+- `csm` **v1.0.8** — added `commands/` directory with one `.md` entry per skill so all `/csm:<skill>` slash commands are recognized by Claude Code. Previously the plugin exposed skills only via `skills/*/SKILL.md` (readable by the Skill tool), but not via `commands/` (required for slash command registration). Affected all 17 skills including `/csm:cold-start-interview`.
+
+---
+
 ## [1.2.0] — 2026-05-29
 
 ### Added

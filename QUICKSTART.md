@@ -28,7 +28,7 @@ Get a plugin running in under 60 seconds. Pick your install path below, run the 
 /install dist/[plugin]-[version].plugin
 ```
 
-Use the exact filename from `dist/` (versions are listed below). For example: `/install dist/csm-v1.0.7.plugin`.
+Use the exact filename from `dist/` (versions are listed below). For example: `/install dist/csm-v1.0.8.plugin`.
 
 3. Run the cold-start interview:
 
@@ -40,7 +40,7 @@ Use the exact filename from `dist/` (versions are listed below). For example: `/
 
 | File | Plugin |
 |------|--------|
-| `csm-v1.0.7.plugin` | Core CSM workflows |
+| `csm-v1.0.8.plugin` | Core CSM workflows |
 | `renewals-v1.0.1.plugin` | Renewal pipeline |
 | `cs-ops-v1.0.1.plugin` | CS operations |
 | `onboarding-v1.0.1.plugin` | Customer onboarding |
