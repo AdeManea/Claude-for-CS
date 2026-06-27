@@ -1,0 +1,579 @@
+---
+name: csm-escalation-memo
+description: >
+  Create, update, or close a formal escalation record for any escalation type —
+  technical (unresolved P1/P2), customer complaint, executive escalation request,
+  or internal process failure. Distinct from risk-flag's escalation output: this
+  skill manages the escalation lifecycle, produces stakeholder communications, and
+  tracks resolution. Use when a customer issue exceeds normal support handling,
+  when an executive stakeholder requests formal escalation, or when a risk-flag
+  memo has been accepted and escalation needs to be formally opened and tracked.
+
+---
+
+## Company Context
+
+**Company:** AutogenAI — AI-powered proposal and bid writing platform for enterprise teams.
+**Primary value metric:** Win rate improvement / proposal throughput.
+**Primary segment:** Enterprise. **CS model:** High-touch for enterprise.
+**Role:** Enterprise Customer Success Manager.
+
+**Top churn drivers:** Low platform adoption, low bid volume through tool, champion departure, competitive displacement.
+
+**Health model:** No CS Platform connected — signals from CRM (HubSpot, verified), call recordings (Glyphic AI, verified), and conversation context. Red threshold: 2+ concurrent churn signals active.
+
+**Escalation matrix:**
+
+| Situation | Route to | How | SLA |
+|---|---|---|---|
+| Red health account | [Your manager] | Slack / email | 24h |
+| At-risk renewal | [Head of CS] | Slack / pipeline review | 48h |
+| Executive escalation request | [Your manager + AE] | Email thread | Same day |
+| Product blocker causing churn risk | [CS Ops + Product] | Shared Slack channel | 48h |
+| Expansion signal — qualified | [AE / AM] | Email + CRM opportunity | 48h |
+| Legal / contract issue | [Legal / Finance] | Email | 48h |
+
+**Connected integrations:** HubSpot CRM (verified), Glyphic AI call recording (verified), Microsoft 365 (verified). CS Platform: not connected. Google Drive: configured, not verified.
+
+**Source attribution tags:** `[CRM — HubSpot]`, `[Call recording — Glyphic AI]`, `[M365]`, `[Computed]`, `[user provided]`, `[model knowledge]`, `[conversation context]`.
+
+**Renewal rate target (GRR):** 90%. **Expansion target (NRR):** 110%. **Accounts per CSM:** 25–50 enterprise.
+
+---
+
+## Skill Instructions
+
+# /escalation-memo
+
+[PROPOSED]
+
+Open, manage, and close formal escalations with the right stakeholders, the right
+framing, and a clear resolution path — built from your configured escalation matrix.
+
+## Use When
+- An account has been confirmed at risk and escalation routing requires a documented memo
+- An active escalation needs a status update for leadership or the customer
+- An escalation is being closed and a resolution summary is required
+- Churn signals have crossed the configured threshold for automatic escalation
+
+## Do NOT Use For
+- Risk assessment before escalation is confirmed — use /csm:risk-flag first
+- Health score review — use /csm:health-score-review
+- Renewal commercial prep — use /csm:renewal-readiness
+- Routine account updates that don't meet escalation threshold
+
+## Typical Activation
+"/csm:escalation-memo Acme Corp open"
+"/csm:escalation-memo Acme Corp update"
+"/csm:escalation-memo Acme Corp close"
+"Draft an escalation memo for [account]"
+"Write up the escalation for [customer]"
+"Close out the escalation for [account]"
+
+---
+
+## Reasoning Protocol
+
+Before generating output, apply these primers:
+
+1. **CLASSIFY** — What type of escalation is this?
+   - **Technical (P1/P2)**: Unresolved support ticket, SLA breach or approaching breach, product bug with customer impact, engineering involvement required. Route via Support → Engineering path.
+   - **Customer Complaint**: Formal dissatisfaction — NPS detractor follow-up unresolved, written complaint, executive frustration, public-facing concern. Emotion is high; separate perception from verified facts.
+   - **Executive Escalation**: Named executive at customer requests VP/C-level involvement. Triggered by relationship posture, not health score. Match response seniority to request seniority.
+   - **Internal Process Failure**: Customer harmed by internal miss — dropped handoff, broken commitment, internal SLA breach. Name the failure honestly in the internal brief; acknowledge without blame-chaining in the customer draft.
+
+2. **CONSTRAINTS** — Apply before generating any output:
+   - **G1 — Skill activation**: Does this request match escalation-memo? If the issue is a pattern of concern without a triggering event, redirect to `/csm:risk-flag`.
+   - **G2 — Connector check**: Which integrations are needed (Support, CRM, CS Platform, call recording)? Flag any unconfigured or returning stale data.
+   - **G4 — Escalation path required**: Verify a named escalation owner is configured in the matrix for this type and severity before generating the memo. No owner = no memo.
+   - **G5 — Confidentiality firewall**: Internal language (health scores, escalation IDs, ARR, routing names, revenue-at-risk) never appears in customer-facing drafts. Review customer draft as if the customer's CEO will read it.
+   - **G7 — Revenue language validation**: If memo includes ARR, renewal dates, or revenue-at-risk, validate figures with CRM before sharing with leadership or finance.
+
+3. **EXPERT CHECK** — What a veteran CSM verifies first:
+   - Is the SLA clock already running? Check status before composing narrative — urgency determines communication depth.
+   - What has already been promised to the customer? Audit call recordings, ticket notes, and CSM context for "we will" or "by [date]" commitments.
+   - Is this a repeat escalation type for this account? If CRM shows prior same-type escalations, flag the pattern — this is systemic, not episodic.
+   - Does ARR exceed the configured threshold? Above-threshold = automatic VP CS / CRO inclusion.
+   - Route confirmation: Is the escalation owner correct for this type + severity + ARR combination?
+
+4. **ANTI-PATTERNS** — Domain mistakes to catch before output:
+   - Citing an SLA window that has already passed without flagging the breach
+   - Writing recommended actions for the wrong audience (routing not confirmed before drafting)
+   - Using "I understand your frustration" instead of naming the specific business impact
+   - Closing an escalation without a root cause hypothesis — even a preliminary one
+   - Merging internal diagnostic tone with customer-facing communication
+   - Passive voice in customer drafts to hide internal accountability ("there was a miscommunication" vs. "we missed the handoff")
+
+**After execution**, verify:
+- Does the output match the requested mode (--open/--update/--close) and escalation type?
+- Check output against common failure modes for the classified type (see reference material). Flag any match.
+- Is the internal/customer language firewall intact? No internal identifiers in customer draft.
+- Confidence: [High] if live integrations confirmed escalation owner, SLA, and account data / [Medium] if partially connected or some data from CSM context / [Low] if user-provided context only — state which.
+
+## Mode
+
+`--open`: Create a new formal escalation record. Produces: escalation brief for
+the escalation owner, customer-facing acknowledgment draft, and internal tracking
+block. **Default mode.**
+
+`--update`: Update an existing open escalation — new information, status change,
+resolution progress. Requires the escalation ID or account + type context.
+
+`--close`: Close an escalation with a resolution summary. Produces a close-out
+communication for the customer and an internal lessons-learned note.
+
+---
+
+## Escalation type
+
+`--type technical`: Unresolved P1/P2 ticket; product bug with customer impact;
+SLA breach. Route: Support → Engineering escalation path.
+
+`--type complaint`: Customer has formally expressed dissatisfaction — NPS detractor
+follow-up not resolved, executive complaint, or public-facing concern.
+
+`--type executive`: An executive stakeholder at the customer has requested VP or
+C-level involvement. May overlap with churn risk but is triggered by relationship
+posture, not always by health signals.
+
+`--type internal`: An internal process failure has affected the customer — missed
+handoff, broken commitment, SLA breach caused by internal team, not the product.
+
+If no type is specified, ask ONE question to determine escalation type before
+proceeding.
+
+---
+
+## Data gathering
+
+**Connector error categorization:** When a connector call fails, distinguish the error type before proceeding:
+- **Rate-limited (transient):** Connector returns HTTP 429 or equivalent throttle signal. Note the rate limit explicitly in output ("CRM data temporarily rate-limited — retry in 60 seconds recommended") and offer to retry rather than proceeding with degraded output.
+- **Unavailable (permanent for this session):** Connector is not configured, authentication has expired, or service is down. Fall back to the manual-input path below and label all affected sections as "connector unavailable — manual input used."
+Do not conflate these — a rate-limited connector will return data shortly; an unavailable connector will not.
+
+Pull from connected integrations:
+- Support platform: ticket ID, severity, open duration, SLA status, assigned agent
+- CRM: ARR, renewal date, contract terms, escalation history for this account
+- CS Platform: current health score, lifecycle stage, prior escalations
+- Call recording: any recent call where the issue was raised — what was said,
+  commitments made
+
+If nothing is connected:
+> "Tell me what's happening. What's the issue? Who's involved? What was the
+> triggering event? I'll build the escalation record from what you share."
+
+Do not produce a formal escalation without: account name, issue description, the
+triggering event, and at least one affected stakeholder (internal or customer-facing).
+
+---
+
+## Escalation open structure (`--open`)
+
+Produce two outputs: **Internal escalation brief** (full context for the escalation
+owner) and **Customer acknowledgment draft** (external, professional).
+
+---
+
+### Internal Escalation Brief
+
+---
+
+**Escalation Brief — [Account Name]**
+*[Date] · [Escalation type] escalation · INTERNAL — not for distribution*
+*Escalation ID: [ESC-YYYYMMDD-[account abbreviation]] — use this ID in all follow-up*
+
+---
+
+**Escalation summary**
+
+| Field | Detail |
+|-------|--------|
+| Account | [Account name] |
+| ARR | $[amount] |
+| Renewal | [date] — [N] days |
+| Segment | [segment] |
+| Escalation type | [Technical / Complaint / Executive / Internal] |
+| Severity | [P1 / P2 / High / Medium — per configured definitions] |
+| Opened by | [CSM name] |
+| Escalation owner | [configured escalation owner from matrix] |
+| SLA | [Response: X hours / Resolution target: Y hours — from config] |
+
+---
+
+**The issue**
+
+What happened — specific, factual, in sequence:
+
+> "On [date], [customer contact name] reported [specific issue]. [What was
+> communicated to the customer at the time — any commitment or ETA given].
+> The issue has been open for [N] days without resolution. [What has been
+> tried so far]. The customer is [specific expression of impact or frustration —
+> quoted if available]."
+
+Do not generalize. Name the specific issue, the specific person who raised it,
+and the specific business impact the customer described.
+
+---
+
+**Customer impact**
+
+| Impact dimension | Detail |
+|-----------------|--------|
+| Business impact | [What the customer says cannot happen because of this issue] |
+| Users affected | [N users / entire account / specific team] |
+| Revenue impact to customer | [If stated by customer — quote it] |
+| Relationship impact | [Executive aware? Sentiment shift? Escalation demand?] |
+
+---
+
+**Escalation history for this account**
+
+Pull from CRM if available. If no prior escalations: "No prior escalations on
+record for this account."
+
+| Date | Type | Issue | Resolution | Time to close |
+|------|------|-------|-----------|---------------|
+| [Date] | [Type] | [1-line] | [1-line] | [N days] |
+
+Pattern note: If this is a repeat escalation type: `[review — repeat escalation;
+root cause may not have been fully resolved]`
+
+---
+
+**Internal context (CSM perspective)**
+
+What the escalation owner needs to know that is not in the ticket:
+
+- **Relationship context:** [Is this account at risk? Is the executive sponsor engaged?
+  Is the champion under pressure?]
+- **Prior commitments:** [Any commitments made by CSM, AE, or Support that are relevant]
+- **Customer expectation:** [What the customer has specifically said they need to
+  consider this resolved]
+- **Renewal context:** [If renewal is <180 days or account is Yellow/Red: note it]
+
+---
+
+**Escalation routing**
+
+Apply the configured escalation matrix exactly.
+
+| Condition | Route to | Via | SLA |
+|-----------|----------|-----|-----|
+| [Matching condition from matrix] | [configured escalation owner] | [channel] | [SLA] |
+
+If ARR meets the configured churn-risk threshold:
+> "ARR ($[amount]) exceeds the configured escalation threshold ($[threshold]).
+> Include [configured VP/CRO contact] in escalation communications within [SLA]."
+
+---
+
+**Recommended actions for escalation owner**
+
+Specific, not generic. Owner reads this and knows exactly what to do.
+
+**Within [SLA hours]:**
+1. [Specific action — e.g., "Acknowledge to [customer contact] that the issue has
+   been escalated and [escalation owner name] is now personally engaged."]
+2. [Specific action — e.g., "Contact [support engineer assigned] directly to confirm
+   current status and resolution ETA — do not relay information through the ticket queue."]
+3. [Specific action — if applicable, "Loop in [AE name] — account is within <90 days
+   of renewal."]
+
+**Resolution target: [configured SLA]**
+
+---
+
+### Customer Acknowledgment Draft
+
+---
+
+**[Customer contact name],**
+
+Thank you for flagging this — and I want to make sure it gets the attention it
+deserves.
+
+I've escalated [brief description of the issue] to [escalation owner name / "our
+[role]"] who is now personally engaged. [He/She/They] will be in touch with you
+directly by [specific time commitment — do not use vague language].
+
+Here's what's happening:
+- [1-line status of the issue]
+- [What we're doing right now to resolve it]
+- [When you'll have a substantive update — be specific]
+
+I know this has been frustrating, and I want to be direct with you: [personalized
+one sentence acknowledging the specific impact to their business — not generic
+empathy language].
+
+I'll stay closely involved. If anything changes or you need to reach me directly:
+[CSM contact information].
+
+[CSM name]
+
+---
+
+> **Note:** Edit the draft before sending. Replace all bracketed fields. Adjust tone
+> to match relationship with this customer. Do not include internal SLA language,
+> escalation IDs, or internal routing in the customer-facing email.
+
+---
+
+## Escalation update structure (`--update`)
+
+Use the escalation ID from the original brief.
+
+---
+
+**Escalation Update — [Account Name]**
+*[Date] · [Escalation ID] · INTERNAL*
+
+**Status:** [Open — in progress / Open — awaiting customer response /
+Open — awaiting engineering / Resolved — pending close-out]
+
+**Update:**
+
+> What has changed since the last update. What was done. What the customer has
+> been told. What is outstanding.
+
+**New information from customer:**
+> [Quote or paraphrase if the customer has provided new context or expressed
+> a change in position]
+
+**Updated ETA:** [Specific date/time for next milestone or resolution]
+
+**Updated escalation routing:** [Any change to who is now accountable]
+
+**Customer communication sent:** [Yes, [date] / Not yet — draft needed]
+
+---
+
+**Customer update draft (if needed):**
+
+> "[Customer contact], I wanted to give you a quick update on [issue].
+> [What has been accomplished]. [What we're still working on]. [When you'll
+> have the next update — specific]. Please reach out to me directly if you
+> have questions in the meantime.
+> [CSM name]"
+
+---
+
+## Escalation close structure (`--close`)
+
+---
+
+**Escalation Close-Out — [Account Name]**
+*[Date] · [Escalation ID]*
+
+**Resolution summary:**
+
+| Field | Detail |
+|-------|--------|
+| Issue | [1-line description] |
+| Opened | [date] |
+| Closed | [date] |
+| Duration | [N days] |
+| Resolution | [What was done to resolve it] |
+| Root cause | [If identified — specific, not "internal process"] |
+
+**Was the SLA met?** [Yes / No — [configured SLA] / Resolution required [N] days]
+
+**Customer confirmed resolution?** [Yes / No — pending confirmation]
+
+---
+
+**Internal lessons learned:**
+
+> "What should have prevented this escalation from reaching this severity?"
+> [1-3 specific process or communication changes that would reduce recurrence]
+
+If this is a repeat escalation type for this account:
+> "This is the [N]th escalation of type [type] for [account]. Pattern indicates
+> [specific root cause hypothesis — not generic]. Route this observation to
+> [configured CS Ops or VP CS contact] for systemic review." `[review]`
+
+---
+
+**Customer close-out communication:**
+
+**[Customer contact name],**
+
+I'm writing to confirm that [brief description of the issue] has been resolved.
+
+Here's what we did: [Specific resolution steps — 1-3 sentences. Plain language.]
+
+Root cause: [If you're able to share — be honest. "An internal process gap
+caused [X]" is better than vague language.] We've taken [specific steps] to
+prevent recurrence.
+
+We take issues like this seriously, and I appreciate your patience while we
+worked through it. [Any goodwill action taken — discount, credit, added support,
+executive follow-up call — name it if applicable].
+
+I'd like to reconnect with you [specific timeframe] to make sure everything is
+working well and to address any remaining concerns.
+
+Thank you for your continued partnership.
+
+[CSM name]
+
+---
+
+## Reviewer note
+
+> **⚠️ Reviewer note**
+> - **Sources:** [Support platform ✓ live — ticket details | Support platform [configured but unverified] | CRM ✓ live — ARR, history | CRM [configured but unverified] | user provided | not connected — conversation context only]
+> - **Escalation type:** [Technical / Complaint / Executive / Internal]
+> - **Escalation routing:** [Applied configured matrix — verify escalation owner name and contact is current]
+> - **Data as of:** [timestamp per source]
+> - **SLA clock:** [Escalation opened at [timestamp] — [configured SLA] response window closes at [timestamp]]
+> - **Flagged for your judgment:** [N items marked `[review]` inline | none]
+> - **Before sending customer draft:** Edit all bracketed fields. Do not include internal escalation IDs or routing in customer-facing email.
+
+---
+
+## Output
+
+Escalation memo — format driven by lifecycle flag (`--open`, `--update`, `--close`).
+Each mode produces a structured markdown document ready for internal distribution
+or customer delivery. See mode-specific sections for field-level structure.
+
+## Guardrails
+
+**No escalation without a path.** Every escalation names the owner, channel, and
+SLA from the configured matrix. An escalation without a resolution owner is not
+an escalation — it's a complaint log.
+
+**Customer language is not internal language.** The internal brief and customer
+communication are always separate. Health scores, escalation IDs, internal routing
+names, and revenue threshold references never appear in the customer draft.
+
+**Commitments must be specific.** "We'll get back to you soon" is not a
+commitment. The customer acknowledgment draft specifies a time. If no time can
+be committed, say "by end of business [specific date]" — never leave it open-ended.
+
+**Repeat escalation flag.** If CRM shows prior escalations of the same type,
+flag it explicitly. Patterns require systemic review, not just case-by-case
+resolution.
+
+**Root cause in close-out.** A close-out without a root cause assessment allows
+recurrence. Even if root cause is preliminary, name the hypothesis and the evidence.
+
+**Revenue language.** If the escalation memo includes ARR, renewal dates, or
+revenue-at-risk language, validate figures with CRM before sharing with leadership
+or finance.
+
+---
+
+## After the memo
+
+- "Escalation open — want to track risk holistically? `/csm:risk-flag [account]`"
+- "Escalation resolved — should this inform the next QBR? `/csm:qbr-builder [account]`"
+- "Pattern of escalations — route to CS Ops for systemic review (if the `cs-ops` plugin is installed, run `/cs-ops:playbook-auditor`)"
+- "Renewal approaching during an open escalation — run: `/csm:renewal-readiness [account]`"
+
+---
+
+## Security & Permissions
+- network_access: outbound_allowlist (CRM, CS platform, document storage per configured integrations)
+- filesystem_write: false
+- filesystem_read: false
+- subprocess_execution: false
+- dynamic_code_execution: false
+
+## Trust & Verification
+- Internal memo and customer-facing summary are distinct outputs — internal content must never appear in the customer version
+- Escalation routing must follow the configured escalation matrix
+- Health classifications, internal risk scores, and stakeholder assessments are internal-only
+
+---
+
+## Reference Material
+
+### Escalation Memo — Reasoning Blueprint
+
+## Problem Classification Taxonomy
+
+### Type A: Technical Escalation (P1/P2)
+**Characteristics**: Unresolved support ticket at P1/P2 severity, SLA breach or approaching breach, product bug with measurable customer impact, engineering involvement required.
+**Primary Risk**: SLA clock is already running — delay compounds both the customer impact and the internal accountability gap. Missed SLA windows turn technical issues into relationship issues.
+**Expert Focus**: Validate SLA status against the configured matrix first. Confirm whether the customer has been told a timeline — broken commitments escalate faster than broken products.
+
+### Type B: Customer Complaint
+**Characteristics**: Formal expression of dissatisfaction — NPS detractor follow-up unresolved, written complaint, executive-level frustration, or public-facing concern (review, social). Emotion is high; facts may be incomplete.
+**Primary Risk**: Complaint language gets mirrored into internal communications without separating customer perception from verified facts. The memo becomes an amplifier rather than a diagnostic tool.
+**Expert Focus**: Separate what the customer said (quote it) from what the data shows. Name the gap. Complaints without root cause investigation get resolved symptomatically and recur.
+
+### Type C: Executive Escalation
+**Characteristics**: A named executive at the customer has requested senior involvement — VP or C-level. Triggered by relationship posture, not necessarily health score. May overlap with churn risk but is fundamentally a power-dynamics event.
+**Primary Risk**: Under-routing. If the configured matrix says VP CS and you route to a Support Manager, the executive perceives the escalation as ignored. Over-routing wastes leadership bandwidth on issues that don't warrant it.
+**Expert Focus**: Match the seniority of the response to the seniority of the request. Confirm ARR threshold — high-ARR executive escalations have different routing and SLA in most matrices.
+
+### Type D: Internal Process Failure
+**Characteristics**: The customer was harmed by an internal miss — dropped handoff, broken commitment, SLA breach caused by internal team rather than product. The customer may or may not know the root cause is internal.
+**Primary Risk**: Deflection. Internal failures get framed as "miscommunication" in customer-facing language when the honest framing is "we missed it." Deflection erodes trust faster than the original failure.
+**Expert Focus**: Name the internal failure clearly in the internal brief. The customer draft should acknowledge the miss without exposing internal blame chains. Lessons-learned must name the process gap, not the person.
+
+## Domain Heuristics
+
+### H1: SLA Clock Awareness
+If the SLA clock is already running, the memo is urgent — not important, urgent. Check SLA status before composing the narrative. A beautifully written memo delivered after the SLA window closes is a failure document.
+
+### H2: The Commitment Audit
+Before writing recommended actions, audit what has already been promised to the customer. Broken commitments in the escalation brief destroy credibility. Search call recordings, ticket notes, and CSM context for any "we will" or "by [date]" language.
+
+### H3: Repeat Escalation Detection
+If CRM shows a prior escalation of the same type for this account, the memo must flag the pattern explicitly. A second technical escalation is not a new issue — it is evidence that the first resolution was incomplete. Systemic, not episodic.
+
+### H4: ARR Threshold Gate
+Check ARR against the configured escalation threshold before routing. Above-threshold accounts automatically include VP CS / CRO in communications. Missing this step means leadership learns about a high-value escalation after the customer has already lost patience.
+
+### H5: Customer Language Firewall
+Internal language (health scores, escalation IDs, ARR, routing names, revenue-at-risk) never appears in customer-facing drafts. Review the customer acknowledgment draft as if the customer's CEO will read it — because they might forward it.
+
+### H6: Specificity Over Empathy
+"I understand your frustration" is filler. "I know that [specific impact] is affecting [specific business outcome]" is acknowledgment. Every customer-facing sentence must reference the specific issue, not generic empathy templates.
+
+### H7: Close-Out Requires Root Cause
+Never close an escalation without a root cause hypothesis, even if preliminary. "We resolved it" without "here's why it happened" guarantees recurrence. The lessons-learned section is not optional — it is the highest-value part of the close-out.
+
+## Common Failure Modes
+
+### Type A (Technical) Failures
+- **Stale SLA data**: Memo cites an SLA window that has already passed without flagging the breach. **Fix**: Pull SLA status live from support platform; if unavailable, flag "SLA status unverified — confirm before routing."
+- **Missing engineering context**: Escalation brief lacks what engineering has already tried. **Fix**: Include "attempted resolutions" in the issue narrative — the escalation owner should not re-request diagnostics already performed.
+- **Vague ETA in customer draft**: "We're working on it" instead of a specific next-update time. **Fix**: If no ETA is available, commit to a status update time, not a resolution time: "I'll update you by [specific date/time]."
+
+### Type B (Complaint) Failures
+- **Emotional mirroring**: Internal brief adopts the customer's emotional framing instead of separating perception from facts. **Fix**: Quote the customer's words, then state the verified facts separately. Let the escalation owner assess the gap.
+- **Missing triggering event**: Complaint memos that describe ongoing dissatisfaction without naming the specific event that triggered formal escalation. **Fix**: Always answer "what happened on [date] that made this a formal escalation?"
+
+### Type C (Executive) Failures
+- **Under-routing**: Executive requests VP involvement; memo routes to a manager. **Fix**: Match response seniority to request seniority. When in doubt, route up — leadership can delegate down, but a manager cannot escalate themselves.
+- **Missing relationship context**: Brief lacks information about the executive's history, influence, and what they specifically asked for. **Fix**: Include "what the executive said they need" as a direct quote or close paraphrase.
+
+### Type D (Internal) Failures
+- **Blame deflection in customer draft**: Customer communication uses passive voice to hide internal accountability ("there was a miscommunication" vs. "we missed the handoff"). **Fix**: Use active voice acknowledging the miss without naming internal individuals.
+- **No process fix in lessons-learned**: Close-out names what happened but not what changes prevent recurrence. **Fix**: Every lessons-learned entry must include a specific process or communication change, not just a description of the failure.
+
+## Expert Judgment Patterns
+
+### Scope Decisions
+- **Single-type vs. compound**: If an escalation spans two types (e.g., technical failure that triggered an executive complaint), open it under the type that determines routing, and note the secondary type. Do not open two parallel escalations for the same event.
+- **Escalation vs. risk flag**: If the issue is a pattern of concern without a specific triggering event, it is a risk flag, not an escalation. Redirect to `/csm:risk-flag`.
+
+### Sequencing Decisions
+- **SLA-first**: Always check SLA status before narrative composition. The SLA clock determines urgency, which determines how much detail the first communication needs vs. how much can follow in an update.
+- **Routing before drafting**: Confirm the escalation owner from the matrix before writing recommended actions. Actions written for the wrong audience waste the CSM's editing time.
+
+### Depth Decisions
+- **Open memos need full context**: The escalation owner is seeing this account for the first time in this context. Include relationship history, prior escalations, and renewal timeline.
+- **Update memos need delta only**: Do not re-state the full context. State what changed, what was done, and what is next.
+- **Close memos need root cause depth**: The resolution summary can be brief; the lessons-learned section should be substantive.
+
+### Stakeholder Decisions
+- **Internal vs. customer draft tone**: Internal brief is diagnostic and complete. Customer draft is empathetic, specific, and commitment-oriented. Never merge the two audiences.
+- **Leadership inclusion**: ARR above threshold or repeat escalation pattern = automatic leadership inclusion. Do not wait for the CSM to request it.
+
+### Confidence Decisions
+- **Data-backed vs. CSM-reported**: When data sources conflict with CSM-provided context, present both and flag the discrepancy. Do not silently prefer one over the other.
+- **Preliminary root cause**: Label root cause as "preliminary" or "confirmed" based on whether engineering or process review has validated it. Never present a hypothesis as confirmed.
