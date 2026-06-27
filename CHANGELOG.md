@@ -7,6 +7,13 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.2.2] — 2026-06-27
+
+### Fixed
+- `renewals` **v1.0.2**, `cs-ops` **v1.0.2**, `onboarding` **v1.0.2**, `rev-ops` **v1.1.2** — added `commands/` directory with one `.md` stub per skill so all slash commands (e.g. `/renewals:renewal-forecast`, `/rev-ops:pipeline-coverage-analysis`) are recognized by Claude Code. Same fix applied to `csm` in v1.2.1; now extended to all remaining plugins.
+
+---
+
 ## [1.2.1] — 2026-06-27
 
 ### Fixed

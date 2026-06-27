@@ -41,10 +41,10 @@ Use the exact filename from `dist/` (versions are listed below). For example: `/
 | File | Plugin |
 |------|--------|
 | `csm-v1.0.8.plugin` | Core CSM workflows |
-| `renewals-v1.0.1.plugin` | Renewal pipeline |
-| `cs-ops-v1.0.1.plugin` | CS operations |
-| `onboarding-v1.0.1.plugin` | Customer onboarding |
-| `rev-ops-v1.1.1.plugin` | Revenue operations |
+| `renewals-v1.0.2.plugin` | Renewal pipeline |
+| `cs-ops-v1.0.2.plugin` | CS operations |
+| `onboarding-v1.0.2.plugin` | Customer onboarding |
+| `rev-ops-v1.1.2.plugin` | Revenue operations |
 | `auq-resilience-v1.1.0.plugin` | AUQ fallback hooks (Claude Code) + `/auq` command (Cowork) |
 
 ---
